@@ -1,5 +1,6 @@
 export const FETCH_USER = 'fetch_user';
 export const FETCH_NEWS = 'fetch_news';
+export const FETCH_Activity = 'fetch_activity';
 
 export const GET_PROFILE = 'GET_PROFILE';
 export const GET_PROFILES = 'GET_PROFILES';

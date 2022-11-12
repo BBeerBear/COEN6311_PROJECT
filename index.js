@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
 require('./models/News');
+require('./models/Activity');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
@@ -25,10 +26,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 //use defined routes
 require('./routes/authRoutes')(app);
 require('./routes/trendsRoutes')(app);
+require('./routes/activityRoutes')(app);
 
 //listen port
 const PORT = process.env.PORT || 5000;

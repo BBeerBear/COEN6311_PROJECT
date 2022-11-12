@@ -9,6 +9,12 @@ export const fetchUser = () => async (dispatch) => {
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
+//save User saved news to db
+export const saveUserSavedNewsToDB = (params) => async (dispatch) => {
+  const res = await axios.post('/api/mongodb/save/activity/savednews', params);
+  dispatch({ type: FETCH_NEWS, payload: res.data });
+};
+
 export const fetctNewsFromDB = (params) => async (dispatch) => {
   const res = await axios.post('/api/mongodb/get', params);
   dispatch({ type: FETCH_NEWS, payload: res.data });
@@ -23,8 +29,3 @@ export const fetctNewsFromGoogleTrends = (params) => async (dispatch) => {
   const res = await axios.post('/api/googletrends/get', params);
   dispatch({ type: FETCH_NEWS, payload: res.data });
 };
-
-// export const saveNews = (params) => async (dispatch) => {
-//   const res = await axios.post('/api/googletrends/save', params);
-//   dispatch({ type: FETCH_NEWS, payload: res.data });
-// };

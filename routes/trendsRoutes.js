@@ -20,8 +20,8 @@ module.exports = (app) => {
     res.json(news);
   });
 
+  //save news to mongodb by categories and location and send back
   // ['all', 'e', 'b', 't', 'h', 's', 'm']
-  //get news from mongodb by categories and location
   app.post('/api/mongodb/save', requireLogin, async (req, res) => {
     const { geo, category } = req.body;
 
