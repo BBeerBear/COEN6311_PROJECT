@@ -12,13 +12,13 @@ class Categories extends Component {
             {categories.map((category) => (
               <a
                 href='#'
-                onClick={() =>
+                onClick={() => {
                   // this.props.fetctNewsFromDB({ categories: [category.value] })
                   this.props.fetctNewsFromGoogleTrends({
                     categories: [category.value],
                     geo: 'US',
-                  })
-                }
+                  });
+                }}
                 className='breadcrumb'
               >
                 {category.label}

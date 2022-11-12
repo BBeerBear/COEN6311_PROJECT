@@ -14,10 +14,16 @@ export const fetctNewsFromDB = (params) => async (dispatch) => {
   dispatch({ type: FETCH_NEWS, payload: res.data });
 };
 
+export const saveNewsToDB = (params) => async (dispatch) => {
+  const res = await axios.post('/api/mongodb/save', params);
+  dispatch({ type: FETCH_NEWS, payload: res.data });
+};
+
 export const fetctNewsFromGoogleTrends = (params) => async (dispatch) => {
   const res = await axios.post('/api/googletrends/get', params);
   dispatch({ type: FETCH_NEWS, payload: res.data });
 };
+
 
 
 
