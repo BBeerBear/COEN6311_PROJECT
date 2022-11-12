@@ -1,5 +1,5 @@
 import { categories } from './CategoriesList';
-import * as actions from '../../actions';
+import * as actions from '../../../actions';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 

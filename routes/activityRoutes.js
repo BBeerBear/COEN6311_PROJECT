@@ -19,6 +19,7 @@ module.exports = (app) => {
         { $addToSet: { savedNews: trend_id } },
         { new: true, upsert: true, setDefaultsOnInsert: true }
       );
+      console.log(activity);
       //   const activity = Activity.findOne({
       //     _userId: req.user.id,
       //   });

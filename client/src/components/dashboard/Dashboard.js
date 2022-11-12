@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Categories from './Categories';
-import NewsList from './NewsList';
+import Categories from './news/Categories';
+import NewsList from '../news/NewsList';
 
 const Dashboard = () => {
   return (

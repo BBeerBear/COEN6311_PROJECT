@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import * as actions from '../../actions';
 import Select from 'react-select';
 
-import { categories } from '../dashboard/CategoriesList';
+import { categories } from '../news/CategoriesList';
 import { countries } from './countriesList';
 
 class Profile extends Component {
