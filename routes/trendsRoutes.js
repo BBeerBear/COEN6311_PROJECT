@@ -66,6 +66,7 @@ module.exports = (app) => {
               return;
             } else {
               trends = JSON.parse(results).storySummaries.trendingStories;
+              console.log(trends);
               trends.map(async (trend) => {
                 const existingNew = await News.findOne({
                   id: trend.id,
