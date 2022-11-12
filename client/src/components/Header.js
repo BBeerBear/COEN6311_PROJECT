@@ -23,7 +23,7 @@ class Header extends Component {
               <a href='#'>Home</a>
             </Link>
           </li>,
-          <li key='3'>
+          <li key='1'>
             <Link to='/profile'>
               <a href='#'>Profile</a>
             </Link>

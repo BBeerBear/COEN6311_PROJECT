@@ -7,15 +7,14 @@ class Categories extends Component {
   render() {
     return (
       <nav>
-        <div className='nav-wrapper'>
+        <div className='nav-wrapper center'>
           <div className='col s12'>
             {categories.map((category) => (
               <a
                 href='#'
                 onClick={() => {
-                  // this.props.fetctNewsFromDB({ categories: [category.value] })
-                  this.props.fetctNewsFromGoogleTrends({
-                    categories: [category.value],
+                  this.props.saveNewsToDB({
+                    category: category.value,
                     geo: 'US',
                   });
                 }}

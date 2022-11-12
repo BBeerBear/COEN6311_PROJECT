@@ -6,8 +6,8 @@ import * as actions from './actions';
 
 import Header from './components/Header';
 import Landing from './components/Landing';
-import Dashboard from './components/dashboard/Dashboard';
 import Profile from './components/profile/profile';
+import Dashboard from './components/dashboard/Dashboard';
 
 class App extends Component {
   componentDidMount() {

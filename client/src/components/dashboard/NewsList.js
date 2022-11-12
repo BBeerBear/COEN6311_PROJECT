@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import Preloader from '../layout/Preloader';
 
 class NewsList extends Component {
   renderContent() {
     switch (this.props.trends) {
       case null:
-        return <Preloader />;
+        return (
+          <div className='spinner-layer spinner-red center'>
+            <div className='circle-clipper left'>
+              <div className='circle'></div>
+            </div>
+            <div className='gap-patch'>
+              <div className='circle'></div>
+            </div>
+            <div className='circle-clipper right'>
+              <div className='circle'></div>
+            </div>
+          </div>
+        );
       case false:
         return <div>Error!</div>;
       default: {
         return (
-          <div>
+          <div className='container'>
             {this.props.trends.map((trend) => (
               <div className='row ' key={trend.id}>
                 <div className='col s12 m7'>
@@ -20,14 +31,16 @@ class NewsList extends Component {
                     <div className='card-image'>
                       <img src={trend.imgUrl} />
                       <span className='card-title'>
-                        {`"${trend.keywords.toString()}"`}
+                        {`"${trend.entityNames.toString()}"`}
                       </span>
                     </div>
                     <div className='card-content'>
-                      <p>{`"${trend.snippet}"`}</p>
+                      <p>{`"${trend.relatedNews[0].snippet}"`}</p>
                     </div>
                     <div className='card-action'>
-                      <a href={trend.newsUrl}>{`"${trend.articleTitle}"`}</a>
+                      <a
+                        href={trend.newsUrl}
+                      >{`"${trend.relatedNews[0].articleTitle}"`}</a>
                     </div>
                   </div>
                 </div>
@@ -39,7 +52,7 @@ class NewsList extends Component {
     }
   }
   render() {
-    return <div>{this.renderContent()}</div>;
+    return this.renderContent();
   }
 }
 
