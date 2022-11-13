@@ -10,8 +10,6 @@ module.exports = (app) => {
     requireLogin,
     async (req, res) => {
       const { trend_id } = req.body;
-      console.log(typeof trend_id);
-      console.log(req.user.id);
       const activity = await Activity.findOneAndUpdate(
         {
           _userId: req.user.id,
@@ -19,11 +17,15 @@ module.exports = (app) => {
         { $addToSet: { savedNews: trend_id } },
         { new: true, upsert: true, setDefaultsOnInsert: true }
       );
-      console.log(activity);
-      //   const activity = Activity.findOne({
-      //     _userId: req.user.id,
-      //   });
-      //   res.json(activity);
+      res.json(activity);
     }
   );
+
+  app.get('/api/mongodb/get/acitivity', requireLogin, async (req, res) => {
+    const activity = await Activity.find({
+      _userId: req.user.id,
+    });
+
+    res.json(activity);
+  });
 };

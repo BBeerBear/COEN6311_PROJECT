@@ -1,14 +1,26 @@
 import { categories } from './CategoriesList';
-import * as actions from '../../../actions';
+import * as actions from '../../actions';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Categories extends Component {
+  mySavedListOnClick = () => {
+    //get activity
+    this.props.saveUserSavedNewsToDB();
+    if (this.props.activity) {
+      this.props.fetctNewsFromDB({
+        trend_ids: this.props.activity.savedNews,
+      });
+    } else {
+      // this.props.trends = null;
+    }
+  };
   render() {
     return (
       <nav>
         <div className='nav-wrapper center'>
           <div className='col s12'>
+            {/*get trends by categories */}
             {categories.map((category) => (
               <a
                 href='#'
@@ -23,6 +35,15 @@ class Categories extends Component {
                 {category.label}
               </a>
             ))}
+
+            {/* change trends to saved news list */}
+            <a
+              href='#'
+              className='breadcrumb'
+              onClick={this.mySavedListOnClick}
+            >
+              My Saved News
+            </a>
           </div>
         </div>
       </nav>
@@ -30,4 +51,9 @@ class Categories extends Component {
   }
 }
 
-export default connect(null, actions)(Categories);
+//destruct state
+function mapStateToProps({ activity }) {
+  return { activity };
+}
+
+export default connect(mapStateToProps, actions)(Categories);

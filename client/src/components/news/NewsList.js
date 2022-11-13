@@ -26,7 +26,7 @@ class NewsList extends Component {
         return (
           <div className='container'>
             {this.props.trends.map((trend) => (
-              <div className='row ' key={trend.id}>
+              <div className='row ' key={trend._id}>
                 <div className='col s12 m7'>
                   <div className='card small '>
                     <div className='card-image'>

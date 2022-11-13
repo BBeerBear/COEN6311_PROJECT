@@ -8,21 +8,33 @@ const News = mongoose.model('news');
 module.exports = (app) => {
   let trends;
 
-  //get news from mongodb by categories and location
-  app.post('/api/mongodb/get', requireLogin, async (req, res) => {
-    const { geo, categories } = req.body;
+  //get news from mongodb
+  app.post('/api/mongodb/get/news', requireLogin, async (req, res) => {
+    const { geo, categories, trend_ids } = req.body;
+    console.log(geo);
+    console.log(categories);
+    console.log(trend_ids);
     let news;
-    if (!geo) {
-      news = await News.find({ category: categories });
+    if (trend_ids) {
+      news = await News.find({
+        // geo: geo,
+        // category: categories,
+        _id: { $in: trend_ids },
+      });
     } else {
-      news = await News.find({ geo: geo, category: categories });
+      news = await News.find({
+        geo: geo,
+        category: categories,
+        // _id: { $in: trend_ids },
+      });
     }
+    console.log(news);
     res.json(news);
   });
 
   //save news to mongodb by categories and location and send back
   // ['all', 'e', 'b', 't', 'h', 's', 'm']
-  app.post('/api/mongodb/save', requireLogin, async (req, res) => {
+  app.post('/api/mongodb/save/news', requireLogin, async (req, res) => {
     const { geo, category } = req.body;
 
     googleTrends.realTimeTrends(
