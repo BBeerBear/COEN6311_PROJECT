@@ -8,6 +8,7 @@ import Header from './components/Header';
 import Landing from './components/Landing';
 import Profile from './components/profile/profile';
 import Dashboard from './components/dashboard/Dashboard';
+import SavedNewsPage from './components/news/SavedNewsPage';
 
 class App extends Component {
   componentDidMount() {
@@ -23,7 +24,6 @@ class App extends Component {
           <Route exact path='/' component={Landing} />
           <Route exact path='/dashboard' component={Dashboard} />
           <Route exact path='/profile' component={Profile} />
-          <Route exact path='/savednews' />
         </BrowserRouter>
       </div>
       // </div>

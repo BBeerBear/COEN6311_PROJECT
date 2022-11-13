@@ -113,44 +113,34 @@ module.exports = (app) => {
     );
   });
 
-  //save news to monogodb by categories and location
-  app.post('/api/googletrends/save', requireLogin, async (req, res) => {
-    const { categories, geo } = req.body;
-    console.log(categories);
-    categories.map((category) =>
-      googleTrends.realTimeTrends(
-        {
-          geo: geo,
-          category: category,
-        },
-        function (err, results) {
-          if (err) {
-            // trends = status(500).json({ error: err });
-            return;
-          } else {
-            trends = JSON.parse(results).storySummaries.trendingStories;
-            console.log(trends);
-            trends.map(async (trend) => {
-              const existingNew = await News.findOne({
-                id: trend.id,
-              });
-              if (existingNew) {
-                return;
-              }
-              const news = await new News({
-                id: trend.id,
-                title: trend.title,
-                imgUrl: trend.image.imgUrl,
-                newsUrl: trend.image.newsUrl,
-                category: category,
-                geo: geo,
-              }).save();
-              return;
-            });
-          }
-        }
+  //get news from news api by catergories
+  app.post('/api/news/get', requireLogin, (req, res) => {
+    const { q, searchIn, category, language, country, page, pageSize } =
+      req.body;
+    //get news from newsapi by catergories
+
+    newsapi.v2
+      .topHeadlines(
+        Object.fromEntries(
+          Object.entries({
+            q: q,
+            searchIn: searchIn,
+            // sources: 'bbc-news,the-verge',
+            // domains: 'bbc.co.uk, techcrunch.com',
+            // from: '2017-12-01',
+            // to: '2017-12-12',
+            language: language,
+            sortBy: 'popularity',
+            country: country,
+            category: category,
+            pageSize: pageSize,
+            page: 1,
+          }).filter(([_, v]) => v != null)
+        )
       )
-    );
+      .then((data) => {
+        res.json(data.articles);
+      });
   });
 
   //get news from news api by catergories

@@ -10,15 +10,31 @@ export const fetchUser = () => async (dispatch) => {
 };
 
 //Update Acitivity: save User saved news to db
-export const saveUserSavedNewsToDB = (params) => async (dispatch) => {
+export const saveSavedNewsOfActivity = (params) => async (dispatch) => {
   const res = await axios.post('/api/mongodb/save/activity/savednews', params);
   dispatch({ type: FETCH_Activity, payload: res.data });
 };
 
-//Get Activity
-export const fetchActivity = () => async (dispatch) => {
-  const res = await axios.get('/api/mongodb/get/acitivity');
+//Update Acitivity: save User saved news to db
+export const savelikedNewsOfActivity = (params) => async (dispatch) => {
+  const res = await axios.post('/api/mongodb/save/activity/likednews', params);
   dispatch({ type: FETCH_Activity, payload: res.data });
+};
+
+//Get Activity
+export const fetchSavedNewsOfActivity = () => async (dispatch) => {
+  const res = await axios.get('/api/mongodb/get/acitivity//savednews');
+  // console.log(res.data);
+  dispatch({ type: FETCH_NEWS, payload: res.data[0].savedNews });
+};
+
+//Update Acitivity: save User saved news to db
+export const deleteActivitySavedNews = (params) => async (dispatch) => {
+  const res = await axios.post(
+    '/api/mongodb/delete/activity/savednews',
+    params
+  );
+  dispatch();
 };
 
 export const fetctNewsFromDB = (params) => async (dispatch) => {
@@ -28,11 +44,6 @@ export const fetctNewsFromDB = (params) => async (dispatch) => {
 
 export const saveNewsToDB = (params) => async (dispatch) => {
   const res = await axios.post('/api/mongodb/save/news', params);
-  dispatch({ type: FETCH_NEWS, payload: res.data });
-};
-
-export const fetctNewsFromGoogleTrends = (params) => async (dispatch) => {
-  const res = await axios.post('/api/googletrends/get', params);
   dispatch({ type: FETCH_NEWS, payload: res.data });
 };
 

@@ -4,22 +4,21 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Categories extends Component {
-  mySavedListOnClick = () => {
-    //get activity
-    this.props.saveUserSavedNewsToDB();
-    if (this.props.activity) {
-      this.props.fetctNewsFromDB({
-        trend_ids: this.props.activity.savedNews,
-      });
-    } else {
-      this.props.trends = null;
-    }
-  };
   render() {
+    const country = 'ca';
     return (
       <nav>
         <div className='nav-wrapper center'>
           <div className='col s12'>
+            <a
+              href='#'
+              className='breadcrumb'
+              onClick={() => {
+                this.props.fecthNewsFromAPI({ country });
+              }}
+            >
+              Local News
+            </a>
             {/*get trends by categories */}
             {categories.map((category) => (
               <a
@@ -35,12 +34,13 @@ class Categories extends Component {
                 {category.label}
               </a>
             ))}
-
-            {/* change trends to saved news list */}
             <a
               href='#'
               className='breadcrumb'
-              onClick={this.mySavedListOnClick}
+              onClick={() => {
+                this.props.fetchSavedNewsOfActivity();
+                console.log('trends', this.props.trends);
+              }}
             >
               My Saved News
             </a>
@@ -52,8 +52,8 @@ class Categories extends Component {
 }
 
 //destruct state
-function mapStateToProps({ activity }) {
-  return { activity };
+function mapStateToProps({ trends, activity }) {
+  return { trends, activity };
 }
 
 export default connect(mapStateToProps, actions)(Categories);

@@ -5,9 +5,13 @@ import NotFound from '../layout/NotFound';
 import Spinner from '../layout/Spinner';
 import NewsItem from './NewsItem';
 
-class NewsList extends Component {
+class SavedNewsPage extends Component {
+  componentDidMount() {
+    this.props.fetchActivity();
+  }
+
   renderContent() {
-    switch (this.props.trends) {
+    switch (this.props.activity) {
       case null:
         return <Spinner />;
       case false:
@@ -15,7 +19,7 @@ class NewsList extends Component {
       default: {
         return (
           <div className='container'>
-            {this.props.trends.map((trend) => (
+            {this.props.activity.savedNews.map((trend) => (
               <NewsItem trend={trend} />
             ))}
           </div>
@@ -24,13 +28,13 @@ class NewsList extends Component {
     }
   }
   render() {
-    return this.renderContent();
+    return <div> {this.renderContent()} </div>;
   }
 }
 
 //destruct state
-function mapStateToProps({ trends }) {
-  return { trends };
+function mapStateToProps({ activity }) {
+  return { activity };
 }
 
-export default connect(mapStateToProps, actions)(NewsList);
+export default connect(mapStateToProps, actions)(SavedNewsPage);
