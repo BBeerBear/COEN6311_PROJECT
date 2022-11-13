@@ -3,7 +3,7 @@ import React from 'react';
 const Landing = () => {
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1>Welcome to Trending News Social Application</h1>
+      <h1>Google Trending News</h1>
     </div>
   );
 };
