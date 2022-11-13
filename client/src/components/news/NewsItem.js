@@ -8,30 +8,22 @@ class NewsList extends Component {
   render() {
     const trend = this.props.trend;
     return (
-      <div className='container center'>
-        <div className='row '>
-          <div className='col s12 m7'>
-            <div className='card big '>
-              <div className='card-image'>
-                <img src={trend.urlToImage} />
-                {/* <span className='card-title'>{`"${trend.source.name}"`}</span> */}
-              </div>
-              <div className='card-content'>
-                <p>{`"${trend.content}"`}</p>
-              </div>
-              <div className='card-action'>
-                <a href={trend.url}>{`"${trend.title}"`}</a>
-              </div>
+      <div className='my-3'>
+        <div className='col s12 m7'>
+          <div className='card big '>
+            <div className='card-image'>
+              <img src={trend.urlToImage} alt='Card image cap' />
+              {/* <span className='card-title'>{`"${trend.source.name}"`}</span> */}
+            </div>
+            <div className='card-content'>
+              <p>{`"${trend.content}"`}</p>
+            </div>
+            <div className='card-action'>
+              <a href={trend.url}>{`"${trend.title}"`}</a>
             </div>
           </div>
-          <div>
-            <div>
-              <SavedButton trend={trend} />
-            </div>
-            <div>
-              <LikeButton trend={trend} />
-            </div>
-          </div>
+          <SavedButton trend={trend} />
+          <LikeButton trend={trend} />
         </div>
       </div>
     );

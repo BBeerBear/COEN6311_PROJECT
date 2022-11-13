@@ -15,24 +15,22 @@ class SearchBar extends Component {
   };
   render() {
     return (
-      <div className='container blue'>
-        <form onSubmit={this.onFormSubmit}>
-          <div class='input-field'>
-            <input
-              id='search'
-              type='search'
-              required
-              value={this.state.term}
-              style={{ display: 'inline' }}
-              onChange={this.onInputChange}
-            />
-            <label class='label-icon' for='search'>
-              <i class='material-icons'>search</i>
-            </label>
-            <i class='material-icons'>close</i>
-          </div>
-        </form>
-      </div>
+      <form className='container blue' onSubmit={this.onFormSubmit}>
+        <div class='input-field'>
+          <input
+            id='search'
+            type='search'
+            required
+            value={this.state.term}
+            style={{ display: 'inline' }}
+            onChange={this.onInputChange}
+          />
+          <label class='label-icon' for='search'>
+            <i class='material-icons'>search</i>
+          </label>
+          <i class='material-icons'>close</i>
+        </div>
+      </form>
     );
   }
 }

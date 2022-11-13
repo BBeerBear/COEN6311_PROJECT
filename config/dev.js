@@ -6,7 +6,7 @@ module.exports = {
   facebooeClientID: '808215827169429',
   facebookClientSecret: 'e7dbf4f1e84d8a5c257b1c7d2976653f',
 
-  newsAPIKEY: 'e64d2371339242a7be875b8d86cfb9ea',
+  newsAPIKEY: 'd88d31cb231a4c9f9d4135e56b01f4fc',
 
   mongoURI:
     'mongodb+srv://xoxwoolf:Ityloh46cL2h7UIa@cluster0.86nvafy.mongodb.net/?retryWrites=true&w=majority',

@@ -40,7 +40,6 @@ class Categories extends Component {
               className='breadcrumb'
               onClick={() => {
                 this.props.fetchSavedNewsOfActivity();
-                console.log('trends', this.props.trends);
               }}
             >
               My Saved News

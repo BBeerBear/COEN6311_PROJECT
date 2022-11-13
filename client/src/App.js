@@ -17,8 +17,7 @@ class App extends Component {
 
   render() {
     return (
-      // <div className='container'>
-      <div className>
+      <div>
         <BrowserRouter>
           <Header />
           <Route exact path='/' component={Landing} />
@@ -26,7 +25,6 @@ class App extends Component {
           <Route exact path='/profile' component={Profile} />
         </BrowserRouter>
       </div>
-      // </div>
     );
   }
 }

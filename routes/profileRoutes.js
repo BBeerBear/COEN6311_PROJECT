@@ -6,21 +6,17 @@ const Profile = mongoose.model('profile');
 
 module.exports = (app) => {
   app.post('/api/profile/update', requireLogin, async (req, res) => {
-    const { googleId, facebookId, geo, preferredCategories } = req.body;
-    let profile;
-    try {
-      if (googleId) {
-        profile = await Profile().findOne({ googleId: googleId });
-      } else {
-        profile = await Profile().findOne({ facebookId: facebookId });
-      }
-      profile.overwrite({ geo: geo, preferredCategories: preferredCategories });
-      await profile.save();
-      console.log(profile);
-      return res.json(profile);
-    } catch (error) {
-      console.error(err.message);
-      return res.status(500).send('Server Error');
-    }
+    const { country, catergories } = req.body;
+    console.log(req.body);
+
+    const profile = await Profile.findOneAndUpdate(
+      {
+        _userId: req.user.id,
+      },
+      { catergories: catergories, country: country },
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    );
+    // console.log('activity', activity);
+    res.json(profile);
   });
 };

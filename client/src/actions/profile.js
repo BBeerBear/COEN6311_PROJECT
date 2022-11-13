@@ -27,11 +27,11 @@ export const getCurrentProfile = () => async (dispatch) => {
   }
 };
 
-// Create or update profile
-export const createProfile = (params) => async (dispatch) => {
-  const res = await axios.post('/api/profile/update', params);
-  dispatch({
-    type: GET_PROFILE,
-    payload: res.data,
-  });
-};
+// // Create or update profile
+// export const createProfile = (params) => async (dispatch) => {
+//   const res = await axios.post('/api/profile/update', params);
+//   dispatch({
+//     type: GET_PROFILE,
+//     payload: res.data,
+//   });
+// };

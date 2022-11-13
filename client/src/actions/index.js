@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_NEWS, FETCH_Activity } from './types';
+import { FETCH_USER, FETCH_NEWS, FETCH_Activity, GET_PROFILE } from './types';
 
 //access to dispatch function, no need to return action
 export const fetchUser = () => async (dispatch) => {
@@ -50,4 +50,14 @@ export const saveNewsToDB = (params) => async (dispatch) => {
 export const fecthNewsFromAPI = (params) => async (dispatch) => {
   const res = await axios.post('/api/news/get', params);
   dispatch({ type: FETCH_NEWS, payload: res.data });
+};
+
+// Create or update profile
+export const createProfile = (params) => async (dispatch) => {
+  const res = await axios.post('/api/profile/update', params);
+  console.log(res);
+  dispatch({
+    type: GET_PROFILE,
+    payload: res.data,
+  });
 };
