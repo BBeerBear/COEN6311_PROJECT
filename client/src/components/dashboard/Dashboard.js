@@ -5,7 +5,7 @@ import NewsList from '../news/NewsList';
 
 const Dashboard = () => {
   return (
-    <div>
+    <div class='row'>
       <Categories />
       <NewsList />
     </div>

@@ -118,7 +118,7 @@ module.exports = (app) => {
     const { q, searchIn, category, language, country, page, pageSize } =
       req.body;
     //get news from newsapi by catergories
-
+    console.log(q);
     newsapi.v2
       .topHeadlines(
         Object.fromEntries(

@@ -14,7 +14,7 @@ class NewsList extends Component {
         return <NotFound />;
       default: {
         return (
-          <div className='container'>
+          <div className='container #fce4ec'>
             {this.props.trends.map((trend) => (
               <NewsItem trend={trend} />
             ))}

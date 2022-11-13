@@ -2,6 +2,7 @@ import { categories } from './CategoriesList';
 import * as actions from '../../actions';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import Searchbar from './Searchbar';
 
 class Categories extends Component {
   render() {
@@ -44,6 +45,7 @@ class Categories extends Component {
             >
               My Saved News
             </a>
+            <Searchbar />
           </div>
         </div>
       </nav>
