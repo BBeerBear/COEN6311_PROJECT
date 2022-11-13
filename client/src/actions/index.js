@@ -35,3 +35,8 @@ export const fetctNewsFromGoogleTrends = (params) => async (dispatch) => {
   const res = await axios.post('/api/googletrends/get', params);
   dispatch({ type: FETCH_NEWS, payload: res.data });
 };
+
+export const fecthNewsFromAPI = (params) => async (dispatch) => {
+  const res = await axios.post('/api/news/get', params);
+  dispatch({ type: FETCH_NEWS, payload: res.data });
+};

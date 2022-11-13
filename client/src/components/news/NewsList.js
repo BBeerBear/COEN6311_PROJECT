@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import LikeButton from './LikeButton';
 import SavedButton from './SavedButton';
 
 class NewsList extends Component {
@@ -26,26 +27,31 @@ class NewsList extends Component {
         return (
           <div className='container'>
             {this.props.trends.map((trend) => (
-              <div className='row ' key={trend._id}>
+              <div className='row '>
                 <div className='col s12 m7'>
-                  <div className='card small '>
+                  <div className='card big '>
                     <div className='card-image'>
-                      <img src={trend.imgUrl} />
+                      <img src={trend.urlToImage} />
                       <span className='card-title'>
-                        {`"${trend.entityNames.toString()}"`}
+                        {`"${trend.source.name}"`}
                       </span>
                     </div>
                     <div className='card-content'>
-                      <p>{`"${trend.relatedNews[0].snippet}"`}</p>
+                      <p>{`"${trend.content}"`}</p>
                     </div>
                     <div className='card-action'>
-                      <a
-                        href={trend.newsUrl}
-                      >{`"${trend.relatedNews[0].articleTitle}"`}</a>
+                      <a href={trend.url}>{`"${trend.title}"`}</a>
                     </div>
                   </div>
                 </div>
-                <SavedButton trend_id={trend._id} />
+                {/* <div>
+                  <div>
+                    <SavedButton trend_id={trend._id} />
+                  </div>
+                </div>
+                <div>
+                  <LikeButton trend_id={trend._id} />
+                </div> */}
               </div>
             ))}
           </div>

@@ -12,7 +12,7 @@ class Categories extends Component {
         trend_ids: this.props.activity.savedNews,
       });
     } else {
-      // this.props.trends = null;
+      this.props.trends = null;
     }
   };
   render() {
@@ -25,9 +25,9 @@ class Categories extends Component {
               <a
                 href='#'
                 onClick={() => {
-                  this.props.saveNewsToDB({
+                  this.props.fecthNewsFromAPI({
                     category: category.value,
-                    geo: 'US',
+                    country: 'ca',
                   });
                 }}
                 className='breadcrumb'

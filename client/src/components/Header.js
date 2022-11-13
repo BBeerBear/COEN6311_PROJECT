@@ -43,7 +43,7 @@ class Header extends Component {
             to={this.props.auth ? '/dashboard' : '/'}
             className='brand-logo'
           >
-            Trending News
+            BBeerBear News
           </Link>
           <ul className='right'>{this.renderContent()}</ul>
         </div>

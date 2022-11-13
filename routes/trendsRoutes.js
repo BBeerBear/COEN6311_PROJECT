@@ -1,9 +1,18 @@
 const googleTrends = require('google-trends-api');
 const mongoose = require('mongoose');
+const keys = require('../config/keys');
+
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI(keys.newsAPIKEY);
 
 const requireLogin = require('../middleware/requireLogin');
 
 const News = mongoose.model('news');
+
+// const keys = require('../config/keys');
+
+// const NewsAPI = require('newsapi');
+// const newsapi = new NewsAPI(keys.newsAPIKEY);
 
 module.exports = (app) => {
   let trends;
@@ -77,6 +86,7 @@ module.exports = (app) => {
     );
   });
 
+  //get news from news api by catergories
   app.post('/api/googletrends/get', requireLogin, (req, res) => {
     const { geo, categories } = req.body;
     googleTrends.realTimeTrends(
@@ -141,5 +151,31 @@ module.exports = (app) => {
         }
       )
     );
+  });
+
+  //get news from news api by catergories
+  app.post('/api/news/get', requireLogin, (req, res) => {
+    const { q, category, country, page, pageSize } = req.body;
+    console.log(q, category, country, page, pageSize);
+    //get news from newsapi by catergories
+    newsapi.v2
+      .topHeadlines({
+        // q: q,
+        // sources: 'bbc-news,the-verge',
+        // domains: 'bbc.co.uk, techcrunch.com',
+        // from: '2017-12-01',
+        // to: '2017-12-12',
+        language: 'en',
+        // sortBy: 'popularity',
+        country: country,
+        //businessentertainmentgeneralhealthsciencesportstechnology
+        category: category,
+        // pageSize: pageSize,
+        page: 1,
+      })
+      .then((data) => {
+        console.log(data);
+        res.json(data.articles);
+      });
   });
 };

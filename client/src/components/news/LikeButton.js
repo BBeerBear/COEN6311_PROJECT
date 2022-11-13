@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-class SavedButton extends Component {
-  addNewsonClick = () => {
-    this.props.saveUserSavedNewsToDB({ trend_id: this.props.trend_id });
+class LikeButton extends Component {
+  onClick = () => {
+    // this.props.saveUserSavedNewsToDB({ trend_id: this.props.trend_id });
   };
   render() {
     return (
       <a class='btn-floating btn-large waves-effect waves-light red'>
-        <i class='material-icons' onClick={this.addNewsonClick}>
-          add
+        <i class='material-icons' onClick={this.onClick}>
+            
+          favorite_border
         </i>
       </a>
     );
@@ -22,4 +23,4 @@ function mapStateToProps({ activity }) {
   return { activity };
 }
 
-export default connect(mapStateToProps, actions)(SavedButton);
+export default connect(mapStateToProps, actions)(LikeButton);
