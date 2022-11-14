@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import logo from '../img/logo.jpg';
 
 class Header extends Component {
   renderContent() {
@@ -39,6 +40,12 @@ class Header extends Component {
     return (
       <nav>
         <div className='nav-wrapper'>
+          <img
+            src={logo}
+            alt='logo'
+            className='circle'
+            style={{ width: '70px', style: 'inline', margin: '10px' }}
+          />
           <Link
             to={this.props.auth ? '/dashboard' : '/'}
             className='brand-logo'
