@@ -6,6 +6,7 @@ import Select from 'react-select';
 
 import { categories } from '../news/CategoriesList';
 import { countries } from './countriesList';
+import Dashboard from '../dashboard/Dashboard';
 
 class Profile extends Component {
   state = {
@@ -79,9 +80,9 @@ class Profile extends Component {
                 </label>
               </p>
             ))}
-            <input type='submit' className='btn btn-primary my-1' />
-            <Link className='btn btn-light my-1' to='/dashboard'>
-              Go Back
+            {/* routing to dashboard */}
+            <Link to="/dashboard">
+            <input type='submit' className='btn btn-primary my-1' /> 
             </Link>
           </form>
         </section>
