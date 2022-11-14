@@ -55,7 +55,15 @@ export const fecthNewsFromAPI = (params) => async (dispatch) => {
 // Create or update profile
 export const createProfile = (params) => async (dispatch) => {
   const res = await axios.post('/api/profile/update', params);
-  console.log(res);
+  dispatch({
+    type: GET_PROFILE,
+    payload: res.data,
+  });
+};
+
+// Get profile
+export const getProfile = () => async (dispatch) => {
+  const res = await axios.get('/api/profile/me');
   dispatch({
     type: GET_PROFILE,
     payload: res.data,

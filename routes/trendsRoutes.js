@@ -90,6 +90,7 @@ module.exports = (app) => {
   app.post('/api/news/get', requireLogin, (req, res) => {
     const { q, searchIn, category, language, country, page, pageSize } =
       req.body;
+
     //get news from newsapi by params
     newsapi.v2
       .topHeadlines(
@@ -101,16 +102,19 @@ module.exports = (app) => {
             // domains: 'bbc.co.uk, techcrunch.com',
             // from: '2017-12-01',
             // to: '2017-12-12',
-            language: language,
+            language: 'en',
             sortBy: 'popularity',
             country: country,
             category: category,
             pageSize: pageSize,
-            page: 1,
+            page: page,
           }).filter(([_, v]) => v != null)
         )
       )
       .then((data) => {
+        // console.log(data);
+
+        // console.log(data.articles);
         res.json(data.articles);
       });
   });

@@ -6,7 +6,6 @@ import Searchbar from './Searchbar';
 
 class Categories extends Component {
   render() {
-    const country = 'ca';
     return (
       <nav>
         <div className='nav-wrapper center'>
@@ -15,7 +14,34 @@ class Categories extends Component {
               href='#'
               className='breadcrumb'
               onClick={() => {
-                this.props.fecthNewsFromAPI({ country });
+                this.props.getProfile();
+                //find news based on country and category
+                console.log('me', this.props.profile);
+                this.props.profile.profile[0].preferredCategories.map(
+                  (catergory) => {
+                    console.log(
+                      catergory,
+                      this.props.profile.profile[0].country
+                    );
+                    this.props.fecthNewsFromAPI({
+                      country: this.props.profile.profile[0].country,
+                      category: catergory,
+                      pageSize: 10,
+                    });
+                  }
+                );
+                // console.log(this.props.trends);
+              }}
+            >
+              Recommended News
+            </a>
+            <a
+              href='#'
+              className='breadcrumb'
+              onClick={() => {
+                this.props.fecthNewsFromAPI({
+                  country: this.props.profile.profile[0].country,
+                });
               }}
             >
               Local News
@@ -53,8 +79,8 @@ class Categories extends Component {
 }
 
 //destruct state
-function mapStateToProps({ trends, activity }) {
-  return { trends, activity };
+function mapStateToProps({ trends, activity, profile }) {
+  return { trends, activity, profile };
 }
 
 export default connect(mapStateToProps, actions)(Categories);

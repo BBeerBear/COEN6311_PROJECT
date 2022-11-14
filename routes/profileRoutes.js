@@ -6,17 +6,25 @@ const Profile = mongoose.model('profile');
 
 module.exports = (app) => {
   app.post('/api/profile/update', requireLogin, async (req, res) => {
-    const { country, catergories } = req.body;
-    console.log(req.body);
+    const { country, preferredCategories } = req.body;
+    console.log(preferredCategories);
 
     const profile = await Profile.findOneAndUpdate(
       {
         _userId: req.user.id,
       },
-      { catergories: catergories, country: country },
+      {
+        $set: { preferredCategories: preferredCategories, country: country },
+      },
       { new: true, upsert: true, setDefaultsOnInsert: true }
     );
-    // console.log('activity', activity);
+    res.json(profile);
+  });
+
+  app.get('/api/profile/me', requireLogin, async (req, res) => {
+    const profile = await Profile.find({
+      _userId: req.user.id,
+    });
     res.json(profile);
   });
 };
