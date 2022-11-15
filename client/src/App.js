@@ -9,7 +9,7 @@ import Landing from './components/Landing';
 import ProfileEdit from './components/profile/ProfileEdit';
 import Dashboard from './components/dashboard/Dashboard';
 import Sidenav from './components/Sidenav';
-import Profile from './components/profile/Profile';
+import ProfileList from './components/profile/ProfileList';
 
 class App extends Component {
   componentDidMount() {
@@ -29,7 +29,7 @@ class App extends Component {
               <Route exact path='/' component={Landing} />
               <Route exact path='/dashboard' component={Dashboard} />
               <Route exact path='/profile' component={ProfileEdit} />
-              <Route exact path='/profile/me' component={Profile} />
+              <Route exact path='/profile/others' component={ProfileList} />
             </div>
           </div>
         </BrowserRouter>

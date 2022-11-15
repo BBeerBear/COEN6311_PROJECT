@@ -44,7 +44,7 @@ class Header extends Component {
             src={logo}
             alt='logo'
             className='circle'
-            style={{ width: '70px', style: 'inline', margin: '10px' }}
+            style={{ width: '50px', style: 'inline', margin: '10px' }}
           />
           <Link
             to={this.props.auth ? '/dashboard' : '/'}
