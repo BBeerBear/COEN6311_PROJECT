@@ -7,7 +7,11 @@ import NotFound from '../layout/NotFound';
 class ProfileMe extends Component {
   renderContent() {
     // console.log('profile', this.props.profile.profile);
-    switch (this.props.profile.profile && this.props.auth) {
+    switch (
+      this.props.profile.profile &&
+      this.props.auth &&
+      this.props.profile
+    ) {
       case null:
         return <Spinner />;
       case false:
@@ -56,15 +60,21 @@ class ProfileMe extends Component {
                 <p>
                   <br />
                   LIKED TOPIC
-                  <i class='mdi-communication-email cyan-text text-darken-2'></i>{' '}
-                  {this.props.profile.profile.preferredCategories.map((e) => (
-                    <div>{e}</div>
-                  ))}
+                  <i class='mdi-communication-email cyan-text text-darken-2'></i>
+                  {this.renderCategories()}
                 </p>
               </div>
             </div>
           </div>
         );
+    }
+  }
+
+  renderCategories() {
+    if (this.props.profile.profile.preferredCategories) {
+      return this.props.profile.profile.preferredCategories.map((e) => (
+        <div>{e}</div>
+      ));
     }
   }
 
