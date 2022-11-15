@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './button.css';
+import './landing.css';
 
 class Header extends Component {
   renderContent() {
@@ -15,6 +17,7 @@ class Header extends Component {
           <li key='2'>
             <a href='/auth/facebook'>Login with Facebook</a>
           </li>,
+
         ];
       default: {
         return [
