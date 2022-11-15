@@ -21,7 +21,9 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div class='row'>
-            <div class='col s2'>{/* <Sidenav /> */}</div>
+            <div class='col s2'>
+              <Sidenav />
+            </div>
             <div class='col s10'>
               <Header />
               <Route exact path='/' component={Landing} />
