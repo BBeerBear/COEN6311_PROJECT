@@ -29,25 +29,6 @@ class NewsList extends Component {
                 })}
               </div>
             </div>
-            {/* <div className='container-fluid page-button my-4 mx-2'>
-              <button
-                disabled={this.trends.page <= 1}
-                className='btn-sm btn btn-color mx-5 '
-                onClick={this.handlePrevious}
-              >
-                &larr; Previous
-              </button>
-              <div className='page-count'>{this.trends.page}</div>
-              <button
-                disabled={
-                  !(this.trends.page + 1 <= Math.ceil(this.trends.length / 12))
-                }
-                className='btn-sm btn btn-color mx-5'
-                // onClick={this.handleNext}
-              >
-                Next &rarr;
-              </button>
-            </div> */}
           </>
         );
       }

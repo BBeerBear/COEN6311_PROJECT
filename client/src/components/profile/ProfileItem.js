@@ -1,41 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import { Link } from 'react-router-dom';
 
-class Profile extends Component {
+class ProfileItem extends Component {
   render() {
-    console.log('profile');
+    const user = this.props.user;
     return (
-      <>
-        <div class='container'>
-          hello
-          <div class='col s12 m8 offset-m2 l6 offset-l3'>
-            <div class='card-panel grey lighten-5 z-depth-1'>
-              <div class='row valign-wrapper'>
-                <div class='col s2'>
-                  <img
-                    src='http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg'
-                    alt=''
-                    class='circle responsive-img'
-                  />
-                </div>
-                <div class='col s10'>
-                  <span class='black-text'>
-                    This is a square image. Add the "circle" class to it to make
-                    it appear circular.
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
+      <li class='collection-item avatar'>
+        <img src={user.picture} alt='' class='circle' />
+        <span class='title'>{user.name}</span>
+        <p>
+          {user.email}
+          <br />
+          <Link to='/profile/me'>view details</Link>
+        </p>
+        <a href='#!' class='secondary-content'>
+          <i class='material-icons'> add_circle_outline</i>
+        </a>
+      </li>
     );
   }
 }
 
-//destruct state
-function mapStateToProps({ profile }) {
-  return { profile };
-}
-export default connect(mapStateToProps, actions)(Profile);
+export default connect(null, actions)(ProfileItem);

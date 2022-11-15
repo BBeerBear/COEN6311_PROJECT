@@ -10,7 +10,7 @@ import ProfileEdit from './components/profile/ProfileEdit';
 import Dashboard from './components/dashboard/Dashboard';
 import Sidenav from './components/Sidenav';
 import ProfileList from './components/profile/ProfileList';
-import Profile from './components/profile/ProfileMe';
+import ProfileMe from './components/profile/ProfileMe';
 
 class App extends Component {
   componentDidMount() {
@@ -30,7 +30,7 @@ class App extends Component {
               <Route exact path='/' component={Landing} />
               <Route exact path='/dashboard' component={Dashboard} />
               <Route exact path='/profile' component={ProfileEdit} />
-              <Route exact path='/profile/me' component={Profile} />
+              <Route exact path='/profile/me' component={ProfileMe} />
               <Route exact path='/profile/others' component={ProfileList} />
             </div>
           </div>

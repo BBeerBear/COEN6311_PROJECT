@@ -29,6 +29,7 @@ app.use(passport.session());
 
 //use defined routes
 require('./routes/authRoutes')(app);
+require('./routes/userRoutes')(app);
 require('./routes/trendsRoutes')(app);
 require('./routes/activityRoutes')(app);
 require('./routes/profileRoutes')(app);

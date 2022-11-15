@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_NEWS, FETCH_Activity, GET_PROFILE } from './types';
+import {
+  FETCH_USER,
+  FETCH_USERS,
+  FETCH_NEWS,
+  FETCH_Activity,
+  GET_PROFILE,
+  GET_PROFILES,
+} from './types';
 
 //access to dispatch function, no need to return action
 export const fetchUser = () => async (dispatch) => {
@@ -66,6 +73,24 @@ export const getProfile = () => async (dispatch) => {
   const res = await axios.get('/api/profile/me');
   dispatch({
     type: GET_PROFILE,
+    payload: res.data,
+  });
+};
+
+// Get profiles
+export const getProfiles = () => async (dispatch) => {
+  const res = await axios.get('/api/profile/others');
+  dispatch({
+    type: GET_PROFILES,
+    payload: res.data,
+  });
+};
+
+// Get users
+export const getUsers = () => async (dispatch) => {
+  const res = await axios.get('/api/user/others');
+  dispatch({
+    type: FETCH_USERS,
     payload: res.data,
   });
 };

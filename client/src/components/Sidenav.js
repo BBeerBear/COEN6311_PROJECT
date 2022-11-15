@@ -30,10 +30,14 @@ class Sidenav extends Component {
             </div>
           </li>,
           <li>
-            <Link to='/profile/me'>My profile</Link>
+            <Link to='/profile/me' onClick={() => this.props.getProfile()}>
+              My profile
+            </Link>
           </li>,
           <li>
-            <Link to='/profile/me'>Recommended Users</Link>
+            <Link onClick={() => this.props.getUsers()} to='/profile/others'>
+              Recommended Users
+            </Link>
           </li>,
         ];
       }

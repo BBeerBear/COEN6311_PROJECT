@@ -15,16 +15,11 @@ class ProfileEdit extends Component {
 
   //select a country
   handleChange = (selectedOption) => {
-    this.setState(
-      { selectedOption }
-      // console.log(
-      //   `Option selected:`,
-      //   this.state.selectedOption.value.toLowerCase()
-      // )
-    );
+    this.setState({ selectedOption });
   };
 
   onFormSubmit = (event) => {
+    console.log('form submit');
     event.preventDefault();
     this.props.createProfile({
       preferredCategories: this.state.selectedCatergories,
@@ -80,9 +75,9 @@ class ProfileEdit extends Component {
               </p>
             ))}
             {/* routing to dashboard */}
-            <Link to='/dashboard'>
-              <input type='submit' className='btn btn-primary my-1' />
-            </Link>
+            {/* <Link to='/dashboard'> */}
+            <input type='submit' className='btn btn-primary my-1' />
+            {/* </Link> */}
           </form>
         </section>
       </>

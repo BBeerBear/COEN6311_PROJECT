@@ -29,23 +29,29 @@ module.exports = (app) => {
   });
 
   // get profile of other users
-  app.get('/api/profile/others', requireLogin, async (req, res) => {
-    const profile = await Profile.find({
-      _userId: req.user.id,
-    });
-    res.json(profile);
+  app.post('/api/profile/others', requireLogin, async (req, res) => {
+    const profiles = await Profile.find();
+    res.json(profiles);
   });
 
   //get profile by user id, some wrong
   app.get('/api/profile/:user_id', async ({ params: { user_id } }, res) => {
     try {
       console.log(user_id);
-      const profile = await Profile.findOne({
+      const userprofile = await Profile.findOne({
         _userId: user_id,
-      }).populate('users', ['name', 'picture']);
-      if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+      }).aggregate({
+        $lookup: {
+          from: 'users',
+          localField: '_userId',
+          foreignField: '_id',
+          as: 'userProfile',
+        },
+      });
+      if (!userprofile)
+        return res.status(400).json({ msg: 'Profile not found' });
 
-      return res.json(profile);
+      return res.json(userprofile);
     } catch (err) {
       console.error(err.message);
       return res.status(500).json({ msg: 'Server error' });
