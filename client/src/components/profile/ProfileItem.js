@@ -16,9 +16,9 @@ class ProfileItem extends Component {
           <Link
             to='/profile/me'
             onClick={() => {
+              console.log(this.props.user._id);
+              this.props.getUserById(this.props.user._id);
               this.props.getProfileByUserId(this.props.user._id);
-              if (this.props.profile)
-                console.log('other user', this.props.profile.profile);
             }}
           >
             View details

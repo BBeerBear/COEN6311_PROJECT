@@ -4,6 +4,7 @@ export const FETCH_Activity = 'fetch_activity';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const GET_PROFILE = 'GET_PROFILE';
 export const FETCH_USERS = 'fetch_users';
+export const FETCH_OTHER_USER = 'fetch_other_user';
 
 export const GET_PROFILES = 'GET_PROFILES';
 export const GET_REPOS = 'GET_REPOS';

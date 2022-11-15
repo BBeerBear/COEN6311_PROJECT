@@ -11,6 +11,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import Sidenav from './components/Sidenav';
 import ProfileList from './components/profile/ProfileList';
 import ProfileMe from './components/profile/ProfileMe';
+import ProfileOther from './components/profile/ProfileOther';
 
 class App extends Component {
   componentDidMount() {
@@ -32,6 +33,7 @@ class App extends Component {
               <Route exact path='/profile' component={ProfileEdit} />
               <Route exact path='/profile/me' component={ProfileMe} />
               <Route exact path='/profile/others' component={ProfileList} />
+              <Route exact path='/profile/others' component={ProfileOther} />
             </div>
           </div>
         </BrowserRouter>

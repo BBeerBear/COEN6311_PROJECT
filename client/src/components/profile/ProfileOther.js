@@ -4,8 +4,9 @@ import * as actions from '../../actions';
 import Spinner from '../layout/Spinner';
 import NotFound from '../layout/NotFound';
 
-class ProfileMe extends Component {
+class ProfileOther extends Component {
   renderContent() {
+    // console.log('profile', this.props.profile.profile);
     switch (
       this.props.profile.profile &&
       this.props.user &&
@@ -16,7 +17,6 @@ class ProfileMe extends Component {
       case false:
         return <NotFound />;
       default:
-        console.log(this.props.user);
         console.log(this.props.user);
         return (
           <div className='container right'>
@@ -31,7 +31,7 @@ class ProfileMe extends Component {
               </div>
               <div class='card-content'>
                 <img
-                  src={this.props.user.user.picture}
+                  src={this.props.user.picture}
                   alt=''
                   class='circle responsive-img activator card-profile-image'
                 />
@@ -40,7 +40,7 @@ class ProfileMe extends Component {
                 </a>
 
                 <span class='card-title activator grey-text text-darken-4'>
-                  {this.props.user.user.name}
+                  {this.props.user.name}
                 </span>
                 {/* <p>
                   <i class='mdi-action-perm-identity cyan-text text-darken-2'></i>{' '}
@@ -52,7 +52,7 @@ class ProfileMe extends Component {
                 </p> */}
                 <p>
                   <i class='mdi-communication-email cyan-text text-darken-2'></i>{' '}
-                  {this.props.user.user.email}
+                  {this.props.user.email}
                 </p>
                 <p>
                   <br />
@@ -86,7 +86,7 @@ class ProfileMe extends Component {
     return this.renderContent();
   }
 }
-function mapStateToProps({ auth, profile, user }) {
-  return { auth, user, profile };
+function mapStateToProps({ auth, profile }) {
+  return { auth, profile };
 }
-export default connect(mapStateToProps, actions)(ProfileMe);
+export default connect(mapStateToProps, actions)(ProfileOther);

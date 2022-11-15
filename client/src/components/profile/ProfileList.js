@@ -7,7 +7,7 @@ import ProfileItem from './ProfileItem';
 
 class ProfileList extends Component {
   renderContent() {
-    switch (this.props.users) {
+    switch (this.props.user.users) {
       case null:
         return <Spinner />;
       case false:
@@ -15,7 +15,7 @@ class ProfileList extends Component {
       default: {
         return (
           <ul class='collection'>
-            {this.props.users.map((user) => {
+            {this.props.user.users.map((user) => {
               return <ProfileItem user={user} key={user._id} />;
             })}
           </ul>
@@ -29,7 +29,7 @@ class ProfileList extends Component {
 }
 
 //destruct state
-function mapStateToProps({ users, profile }) {
-  return { users, profile };
+function mapStateToProps({ user, profile }) {
+  return { user, profile };
 }
 export default connect(mapStateToProps, actions)(ProfileList);

@@ -6,6 +6,7 @@ import {
   FETCH_Activity,
   GET_PROFILE,
   GET_PROFILES,
+  FETCH_OTHER_USER,
 } from './types';
 
 //access to dispatch function, no need to return action
@@ -100,6 +101,16 @@ export const getUsers = () => async (dispatch) => {
   const res = await axios.get('/api/user/others');
   dispatch({
     type: FETCH_USERS,
+    payload: res.data,
+  });
+};
+
+// Get users
+export const getUserById = (userId) => async (dispatch) => {
+  const res = await axios.get(`/api/user/${userId}`);
+  console.log(res.data);
+  dispatch({
+    type: FETCH_OTHER_USER,
     payload: res.data,
   });
 };
