@@ -13,7 +13,16 @@ class ProfileItem extends Component {
         <p>
           {user.email}
           <br />
-          <Link to='/profile/me'>view details</Link>
+          <Link
+            to='/profile/me'
+            onClick={() => {
+              this.props.getProfileByUserId(this.props.user._id);
+              if (this.props.profile)
+                console.log('other user', this.props.profile.profile);
+            }}
+          >
+            View details
+          </Link>
         </p>
         <a href='#!' class='secondary-content'>
           <i class='material-icons'> add_circle_outline</i>

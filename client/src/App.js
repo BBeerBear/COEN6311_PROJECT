@@ -1,4 +1,5 @@
 import 'materialize-css/dist/css/materialize.min.css';
+import './App.css';
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -19,6 +20,7 @@ class App extends Component {
 
   render() {
     return (
+      // <div className='container'>
       <div>
         <BrowserRouter>
           <div class='row'>
@@ -34,8 +36,10 @@ class App extends Component {
               <Route exact path='/profile/others' component={ProfileList} />
             </div>
           </div>
+          <Route exact path='/savednews' />
         </BrowserRouter>
       </div>
+      // </div>
     );
   }
 }

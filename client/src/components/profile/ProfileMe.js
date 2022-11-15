@@ -3,17 +3,23 @@ import "./ProfileStyle.css";
 import { connect } from 'react-redux';
 // import avatar from "../images/image-rita.png";
 import * as actions from '../../actions';
+import Spinner from '../layout/Spinner';
+import NotFound from '../layout/NotFound';
 
 class ProfileMe extends Component {
   renderContent() {
-    // console.log(this.props.auth.name);
-    switch (this.props.auth) {
+    // console.log('profile', this.props.profile.profile);
+    switch (
+      this.props.profile.profile &&
+      this.props.auth &&
+      this.props.profile
+    ) {
       case null:
-        return;
+        return <Spinner />;
       case false:
-        return;
-      default: {
-        return [
+        return <NotFound />;
+      default:
+        return (
           <div className="card-container">
             <header>
               <a href='#!user'>
@@ -46,25 +52,23 @@ class ProfileMe extends Component {
               </div> */}
             </div>
           </div>
-        ];
-      }
-    }
-  }
-  render() {
-    return (
-      <>
-        <ul id='profilecard-1' class='profileme profileme-fixed'>
-          {this.renderContent()}
-        </ul>
-      </>
     );
   }
 }
-//destruct state
-function mapStateToProps({ activity, auth, profile }) {
-  return { activity, auth, profile};
+    renderCategories() {
+      if (this.props.profile.profile.preferredCategories) {
+        return this.props.profile.profile.preferredCategories.map((e) => (
+          <div>{e}</div>
+        ));
+      }
+    }
+
+    render() {
+      return this.renderContent();
+    }
 }
-
+function mapStateToProps({ auth, profile }) {
+return { auth, profile };
+}
 export default connect(mapStateToProps, actions)(ProfileMe);
-
 

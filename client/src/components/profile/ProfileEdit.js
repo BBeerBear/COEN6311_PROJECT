@@ -19,7 +19,10 @@ class ProfileEdit extends Component {
   };
 
   onFormSubmit = (event) => {
-    console.log('form submit');
+    console.log(
+      this.state.selectedCatergories,
+      this.state.selectedOption.value.toLowerCase()
+    );
     event.preventDefault();
     this.props.createProfile({
       preferredCategories: this.state.selectedCatergories,
@@ -41,6 +44,7 @@ class ProfileEdit extends Component {
       }
     }
   };
+
   render() {
     const { selectedOption } = this.state;
     return (
@@ -75,7 +79,7 @@ class ProfileEdit extends Component {
               </p>
             ))}
             {/* routing to dashboard */}
-            {/* <Link to='/dashboard'> */}
+            {/* <Link to='/dashboard' onClick={}> */}
             <input type='submit' className='btn btn-primary my-1' />
             {/* </Link> */}
           </form>

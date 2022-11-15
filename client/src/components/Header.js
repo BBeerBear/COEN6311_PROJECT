@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './button.css';
+import './landing.css';
 import logo from '../img/logo.jpg';
 
 class Header extends Component {
@@ -16,6 +18,7 @@ class Header extends Component {
           <li key='2'>
             <a href='/auth/facebook'>Login with Facebook</a>
           </li>,
+
         ];
       default: {
         return [
@@ -24,7 +27,7 @@ class Header extends Component {
               <a href='#'>Home</a>
             </Link>
           </li>,
-          <li key='1'>
+          <li key='3'>
             <Link to='/profile'>
               <a href='#'>Profile</a>
             </Link>
