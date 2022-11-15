@@ -14,22 +14,27 @@ class Categories extends Component {
               href='#'
               className='breadcrumb'
               onClick={() => {
-                this.props.getProfile();
-                //find news based on country and category
-                console.log('me', this.props.profile);
-                this.props.profile.profile[0].preferredCategories.map(
-                  (catergory) => {
-                    console.log(
-                      catergory,
-                      this.props.profile.profile[0].country
-                    );
-                    this.props.fecthNewsFromAPI({
-                      country: this.props.profile.profile[0].country,
-                      category: catergory,
-                      pageSize: 10,
-                    });
-                  }
-                );
+                // this.props.getProfile();
+                if (this.props.getProfile()) {
+                  //find news based on country and category
+                  console.log(
+                    'me',
+                    this.props.profile.profile.preferredCategories
+                  );
+                  this.props.profile.profile.preferredCategories.map(
+                    (catergory) => {
+                      console.log(
+                        catergory,
+                        this.props.profile.profile.country
+                      );
+                      this.props.fecthNewsFromAPI({
+                        country: this.props.profile.profile.country,
+                        category: catergory,
+                        pageSize: 10,
+                      });
+                    }
+                  );
+                }
                 // console.log(this.props.trends);
               }}
             >
@@ -39,9 +44,11 @@ class Categories extends Component {
               href='#'
               className='breadcrumb'
               onClick={() => {
-                this.props.fecthNewsFromAPI({
-                  country: this.props.profile.profile[0].country,
-                });
+                if (this.props.getProfile()) {
+                  this.props.fecthNewsFromAPI({
+                    country: this.props.profile.profile.country,
+                  });
+                }
               }}
             >
               Local News
@@ -53,7 +60,6 @@ class Categories extends Component {
                 onClick={() => {
                   this.props.fecthNewsFromAPI({
                     category: category.value,
-                    country: 'ca',
                   });
                 }}
                 className='breadcrumb'
