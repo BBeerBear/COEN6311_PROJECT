@@ -33,7 +33,6 @@ class App extends Component {
               <Route exact path='/profile' component={ProfileEdit} />
               <Route exact path='/profile/me' component={ProfileMe} />
               <Route exact path='/profile/others' component={ProfileList} />
-              <Route exact path='/profile/others' component={ProfileOther} />
             </div>
           </div>
         </BrowserRouter>
