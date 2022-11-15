@@ -1,54 +1,68 @@
-import React from 'react';
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-  MDBBtn,
-} from 'mdb-react-ui-kit';
+import React, { Component } from 'react';
+import "./ProfileStyle.css";
+import { connect } from 'react-redux';
+// import avatar from "../images/image-rita.png";
+// import actions from "./ProfileEdit";
+import * as actions from '../../actions';
 
-export default function Profile() {
-  return (
-    <div className='vh-100' style={{ backgroundColor: '#9de2ff' }}>
-      <MDBContainer>
-        <MDBRow className='justify-content-center'>
-          <MDBCol md='9' lg='7' xl='5' className='mt-5'>
-            <MDBCard style={{ borderRadius: '15px' }}>
-              <MDBCardBody className='p-4'>
-                <div className='d-flex text-black'>
-                  <div className='flex-shrink-0'>
-                    <MDBCardImage
-                      style={{ width: '180px', borderRadius: '10px' }}
-                      src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp'
-                      alt='Generic placeholder image'
-                      fluid
-                    />
-                  </div>
-                  <div className='flex-grow-1 ms-3'>
-                    <MDBCardTitle></MDBCardTitle>
-                    <MDBCardText></MDBCardText>
-                    <div
-                      className='d-flex justify-content-start rounded-3 p-2 mb-2'
-                      style={{ backgroundColor: '#efefef' }}
-                    >
-                      <div>afadsf</div>
-                    </div>
-                    <div className='d-flex pt-1'>
-                      <MDBBtn outline className='me-1 flex-grow-1'>
-                        Chat
-                      </MDBBtn>
-                    </div>
-                  </div>
-                </div>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    </div>
-  );
+class ProfileMe extends Component {
+  renderContent() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return;
+      default: {
+      return (
+        <div className="card-container">
+          <header>
+            <a href='#!user'>
+              <img class='circle' src={this.props.auth.picture} />
+            </a>
+          </header>
+          <h1 className="UserCard">
+          </h1>
+          {/* <h2 className="normal-text">{props.city}</h2> */}
+          <div className="User">
+            <div className="UserName">
+              <h1 className="smaller-text">Name:</h1>
+              <a href='#!name'>
+                <span class='name'>{this.props.auth.name}</span>
+              </a>
+            </div>
+            <div className="Email">
+              <h1 className="smaller-text">Email:
+              <a href='#!email'>
+                <span class='email'>{this.props.auth.email}</span>
+              </a>
+              </h1>
+            </div>
+            {/* <div className="Categories">
+              <h1 className="bold-text">{actions.getProfile}</h1>
+              <h2 className="smaller-text">Like Categories:</h2>
+            </div> */}
+          </div>
+        </div>
+      ); 
+    } 
+    }
+  }
+  render() {
+    return (
+      <>
+        <ul id='profilecard-1' class='profileme profileme-fixed'>
+          {this.renderContent()}
+        </ul>
+      </>
+    );
+  }
 }
+
+//destruct state
+function mapStateToProps({ activity, auth }) {
+  return { activity, auth };
+}
+
+export default connect(mapStateToProps, actions)(ProfileMe);
+
+
