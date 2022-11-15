@@ -1,4 +1,3 @@
-import './src/components/sidebar/Sidebar.module.css';
 import 'materialize-css/dist/css/materialize.min.css';
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -11,7 +10,7 @@ import Profile from './components/profile/profile';
 import Dashboard from './components/dashboard/Dashboard';
 import SavedNewsPage from './components/news/SavedNewsPage';
 import Sidebar from './components/sidebar/Sidebar'
-
+import UserProfile from './components/userprofile/UserProfile'
 
 class App extends Component {
   componentDidMount() {
@@ -21,13 +20,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Sidebar/>
         <BrowserRouter>
           <Header />
           <Route exact path='/' component={Landing} />
           <Route exact path='/dashboard' component={Dashboard} />
           <Route exact path='/profile' component={Profile} />
-          <Sidebar/>
+          <Route exact path='/userprofile' component={UserProfile} />
         </BrowserRouter>
       </div>
     );

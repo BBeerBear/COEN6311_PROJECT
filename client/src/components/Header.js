@@ -32,6 +32,11 @@ class Header extends Component {
           <li key='2'>
             <a href='/api/logout'>Logout</a>
           </li>,
+          <li key='4'>
+           <Link to='/userprofile'>
+           <a href='#'>MyProfile</a>
+           </Link>
+         </li>,
         ];
       }
     }
