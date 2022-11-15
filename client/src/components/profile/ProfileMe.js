@@ -43,20 +43,20 @@ class ProfileMe extends Component {
                 </a>
                 </h1>
               </div>
-              {/* <div className="Categories">
+              <div className="Categories">
                 <h1 className="smaller-text">Liked Categories:
                 <a href='#!email'>
                   <span class='email'>{this.props.profile.profile[0].preferredCategories}</span>
                 </a>
                 </h1>
-              </div> */}
+              </div>
             </div>
           </div>
     );
   }
 }
     renderCategories() {
-      if (this.props.profile.profile.preferredCategories) {
+      if (this.props.profile.profile[0].preferredCategories) {
         return this.props.profile.profile.preferredCategories.map((e) => (
           <div>{e}</div>
         ));
