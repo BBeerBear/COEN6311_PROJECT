@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-class Sidenav extends Component {
+class Profile extends Component {
   render() {
     return <></>;
   }
 }
 
 //destruct state
-function mapStateToProps({ activity }) {
-  return { activity };
+function mapStateToProps({ profile }) {
+  return { profile };
 }
-
-export default connect(mapStateToProps, actions)(Sidenav);
+export default connect(mapStateToProps, actions)(Profile);

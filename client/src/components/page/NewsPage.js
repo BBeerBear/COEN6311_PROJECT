@@ -1,16 +1,14 @@
-import React from 'react';
-
 import Categories from '../news/Categories';
 import NewsList from '../news/NewsList';
-import Sidenav from '../Sidenav';
 
-const Dashboard = () => {
+const NewsPage = () => {
   return (
-    <div class='row'>
+    <>
+      {' '}
       <Categories />
       <NewsList />
-    </div>
+    </>
   );
 };
 
-export default Dashboard;
+export default NewsPage;
