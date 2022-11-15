@@ -4,47 +4,56 @@ import { connect } from 'react-redux';
 // import avatar from "../images/image-rita.png";
 // import actions from "./ProfileEdit";
 import * as actions from '../../actions';
+import NotFound from '../layout/NotFound';
 
 class ProfileMe extends Component {
   renderContent() {
-    switch (this.props.auth) {
+    switch (
+      this.props.profile.profile &&
+      this.props.auth &&
+      this.props.profile)
+      {
       case null:
-        return;
+        // return <Spinner />;
       case false:
-        return;
+        return <NotFound/>;
       default: {
       return (
-        <div className="card-container">
-          <header>
-            <a href='#!user'>
-              <img class='circle' src={this.props.auth.picture} />
-            </a>
-          </header>
-          <h1 className="UserCard">
-          </h1>
-          {/* <h2 className="normal-text">{props.city}</h2> */}
-          <div className="User">
-            <div className="UserName">
-              <h1 className="smaller-text">Name:</h1>
-              <a href='#!name'>
-                <span class='name'>{this.props.auth.name}</span>
+          <div className="card-container">
+            <header>
+              <a href='#!user'>
+                <img class='circle' src={this.props.auth.picture} />
               </a>
+            </header>
+            <h1 className="UserCard">
+            </h1>
+            {/* <h2 className="normal-text">{props.city}</h2> */}
+            <div className="User">
+              <div className="UserName">
+                <h1 className="smaller-text">Name:</h1>
+                <a href='#!name'>
+                  <span class='name'>{this.props.auth.name}</span>
+                </a>
+              </div>
+              <div className="Email">
+                <h1 className="smaller-text">Email:
+                <a href='#!email'>
+                  <span class='email'>{this.props.auth.email}</span>
+                </a>
+                </h1>
+              </div>
+              {/* <div className="Categories">
+                <h1 className="smaller-text">Liked Categories:
+                <a href='#!email'>
+                  <span class='email'>{this.props.profile.mapStateToProps}</span>
+                </a>
+                </h1>
+              </div> */}
             </div>
-            <div className="Email">
-              <h1 className="smaller-text">Email:
-              <a href='#!email'>
-                <span class='email'>{this.props.auth.email}</span>
-              </a>
-              </h1>
-            </div>
-            {/* <div className="Categories">
-              <h1 className="bold-text">{actions.getProfile}</h1>
-              <h2 className="smaller-text">Like Categories:</h2>
-            </div> */}
           </div>
-        </div>
-      ); 
-    } 
+        ); 
+   
+      }
     }
   }
   render() {
@@ -58,11 +67,11 @@ class ProfileMe extends Component {
   }
 }
 
+
 //destruct state
 function mapStateToProps({ activity, auth }) {
   return { activity, auth };
 }
 
 export default connect(mapStateToProps, actions)(ProfileMe);
-
 
