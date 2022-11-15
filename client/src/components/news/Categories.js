@@ -2,32 +2,58 @@ import { categories } from './CategoriesList';
 import * as actions from '../../actions';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import Searchbar from './Searchbar';
 
 class Categories extends Component {
-  mySavedListOnClick = () => {
-    //get activity
-    this.props.saveUserSavedNewsToDB();
-    if (this.props.activity) {
-      this.props.fetctNewsFromDB({
-        trend_ids: this.props.activity.savedNews,
-      });
-    } else {
-      // this.props.trends = null;
-    }
-  };
   render() {
     return (
       <nav>
         <div className='nav-wrapper center'>
           <div className='col s12'>
+            <a
+              href='#'
+              className='breadcrumb'
+              onClick={() => {
+                this.props.getProfile();
+                //find news based on country and category
+                console.log('me', this.props.profile);
+                this.props.profile.profile[0].preferredCategories.map(
+                  (catergory) => {
+                    console.log(
+                      catergory,
+                      this.props.profile.profile[0].country
+                    );
+                    this.props.fecthNewsFromAPI({
+                      country: this.props.profile.profile[0].country,
+                      category: catergory,
+                      pageSize: 10,
+                    });
+                  }
+                );
+                // console.log(this.props.trends);
+              }}
+            >
+              Recommended News
+            </a>
+            <a
+              href='#'
+              className='breadcrumb'
+              onClick={() => {
+                this.props.fecthNewsFromAPI({
+                  country: this.props.profile.profile[0].country,
+                });
+              }}
+            >
+              Local News
+            </a>
             {/*get trends by categories */}
             {categories.map((category) => (
               <a
                 href='#'
                 onClick={() => {
-                  this.props.saveNewsToDB({
+                  this.props.fecthNewsFromAPI({
                     category: category.value,
-                    geo: 'US',
+                    country: 'ca',
                   });
                 }}
                 className='breadcrumb'
@@ -35,15 +61,16 @@ class Categories extends Component {
                 {category.label}
               </a>
             ))}
-
-            {/* change trends to saved news list */}
             <a
               href='#'
               className='breadcrumb'
-              onClick={this.mySavedListOnClick}
+              onClick={() => {
+                this.props.fetchSavedNewsOfActivity();
+              }}
             >
               My Saved News
             </a>
+            <Searchbar />
           </div>
         </div>
       </nav>
@@ -52,8 +79,8 @@ class Categories extends Component {
 }
 
 //destruct state
-function mapStateToProps({ activity }) {
-  return { activity };
+function mapStateToProps({ trends, activity, profile }) {
+  return { trends, activity, profile };
 }
 
 export default connect(mapStateToProps, actions)(Categories);

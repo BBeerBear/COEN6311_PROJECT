@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './button.css';
 import './landing.css';
+import logo from '../img/logo.jpg';
 
 class Header extends Component {
   renderContent() {
@@ -42,11 +43,17 @@ class Header extends Component {
     return (
       <nav>
         <div className='nav-wrapper'>
+          <img
+            src={logo}
+            alt='logo'
+            className='circle'
+            style={{ width: '70px', style: 'inline', margin: '10px' }}
+          />
           <Link
             to={this.props.auth ? '/dashboard' : '/'}
             className='brand-logo'
           >
-            Trending News
+            BBeerBear News
           </Link>
           <ul className='right'>{this.renderContent()}</ul>
         </div>

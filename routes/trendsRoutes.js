@@ -1,9 +1,18 @@
 const googleTrends = require('google-trends-api');
 const mongoose = require('mongoose');
+const keys = require('../config/keys');
+
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI(keys.newsAPIKEY);
 
 const requireLogin = require('../middleware/requireLogin');
 
 const News = mongoose.model('news');
+
+// const keys = require('../config/keys');
+
+// const NewsAPI = require('newsapi');
+// const newsapi = new NewsAPI(keys.newsAPIKEY);
 
 module.exports = (app) => {
   let trends;
@@ -77,69 +86,36 @@ module.exports = (app) => {
     );
   });
 
-  app.post('/api/googletrends/get', requireLogin, (req, res) => {
-    const { geo, categories } = req.body;
-    googleTrends.realTimeTrends(
-      {
-        geo: geo,
-        category: categories,
-      },
-      function (err, results) {
-        if (err) {
-          console.log(err);
-        } else {
-          const trends = JSON.parse(results).storySummaries.trendingStories;
-          const newTrends = trends.map((trend) => ({
-            id: trend.id,
-            articleTitle: trend.articles[0].articleTitle,
-            imgUrl: trend.image.imgUrl,
-            newsUrl: trend.image.newsUrl,
-            snippet: trend.articles[0].snippet,
-            keywords: trend.entityNames,
-          }));
-          res.json(trends);
-        }
-      }
-    );
-  });
+  //get news from news api by params
+  app.post('/api/news/get', requireLogin, (req, res) => {
+    const { q, searchIn, category, language, country, page, pageSize } =
+      req.body;
 
-  //save news to monogodb by categories and location
-  app.post('/api/googletrends/save', requireLogin, async (req, res) => {
-    const { categories, geo } = req.body;
-    console.log(categories);
-    categories.map((category) =>
-      googleTrends.realTimeTrends(
-        {
-          geo: geo,
-          category: category,
-        },
-        function (err, results) {
-          if (err) {
-            // trends = status(500).json({ error: err });
-            return;
-          } else {
-            trends = JSON.parse(results).storySummaries.trendingStories;
-            console.log(trends);
-            trends.map(async (trend) => {
-              const existingNew = await News.findOne({
-                id: trend.id,
-              });
-              if (existingNew) {
-                return;
-              }
-              const news = await new News({
-                id: trend.id,
-                title: trend.title,
-                imgUrl: trend.image.imgUrl,
-                newsUrl: trend.image.newsUrl,
-                category: category,
-                geo: geo,
-              }).save();
-              return;
-            });
-          }
-        }
+    //get news from newsapi by params
+    newsapi.v2
+      .topHeadlines(
+        Object.fromEntries(
+          Object.entries({
+            q: q,
+            searchIn: searchIn,
+            // sources: 'bbc-news,the-verge',
+            // domains: 'bbc.co.uk, techcrunch.com',
+            // from: '2017-12-01',
+            // to: '2017-12-12',
+            language: 'en',
+            sortBy: 'popularity',
+            country: country,
+            category: category,
+            pageSize: pageSize,
+            page: page,
+          }).filter(([_, v]) => v != null)
+        )
       )
-    );
+      .then((data) => {
+        // console.log(data);
+
+        // console.log(data.articles);
+        res.json(data.articles);
+      });
   });
 };

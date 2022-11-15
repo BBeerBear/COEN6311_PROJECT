@@ -3,14 +3,27 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 class SavedButton extends Component {
-  onClick = () => {
-    this.props.saveUserSavedNewsToDB({ trend_id: this.props.trend_id });
+  state = { liked: false };
+
+  toggle = () => {
+    // console.log(this.props.activity.savedNews);
+    // let localLiked = activity.savedNews.map().contains(trend.url);
+
+    // if (localLiked) {
+    // } else {
+    this.props.saveSavedNewsOfActivity({ trend: this.props.trend });
+    // }
+
+    // // Toggle the state variable liked
+    // localLiked = !localLiked;
+    // this.setState({ liked: localLiked });
   };
+
   render() {
     return (
-      <a class='btn-floating btn-large waves-effect waves-light red'>
-        <i class='material-icons' onClick={this.onClick}>
-          add
+      <a class='btn-floating btn-large waves-effect waves-light '>
+        <i class='material-icons' onClick={this.toggle}>
+          {this.state.liked ? 'bookmark' : 'bookmark_border'}
         </i>
       </a>
     );
