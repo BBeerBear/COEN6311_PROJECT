@@ -7,12 +7,11 @@ import ProfileItem from './ProfileItem';
 
 class ProfileList extends Component {
   renderContent() {
-    console.log(this.props.users);
     switch (this.props.users) {
       case null:
-        return <h1>null</h1>;
+        return <Spinner />;
       case false:
-        return <h1>false</h1>;
+        return <NotFound />;
       default: {
         return (
           <ul class='collection'>

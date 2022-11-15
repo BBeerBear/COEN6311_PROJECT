@@ -77,6 +77,15 @@ export const getProfile = () => async (dispatch) => {
   });
 };
 
+// Get profile
+export const getProfileByUserId = (userId) => async (dispatch) => {
+  const res = await axios.get(`/api/profile/${userId}`);
+  dispatch({
+    type: GET_PROFILE,
+    payload: res.data,
+  });
+};
+
 // Get profiles
 export const getProfiles = () => async (dispatch) => {
   const res = await axios.get('/api/profile/others');
