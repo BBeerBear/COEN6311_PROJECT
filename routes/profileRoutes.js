@@ -22,9 +22,23 @@ module.exports = (app) => {
   });
 
   app.get('/api/profile/me', requireLogin, async (req, res) => {
-    const profile = await Profile.find({
+    const profile = await Profile.findOne({
       _userId: req.user.id,
     });
     res.json(profile);
+  });
+
+  // get profile of other users
+  app.post('/api/profile/others', requireLogin, async (req, res) => {
+    const profiles = await Profile.find();
+    res.json(profiles);
+  });
+
+  //get profile by user id, some wrong
+  app.get('/api/profile/:user_id', async ({ params: { user_id } }, res) => {
+    const profile = await Profile.findOne({
+      _userId: user_id,
+    });
+    return res.json(profile);
   });
 };

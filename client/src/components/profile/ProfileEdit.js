@@ -6,9 +6,8 @@ import Select from 'react-select';
 
 import { categories } from '../news/CategoriesList';
 import { countries } from './countriesList';
-import Dashboard from '../dashboard/Dashboard';
 
-class Profile extends Component {
+class ProfileEdit extends Component {
   state = {
     selectedOption: null,
     selectedCatergories: [],
@@ -16,16 +15,14 @@ class Profile extends Component {
 
   //select a country
   handleChange = (selectedOption) => {
-    this.setState(
-      { selectedOption }
-      // console.log(
-      //   `Option selected:`,
-      //   this.state.selectedOption.value.toLowerCase()
-      // )
-    );
+    this.setState({ selectedOption });
   };
 
   onFormSubmit = (event) => {
+    console.log(
+      this.state.selectedCatergories,
+      this.state.selectedOption.value.toLowerCase()
+    );
     event.preventDefault();
     this.props.createProfile({
       preferredCategories: this.state.selectedCatergories,
@@ -47,6 +44,7 @@ class Profile extends Component {
       }
     }
   };
+
   render() {
     const { selectedOption } = this.state;
     return (
@@ -81,9 +79,9 @@ class Profile extends Component {
               </p>
             ))}
             {/* routing to dashboard */}
-            <Link to="/dashboard">
-            <input type='submit' className='btn btn-primary my-1' /> 
-            </Link>
+            {/* <Link to='/dashboard' onClick={}> */}
+            <input type='submit' className='btn btn-primary my-1' />
+            {/* </Link> */}
           </form>
         </section>
       </>
@@ -95,4 +93,4 @@ class Profile extends Component {
 function mapStateToProps({ profile }) {
   return { profile };
 }
-export default connect(mapStateToProps, actions)(Profile);
+export default connect(mapStateToProps, actions)(ProfileEdit);

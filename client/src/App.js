@@ -7,8 +7,11 @@ import * as actions from './actions';
 
 import Header from './components/Header';
 import Landing from './components/Landing';
-import Profile from './components/profile/profile';
+import ProfileEdit from './components/profile/ProfileEdit';
 import Dashboard from './components/dashboard/Dashboard';
+import Sidenav from './components/Sidenav';
+import ProfileList from './components/profile/ProfileList';
+import ProfileMe from './components/profile/ProfileMe';
 
 class App extends Component {
   componentDidMount() {
@@ -20,10 +23,19 @@ class App extends Component {
       // <div className='container'>
       <div>
         <BrowserRouter>
-          <Header />
-          <Route exact path='/' component={Landing} />
-          <Route exact path='/dashboard' component={Dashboard} />
-          <Route exact path='/profile' component={Profile} />
+          <div class='row'>
+            <div class='col s2'>
+              <Sidenav />
+            </div>
+            <div class='col s10'>
+              <Header />
+              <Route exact path='/' component={Landing} />
+              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/profile' component={ProfileEdit} />
+              <Route exact path='/profile/me' component={ProfileMe} />
+              <Route exact path='/profile/others' component={ProfileList} />
+            </div>
+          </div>
           <Route exact path='/savednews' />
         </BrowserRouter>
       </div>
