@@ -12,6 +12,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import Sidenav from './components/Sidenav';
 import ProfileList from './components/profile/ProfileList';
 import ProfileMe from './components/profile/ProfileMe';
+import ProfileOther from './components/profile/ProfileOther';
 
 class App extends Component {
   componentDidMount() {

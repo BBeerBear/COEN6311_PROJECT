@@ -11,9 +11,7 @@ import {
 const initialState = {
   profile: null,
   profiles: [],
-  repos: [],
   loading: true,
-  error: {},
 };
 
 //the reducer change the state

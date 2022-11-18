@@ -11,5 +11,5 @@ export default combineReducers({
   profile: profileReducer,
   activity: activityReducer,
 
-  users: userReducer,
+  user: userReducer,
 });
