@@ -8,4 +8,5 @@ module.exports = {
   mongoURI: process.env.MONOGO_UTI,
   // 'mongodb+srv://RedRocketeers:RedRocketeers@cluster0.rcdhljx.mongodb.net/?retryWrites=true&w=majority',
   cookieKey: process.env.COOKIE_KEY,
+  newsAPIKEY: process.env.NEWSAPI_KEY,
 };
