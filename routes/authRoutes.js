@@ -12,7 +12,8 @@ module.exports = (app) => {
     passport.authenticate('google'),
     (req, res) => {
       // Successful authentication, redirect home.
-      res.redirect('http://localhost:3000/dashboard');
+      res.redirect('/dashboard');
+      // res.redirect('http://localhost:3000/dashboard');
     }
   );
 
@@ -22,7 +23,8 @@ module.exports = (app) => {
     '/auth/facebook/callback',
     passport.authenticate('facebook', { scope: ['profile', 'email'] }),
     (req, res) => {
-      res.redirect('http://localhost:3000/dashboard');
+      res.redirect('/dashboard');
+      // res.redirect('http://localhost:3000/dashboard');
     }
   );
 
