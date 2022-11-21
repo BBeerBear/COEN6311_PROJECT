@@ -29,7 +29,7 @@ class ProfileList extends Component {
 }
 
 //destruct state
-function mapStateToProps({ user, profile }) {
-  return { user, profile };
+function mapStateToProps({ user }) {
+  return { user };
 }
 export default connect(mapStateToProps, actions)(ProfileList);

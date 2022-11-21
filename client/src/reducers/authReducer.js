@@ -1,9 +1,8 @@
-import { FETCH_USER } from '../actions/types';
+import { FETCH_AUTH } from '../actions/types';
 
-//the reducer change the state
-export default function (state = null, action) {
+export default function(state = null, action) {
   switch (action.type) {
-    case FETCH_USER:
+    case FETCH_AUTH:
       return action.payload || false;
     default:
       return state;

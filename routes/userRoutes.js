@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const News = mongoose.model('News');
+
 const requireLogin = require('../middleware/requireLogin');
-const User = mongoose.model('users');
 
 module.exports = (app) => {
   app.get('/api/user/others', requireLogin, async (req, res) => {
@@ -13,5 +15,81 @@ module.exports = (app) => {
       _id: user_id,
     });
     return res.json(user);
+  });
+
+  app.post('/api/user/news/save', requireLogin, async (req, res) => {
+    const {
+      source: { id, name },
+      author,
+      title,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      content,
+    } = req.body;
+
+    const newsExist = await News.findOne({ url });
+    let news;
+    if (!newsExist) {
+      news = await new News({
+        source: { id, name },
+        author,
+        title,
+        description,
+        url,
+        urlToImage,
+        publishedAt,
+        content,
+      }).save();
+    }
+    // update user and return
+    req.user.savedNews = [...req.user.likedNews, news];
+    const user = await req.user.save();
+    res.json(user);
+  });
+
+  app.post('/api/user/news/like', requireLogin, async (req, res) => {
+    // const { trend } = req.body;
+    // console.log(trend);
+    //save news
+    const {
+      source: { id, name },
+      author,
+      title,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      content,
+    } = req.body;
+
+    let news;
+    const newsExist = await News.findOne({ url });
+    if (!newsExist) {
+      news = await new News({
+        source: { id, name },
+        author,
+        title,
+        description,
+        url,
+        urlToImage,
+        publishedAt,
+        content,
+      }).save();
+    }
+    // update user and return
+    req.user.likedNews = [...req.user.likedNews, news];
+    const user = await req.user.save();
+    res.json(user);
+  });
+
+  app.post('/api/user/profile/update', async (req, res) => {
+    const { country, preferredCategories } = req.body;
+
+    (req.user.preferredCategories = preferredCategories),
+      (req.user.country = country);
+    const user = await req.user.save();
+    res.json(user);
   });
 };

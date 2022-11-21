@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as actions from '../../actions';
 import Select from 'react-select';
 
@@ -24,7 +23,7 @@ class ProfileEdit extends Component {
       this.state.selectedOption.value.toLowerCase()
     );
     event.preventDefault();
-    this.props.createProfile({
+    this.props.updateUserProfile({
       preferredCategories: this.state.selectedCatergories,
       country: this.state.selectedOption.value.toLowerCase(),
     });
@@ -78,10 +77,7 @@ class ProfileEdit extends Component {
                 </label>
               </p>
             ))}
-            {/* routing to dashboard */}
-            {/* <Link to='/dashboard' onClick={}> */}
             <input type='submit' className='btn btn-primary my-1' />
-            {/* </Link> */}
           </form>
         </section>
       </>
@@ -90,7 +86,7 @@ class ProfileEdit extends Component {
 }
 
 //destruct state
-function mapStateToProps({ profile }) {
-  return { profile };
+function mapStateToProps({ user }) {
+  return { user };
 }
 export default connect(mapStateToProps, actions)(ProfileEdit);

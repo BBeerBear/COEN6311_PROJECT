@@ -4,43 +4,34 @@ import { Link } from 'react-router-dom';
 import * as actions from '../actions';
 
 class Sidenav extends Component {
+  componentDidMount() {}
   renderContent() {
-    // console.log(this.props.auth.name);
-    switch (this.props.auth) {
+    const current_user = this.props.user.user;
+    switch (this.props.user.user) {
       case null:
         return;
       case false:
         return;
       default: {
         return [
-          <li>
+          <li key={1}>
             <div class='user-view'>
-              <div class='background   pink lighten-3'>
-                {/* <img src={this.auth.picture} /> */}
-              </div>
+              <div class='background   pink lighten-3'></div>
               <a href='#!user'>
-                <img class='circle' src={this.props.auth.picture} />
+                <img class='circle' src={current_user.picture} />
               </a>
               <a href='#!name'>
-                <span class='white-text name'>{this.props.auth.name}</span>
+                <span class='white-text name'>{current_user.name}</span>
               </a>
               <a href='#!email'>
-                <span class='white-text email'>{this.props.auth.email}</span>
+                <span class='white-text email'>{current_user.email}</span>
               </a>
             </div>
           </li>,
-          <li>
-            <Link
-              to='/profile/me'
-              onClick={() => {
-                this.props.getUserById(this.props.auth._id);
-                this.props.getProfile();
-              }}
-            >
-              My profile
-            </Link>
+          <li key={2}>
+            <Link to='/profile/me'>My profile</Link>
           </li>,
-          <li>
+          <li key={3}>
             <Link onClick={() => this.props.getUsers()} to='/profile/others'>
               Recommended Users
             </Link>
@@ -61,8 +52,8 @@ class Sidenav extends Component {
 }
 
 //destruct state
-function mapStateToProps({ activity, auth }) {
-  return { activity, auth };
+function mapStateToProps({ auth, user }) {
+  return { auth, user };
 }
 
 export default connect(mapStateToProps, actions)(Sidenav);

@@ -1,15 +1,22 @@
-import { FETCH_USERS, FETCH_OTHER_USER } from '../actions/types';
+import { FETCH_USER, FETCH_USERS, FETCH_OTHER_USER } from '../actions/types';
 
 const initialState = {
   user: null,
   users: [],
   loading: true,
+  otherUser: null,
 };
 
 //the reducer change the state
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case FETCH_USER:
+      return {
+        ...state,
+        user: payload,
+        loading: false,
+      };
     case FETCH_USERS:
       return {
         ...state,
@@ -19,7 +26,7 @@ export default function (state = initialState, action) {
     case FETCH_OTHER_USER:
       return {
         ...state,
-        user: payload,
+        otherUser: payload,
         loading: false,
       };
     default:

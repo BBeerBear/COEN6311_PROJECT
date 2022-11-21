@@ -1,15 +1,10 @@
 import { combineReducers } from 'redux';
-import activityReducer from './activityReducer';
-import authReducer from './authReducer';
-import profileReducer from './profileReducer';
 import trendsReducer from './trendsReducer';
 import userReducer from './userReducer';
+import authReducer from './authReducer';
 
 export default combineReducers({
-  auth: authReducer,
-  trends: trendsReducer,
-  profile: profileReducer,
-  activity: activityReducer,
-
   user: userReducer,
+  trends: trendsReducer,
+  auth: authReducer,
 });

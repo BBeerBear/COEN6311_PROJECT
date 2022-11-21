@@ -6,6 +6,7 @@ import Searchbar from './Searchbar';
 
 class Categories extends Component {
   render() {
+    const current_user = this.props.user.user;
     return (
       <nav>
         <div className='nav-wrapper center'>
@@ -17,25 +18,14 @@ class Categories extends Component {
                 // this.props.getProfile();
                 if (this.props.getProfile()) {
                   //find news based on country and category
-                  console.log(
-                    'me',
-                    this.props.profile.profile.preferredCategories
-                  );
-                  this.props.profile.profile.preferredCategories.map(
-                    (catergory) => {
-                      console.log(
-                        catergory,
-                        this.props.profile.profile.country
-                      );
-                      this.props.fecthNewsFromAPI({
-                        country: this.props.profile.profile.country,
-                        category: catergory,
-                        pageSize: 10,
-                      });
-                    }
-                  );
+                  current_user.preferredCategories.map((catergory) => {
+                    this.props.fecthNewsFromAPI({
+                      country: current_user.country,
+                      category: catergory,
+                      pageSize: 10,
+                    });
+                  });
                 }
-                // console.log(this.props.trends);
               }}
             >
               Recommended News
@@ -46,7 +36,7 @@ class Categories extends Component {
               onClick={() => {
                 if (this.props.getProfile()) {
                   this.props.fecthNewsFromAPI({
-                    country: this.props.profile.profile.country,
+                    country: current_user.country,
                   });
                 }
               }}
@@ -85,8 +75,8 @@ class Categories extends Component {
 }
 
 //destruct state
-function mapStateToProps({ trends, activity, profile }) {
-  return { trends, activity, profile };
+function mapStateToProps({ trends, activity, user }) {
+  return { trends, activity, user };
 }
 
 export default connect(mapStateToProps, actions)(Categories);

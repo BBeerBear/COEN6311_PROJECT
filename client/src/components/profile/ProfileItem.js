@@ -14,12 +14,8 @@ class ProfileItem extends Component {
           {user.email}
           <br />
           <Link
-            to='/profile/me'
-            onClick={() => {
-              console.log(this.props.user._id);
-              this.props.getUserById(this.props.user._id);
-              this.props.getProfileByUserId(this.props.user._id);
-            }}
+            to='/profile/others'
+            onClick={() => this.props.getUserById(user._id)}
           >
             View details
           </Link>
