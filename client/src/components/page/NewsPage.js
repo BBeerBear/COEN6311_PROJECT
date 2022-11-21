@@ -4,7 +4,6 @@ import NewsList from '../news/NewsList';
 const NewsPage = () => {
   return (
     <>
-      {' '}
       <Categories />
       <NewsList />
     </>
