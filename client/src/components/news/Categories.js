@@ -16,7 +16,7 @@ class Categories extends Component {
               className='breadcrumb'
               onClick={() => {
                 // this.props.getProfile();
-                if (this.props.getProfile()) {
+                if (current_user) {
                   //find news based on country and category
                   current_user.preferredCategories.map((catergory) => {
                     this.props.fecthNewsFromAPI({
@@ -75,8 +75,8 @@ class Categories extends Component {
 }
 
 //destruct state
-function mapStateToProps({ trends, activity, user }) {
-  return { trends, activity, user };
+function mapStateToProps({ trends, user }) {
+  return { trends, user };
 }
 
 export default connect(mapStateToProps, actions)(Categories);

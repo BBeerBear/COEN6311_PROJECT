@@ -4,8 +4,7 @@ import * as actions from '../../actions';
 
 class LikeButton extends Component {
   onClick = () => {
-    // this.props.saveUserSavedNewsToDB({ trend_id: this.props.trend_id });
-    this.props.savelikedNewsOfActivity({ trend: this.props.trend });
+    this.props.likeNews({ trend: this.props.trend });
   };
   render() {
     return (
@@ -19,8 +18,8 @@ class LikeButton extends Component {
 }
 
 //destruct state
-function mapStateToProps({ activity }) {
-  return { activity };
+function mapStateToProps({ user }) {
+  return { user };
 }
 
 export default connect(mapStateToProps, actions)(LikeButton);

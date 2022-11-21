@@ -11,7 +11,7 @@ class SavedButton extends Component {
 
     // if (localLiked) {
     // } else {
-    this.props.saveSavedNewsOfActivity({ trend: this.props.trend });
+    this.props.saveNews({ trend: this.props.trend });
     // }
 
     // // Toggle the state variable liked

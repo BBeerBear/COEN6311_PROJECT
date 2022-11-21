@@ -24,6 +24,11 @@ export const saveNews = (params) => async (dispatch) => {
 
 //Update Acitivity: save User liked news to db
 export const likeNews = (params) => async (dispatch) => {
+  // const res = await axios.post(
+  //   `${process.env.REACT_APP_BACKEND_URL}/api/user/news/like`,
+  //   params
+  // );
+
   const res = await axios.post('/api/user/news/like', params);
   dispatch({ type: FETCH_USER, payload: res.data });
 };

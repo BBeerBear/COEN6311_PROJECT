@@ -17,12 +17,9 @@ class NewsList extends Component {
           <>
             <div className='container my-3 '>
               <div className='row'>
-                {this.props.trends.map((trend) => {
+                {this.props.trends.map((trend, i) => {
                   return (
-                    <div
-                      className='col-md-4 col-sm-6 col-xs-12'
-                      key={trend.newsUrl}
-                    >
+                    <div className='col-md-4 col-sm-6 col-xs-12' key={i}>
                       <NewsItem trend={trend} />
                     </div>
                   );

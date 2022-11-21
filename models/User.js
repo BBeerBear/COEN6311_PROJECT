@@ -22,6 +22,10 @@ const userSchema = new Schema(
           type: ObjectId,
           ref: 'News',
         },
+        savedAt: {
+          type: Date,
+          default: new Date(),
+        },
       },
     ],
     likedNews: [
@@ -36,6 +40,30 @@ const userSchema = new Schema(
       type: Array,
       default: [],
     },
+    friends: {
+      type: Array,
+      default: [],
+    },
+    following: {
+      type: Array,
+      default: [],
+    },
+    followers: {
+      type: Array,
+      default: [],
+    },
+    requests: {
+      type: Array,
+      default: [],
+    },
+    search: [
+      {
+        user: {
+          type: ObjectId,
+          ref: 'User',
+        },
+      },
+    ],
   },
   {
     timestamps: true,

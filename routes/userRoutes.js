@@ -27,12 +27,11 @@ module.exports = (app) => {
       urlToImage,
       publishedAt,
       content,
-    } = req.body;
+    } = req.body.trend;
 
     const newsExist = await News.findOne({ url });
-    let news;
     if (!newsExist) {
-      news = await new News({
+      await new News({
         source: { id, name },
         author,
         title,
@@ -43,16 +42,13 @@ module.exports = (app) => {
         content,
       }).save();
     }
-    // update user and return
-    req.user.savedNews = [...req.user.likedNews, news];
+    const news = await News.findOne({ url });
+    req.user.savedNews = [...req.user.savedNews, news._id];
     const user = await req.user.save();
     res.json(user);
   });
 
   app.post('/api/user/news/like', requireLogin, async (req, res) => {
-    // const { trend } = req.body;
-    // console.log(trend);
-    //save news
     const {
       source: { id, name },
       author,
@@ -62,12 +58,11 @@ module.exports = (app) => {
       urlToImage,
       publishedAt,
       content,
-    } = req.body;
+    } = req.body.trend;
 
-    let news;
     const newsExist = await News.findOne({ url });
     if (!newsExist) {
-      news = await new News({
+      await new News({
         source: { id, name },
         author,
         title,
@@ -78,8 +73,9 @@ module.exports = (app) => {
         content,
       }).save();
     }
+    const news = await News.findOne({ url });
     // update user and return
-    req.user.likedNews = [...req.user.likedNews, news];
+    req.user.likedNews = [...req.user.likedNews, news._id];
     const user = await req.user.save();
     res.json(user);
   });
