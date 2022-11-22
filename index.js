@@ -15,7 +15,7 @@ mongoose
   .catch((err) => console.log('error connecting to mongodb', err));
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(
   cookieSession({

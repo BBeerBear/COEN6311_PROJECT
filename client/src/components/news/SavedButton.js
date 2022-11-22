@@ -1,38 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
-class SavedButton extends Component {
-  state = { liked: false };
-
-  toggle = () => {
-    // console.log(this.props.activity.savedNews);
-    // let localLiked = activity.savedNews.map().contains(trend.url);
-
-    // if (localLiked) {
-    // } else {
-    this.props.saveNews({ trend: this.props.trend });
-    // }
-
-    // // Toggle the state variable liked
-    // localLiked = !localLiked;
-    // this.setState({ liked: localLiked });
+export default function SavedButton({ news }) {
+  const dispatch = useDispatch();
+  const { user } = useSelector((user) => ({ ...user }));
+  const onClick = async () => {
+    const { data } = await axios.post('/api/user/news/save', {
+      news,
+      user,
+    });
+    dispatch({ type: 'FETCH_USER', payload: data });
   };
 
-  render() {
-    return (
-      <a class='btn-floating btn-large waves-effect waves-light '>
-        <i class='material-icons' onClick={this.toggle}>
-          {this.state.liked ? 'bookmark' : 'bookmark_border'}
-        </i>
-      </a>
-    );
-  }
+  return (
+    <a class='btn-floating btn-large waves-effect waves-light '>
+      <i class='material-icons' onClick={onClick}>
+        bookmark_border
+      </i>
+    </a>
+  );
 }
-
-//destruct state
-function mapStateToProps({ activity }) {
-  return { activity };
-}
-
-export default connect(mapStateToProps, actions)(SavedButton);

@@ -27,8 +27,8 @@ module.exports = (app) => {
       urlToImage,
       publishedAt,
       content,
-    } = req.body.trend;
-
+    } = req.body.news;
+    const user = req.body.user;
     const newsExist = await News.findOne({ url });
     if (!newsExist) {
       await new News({
@@ -42,10 +42,12 @@ module.exports = (app) => {
         content,
       }).save();
     }
-    const news = await News.findOne({ url });
-    req.user.savedNews = [...req.user.savedNews, news._id];
-    const user = await req.user.save();
-    res.json(user);
+    const { _id: newsId } = await News.findOne({ url });
+    const newUser = await User.findOneAndUpdate(
+      { _id: user._id },
+      { $addToSet: { savedNews: newsId } }
+    );
+    res.json(newUser);
   });
 
   app.post('/api/user/news/like', requireLogin, async (req, res) => {
@@ -58,8 +60,8 @@ module.exports = (app) => {
       urlToImage,
       publishedAt,
       content,
-    } = req.body.trend;
-
+    } = req.body.news;
+    const user = req.body.user;
     const newsExist = await News.findOne({ url });
     if (!newsExist) {
       await new News({
@@ -73,11 +75,24 @@ module.exports = (app) => {
         content,
       }).save();
     }
-    const news = await News.findOne({ url });
-    // update user and return
-    req.user.likedNews = [...req.user.likedNews, news._id];
-    const user = await req.user.save();
-    res.json(user);
+    const { _id: newsId } = await News.findOne({ url });
+    const newUser = await User.findOneAndUpdate(
+      { _id: user._id },
+      { $addToSet: { likedNews: newsId } }
+    );
+    res.json(newUser);
+  });
+
+  app.post('/api/user/news/get/savednews', requireLogin, async (req, res) => {
+    // const { savedNews } = await User.findById(req.body.user._id)
+    //   .select('savedNews')
+    //   .exec();
+    // // .populate('News');
+    // console.log(savedNews);
+    // const ids = savedNews.map((e) => e.news);
+    // // const news = await News.find({ _id: savedNews });
+    // console.log(ids);
+    // // res.json(savedNews);
   });
 
   app.post('/api/user/profile/update', async (req, res) => {

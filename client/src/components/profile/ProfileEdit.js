@@ -5,7 +5,8 @@ import Select from 'react-select';
 
 import { categories } from '../news/CategoriesList';
 import { countries } from './countriesList';
-
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 class ProfileEdit extends Component {
   state = {
     selectedOption: null,
@@ -17,15 +18,20 @@ class ProfileEdit extends Component {
     this.setState({ selectedOption });
   };
 
-  onFormSubmit = (event) => {
+  onFormSubmit = async (event) => {
+    const dispatch = useDispatch();
     console.log(
       this.state.selectedCatergories,
       this.state.selectedOption.value.toLowerCase()
     );
     event.preventDefault();
-    this.props.updateUserProfile({
+    const { data } = await axios.post('/api/user/profile/update', {
       preferredCategories: this.state.selectedCatergories,
       country: this.state.selectedOption.value.toLowerCase(),
+    });
+    dispatch({
+      type: 'FETCH_USER',
+      payload: data,
     });
   };
 

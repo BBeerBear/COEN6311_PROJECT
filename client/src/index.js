@@ -1,24 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reduxThunk from 'redux-thunk';
-
+import { BrowserRouter as Router } from 'react-router-dom';
+import { createStore } from 'redux';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
-import reducers from './reducers';
-//test code
-import axios from 'axios';
-window.axios = axios;
-
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
-
+import rootReducer from './reducers';
+import { composeWithDevTools } from 'redux-devtools-extension';
+const store = createStore(rootReducer, composeWithDevTools());
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <Router>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Router>
   </Provider>
 );
 
