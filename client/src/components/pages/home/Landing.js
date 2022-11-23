@@ -16,15 +16,13 @@ const Landing = () => {
     <p>Join us now!</p>
     <div className='signup-btns'>
 
-      <button className='btns' buttonStyle='btn--outline'
-      buttonSize='btn--large'>
-        Login with Google
-      </button>
+    <a href='/auth/google'>
+        <button className='landing-btn'>Login with Google</button>
+        </a>
 
-      <button className='btns' buttonStyle='btn--primary'
-      buttonSize='btn--large'>
-        Login with Facebook
-      </button>
+        <a href='/auth/facebook'>
+        <button className='landing-btn'>Login with Facebook</button>
+        </a>
      </div>
     </div>
       );
