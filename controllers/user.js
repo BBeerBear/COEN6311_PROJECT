@@ -1,14 +1,86 @@
+const User = require('../models/User');
+const News = require('../models/News');
+
+exports.saveNews = async (req, res) => {
+  try {
+    const {
+      source: { id, name },
+      author,
+      title,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      content,
+    } = req.body.news;
+    const user = req.body.user;
+    const newsExist = await News.findOne({ url });
+    if (!newsExist) {
+      await new News({
+        source: { id, name },
+        author,
+        title,
+        description,
+        url,
+        urlToImage,
+        publishedAt,
+        content,
+      }).save();
+    }
+    const { _id: newsId } = await News.findOne({ url });
+    const newUser = await User.findOneAndUpdate(
+      { _id: user._id },
+      { $addToSet: { savedNews: newsId } }
+    );
+    res.json(newUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.likeNews = async (req, res) => {
+  try {
+    const {
+      source: { id, name },
+      author,
+      title,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      content,
+    } = req.body.news;
+    const user = req.body.user;
+    const newsExist = await News.findOne({ url });
+    if (!newsExist) {
+      await new News({
+        source: { id, name },
+        author,
+        title,
+        description,
+        url,
+        urlToImage,
+        publishedAt,
+        content,
+      }).save();
+    }
+    const { _id: newsId } = await News.findOne({ url });
+    const newUser = await User.findOneAndUpdate(
+      { _id: user._id },
+      { $addToSet: { likedNews: newsId } }
+    );
+    res.json(newUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 exports.getProfile = async (req, res) => {
   try {
-    const { username } = req.params;
-    const profile = await User.findOne({ username }).select('-password');
-    if (!profile) {
-      return res.json({ ok: false });
-    }
-    const posts = await Post.find({ user: profile._id })
-      .populate('user')
-      .sort({ createdAt: -1 });
-    res.json({ ...profile.toObject(), posts });
+    const { userId } = req.params;
+    const profile = await User.findById(userId);
+    if (!profile) return res.json({ ok: false });
+    res.json(profile);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

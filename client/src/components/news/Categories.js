@@ -1,4 +1,4 @@
-import { categories } from './CategoriesList';
+import { categories } from './categoriesList';
 import Searchbar from './Searchbar';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';

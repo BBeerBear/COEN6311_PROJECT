@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const { ObjectId } = mongoose.Schema;
 
-const userSchema = new Schema(
+const userSchema = mongoose.Schema(
   {
     googleId: String,
     facebookId: String,

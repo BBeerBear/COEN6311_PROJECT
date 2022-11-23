@@ -1,16 +1,18 @@
-import 'materialize-css/dist/css/materialize.min.css';
+// import 'materialize-css/dist/css/materialize.min.css';
+
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
-import Header from './components/header/Header';
-import Landing from './components/pages/home/Landing';
+import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
+import Login from './pages/login';
 import ProfileEdit from './components/profile/ProfileEdit';
-import Dashboard from './components/pages/news/NewsPage';
-import Sidenav from './components/sidenav/Sidenav';
+import News from './pages/news/NewsPage';
 import ProfileList from './components/profile/ProfileList';
-import ProfileMe from './components/profile/ProfileMe';
+
+import Profile from './pages/profile';
+import Home from './pages/home';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -25,21 +27,17 @@ export default function App() {
 
   return (
     <div>
-      <div class='row'>
-        <div class='col s2'>
-          <Sidenav />
-        </div>
-        <div class='col s10'>
-          <Header />
-          <Routes>
-            <Route exact path='/' element={<Landing />} />
-            <Route exact path='/news' element={<Dashboard />} />
-            <Route exact path='/profile' element={<ProfileEdit />} />
-            <Route exact path='/profile/me' element={<ProfileMe />} />
-            <Route exact path='/profile/others' element={<ProfileList />} />
-          </Routes>
-        </div>
-      </div>
+      <Routes>
+        <Route exact path='/' element={<Home />} />
+        <Route exact path='/news' element={<News />} />
+        <Route exact path='/profile' element={<Profile />} />
+        <Route exact path='/profile/:userId' element={<Profile />} />
+        <Route exact path='/profile/edit' element={<ProfileEdit />} />
+        <Route exact path='/profile/others' element={<ProfileList />} />
+        <Route element={<NotLoggedInRoutes />}>
+          <Route path='/login' element={<Login />} exact />
+        </Route>
+      </Routes>
     </div>
   );
 }

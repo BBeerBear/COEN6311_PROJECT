@@ -1,14 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-// const realatedNewSchema = new Schema({
-//   articleTitle: String,
-//   source: String,
-//   time: String,
-//   snippet: String,
-// });
-
-const newsSchema = new Schema({
+const newsSchema = mongoose.Schema({
   source: {
     id: String,
     name: String,

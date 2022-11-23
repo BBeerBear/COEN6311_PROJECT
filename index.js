@@ -1,7 +1,9 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const cookieSession = require('cookie-session');
+const { readdirSync } = require('fs');
+
 const passport = require('passport');
 const keys = require('./config/keys');
 
@@ -15,7 +17,7 @@ mongoose
   .catch((err) => console.log('error connecting to mongodb', err));
 
 const app = express();
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 app.use(
   cookieSession({
@@ -26,10 +28,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//use defined routes
-require('./routes/authRoutes')(app);
-require('./routes/userRoutes')(app);
-require('./routes/trendsRoutes')(app);
+//routes
+readdirSync('./routes').map((r) => app.use('/', require('./routes/' + r)));
+
+// //use defined routes
+// require('./routes/authRoutes')(app);
+// require('./routes/userRoutes')(app);
+// require('./routes/trendsRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
