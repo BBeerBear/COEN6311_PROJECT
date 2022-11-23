@@ -44,7 +44,7 @@ export default function Home() {
         </div> */}
         <News />
       </div>
-      {/* <RightHome user={user} /> */}
+      <RightHome user={user} />
     </div>
   );
 }

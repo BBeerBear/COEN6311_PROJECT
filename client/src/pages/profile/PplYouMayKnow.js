@@ -1,6 +1,6 @@
 import { Dots } from '../../svg';
 import { stories } from '../../data/home';
-// import AddFriendSmallCard from './AddFriendSmallCard';
+import AddFriendSmallCard from './AddFriendSmallCard';
 export default function PplYouMayKnow() {
   return (
     <div className='pplumayknow'>
@@ -10,11 +10,11 @@ export default function PplYouMayKnow() {
           <Dots />
         </div>
       </div>
-      {/* <div className='pplumayknow_list'>
+      <div className='pplumayknow_list'>
         {stories.map((item, i) => (
           <AddFriendSmallCard item={item} />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 }
