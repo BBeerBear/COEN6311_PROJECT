@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../img/logo.jpg';
+import logo from '../img/logo.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
