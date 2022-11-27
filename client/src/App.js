@@ -8,9 +8,7 @@ import { useDispatch } from 'react-redux';
 import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
 import LoggedInRoutes from './routes/NotLoggedInRoutes';
 import Login from './pages/login';
-import ProfileEdit from './components/profile/ProfileEdit';
 import News from './pages/news';
-import ProfileList from './components/profile/ProfileList';
 import Profile from './pages/profile';
 import Home from './pages/home';
 
@@ -31,8 +29,6 @@ export default function App() {
         <Route exact path='/news' element={<News />} />
         <Route exact path='/profile' element={<Profile />} />
         <Route exact path='/profile/:userId' element={<Profile />} />
-        <Route exact path='/profile/edit' element={<ProfileEdit />} />
-        <Route exact path='/profile/others' element={<ProfileList />} />
         <Route element={<NotLoggedInRoutes />}>
           <Route path='/login' element={<Login />} exact />
         </Route>

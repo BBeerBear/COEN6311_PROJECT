@@ -11,6 +11,7 @@ import ProfilePictureInfos from './ProfilePictureInfos';
 import ProfileMenu from './ProfileMenu';
 import Intro from '../../components/intro';
 import PplYouMayKnow from './PplYouMayKnow';
+import Friends from './Friends';
 export default function Profile() {
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -75,10 +76,7 @@ export default function Profile() {
       <div className='profile_top' ref={profileTop}>
         <div className='profile_container'>
           <Cover cover={profile.cover} />
-          <ProfilePictureInfos
-            profile={profile}
-            // visitor={visitor}
-          />
+          <ProfilePictureInfos profile={profile} visitor={visitor} />
           <ProfileMenu />
         </div>
       </div>
@@ -98,12 +96,7 @@ export default function Profile() {
             >
               <div className='profile_left' ref={leftSide}>
                 <Intro profile={profile} visitor={visitor} />
-                {/* <Photos
-                  username={userName}
-                  token={user.token}
-                  photos={photos}
-                />
-                <Friends friends={profile.friends} /> */}
+                <Friends friends={profile.friends} />
                 <div className='relative_fb_copyright'>
                   <Link to='/'>Privacy </Link>
                   <span>. </span>
@@ -122,15 +115,16 @@ export default function Profile() {
                 </div>
               </div>
               <div className='profile_right'>
-                {/* <div className="posts">
+                <div className='posts'>
                   {profile.posts && profile.posts.length ? (
-                    profile.posts.map((post) => (
-                      <Post post={post} user={user} key={post._id} profile />
-                    ))
+                    // profile.posts.map((post) => (
+                    //   <Post post={post} user={user} key={post._id} profile />
+                    // ))
+                    <></>
                   ) : (
-                    <div className="no_posts">No posts available</div>
+                    <div className='no_posts'>No posts available</div>
                   )}
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
