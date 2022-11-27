@@ -54,7 +54,7 @@ exports.getProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
   try {
-    const { preferredCategories, country } = req.params.infos;
+    const { preferredCategories, country } = req.body.infos;
     const updatedProfile = await User.findByIdAndUpdate(
       req.user.id,
       {

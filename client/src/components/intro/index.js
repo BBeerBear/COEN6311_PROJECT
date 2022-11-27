@@ -21,8 +21,9 @@ export default function Intro({ profile, visitor }) {
 
   const updateDetails = async () => {
     try {
-      const { data } = await axios.put('/api/updateProfile', { infos });
+      const { data } = await axios.put('/api/updateProfile', { infos: infos });
       setDetails(data);
+      setVisible(false);
     } catch (error) {
       console.log(error.response.data.message);
     }
@@ -37,13 +38,17 @@ export default function Intro({ profile, visitor }) {
       {details?.preferredCategories && (
         <div className='info_profile'>
           {/* <img src='../../../icons/job.png' alt='' /> */}
-          Preferred Categories {details?.preferredCategories}
+          <b>Preferred Categories:</b>
+          {details?.preferredCategories.map((c) => {
+            return <>{c},</>;
+          })}
         </div>
       )}
       {details?.country && (
         <div className='info_profile'>
           {/* <img src='../../../icons/job.png' alt='' /> */}
-          Country {details?.country}
+          <b>Country:</b>
+          {details?.country}
         </div>
       )}
       {visible && !visitor && (

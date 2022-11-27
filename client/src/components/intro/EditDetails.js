@@ -27,17 +27,17 @@ export default function EditDetails({
         selectedCategories.splice(index, 1);
       }
     }
-    setInfos({ ...infos, [e.target.name]: e.target.value });
+    setInfos({ ...infos, [e.target.name]: selectedCategories });
   };
   const countryOnChangeHandler = (selectedOption) => {
     setSelectedOption(selectedOption);
-    console.log(selectedOption);
-    setInfos({ ...infos, ['country']: selectedOption.value });
+    setInfos({
+      ...infos,
+      ['country']: selectedOption.value.toLowerCase(),
+    });
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('final', infos);
-
     updateDetails();
   };
 
