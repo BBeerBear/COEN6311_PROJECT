@@ -7,14 +7,14 @@ export default function ProfileMenu() {
         <Link to='/' className='profile_menu_active'>
           Posts
         </Link>
-        <Link to='/' className='hover1'>
+        <Link to='/profile/about' className='hover1'>
           About
         </Link>
         <Link to='/' className='hover1'>
-          Friends
+          Activities
         </Link>
         <Link to='/' className='hover1'>
-          Photos
+          Friends
         </Link>
         <Link to='/' className='hover1'>
           Videos

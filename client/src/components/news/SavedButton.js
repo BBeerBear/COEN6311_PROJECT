@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
-export default function SavedButton({ news }) {
+export default function SavedButton({ news, user }) {
   const dispatch = useDispatch();
-  const { user } = useSelector((user) => ({ ...user }));
   const onClick = async () => {
     const { data } = await axios.post('/api/user/news/save', {
       news,

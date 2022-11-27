@@ -9,9 +9,7 @@ export default function LeftHome({ user }) {
     <div className='left_home scrollbar'>
       <Link to='/profile' className='left_link hover1'>
         <img src={user?.picture} alt='' />
-        <span>
-          {user?.first_name} {user?.last_name}
-        </span>
+        <span>{user?.name}</span>
       </Link>
       {left.slice(0, 8).map((link, i) => (
         <LeftLink

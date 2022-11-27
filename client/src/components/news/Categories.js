@@ -1,5 +1,4 @@
 import { categories } from './categoriesList';
-import Searchbar from './Searchbar';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -35,32 +34,23 @@ export default function Categories() {
     dispatch({ type: 'FETCH_NEWS', payload: data });
   };
   return (
-    <nav>
-      <div className='nav-wrapper center'>
-        <div className='col s12'>
-          <a href='#' className='breadcrumb' onClick={onClickRecNews}>
-            Recommended News
-          </a>
-          <a href='#' className='breadcrumb' onClick={onClickLocNews}>
-            Local News
-          </a>
-          {categories.map((category) => (
-            <a
-              href='#'
-              onClick={() => {
-                onClickCatNews(category.value);
-              }}
-              className='breadcrumb'
-            >
-              {category.label}
-            </a>
-          ))}
-          <a href='#' className='breadcrumb' onClick={onClickSavedNews}>
-            My Saved News
-          </a>
-          <Searchbar />
-        </div>
-      </div>
-    </nav>
+    <div>
+      <button className='breadcrumb' onClick={onClickRecNews}>
+        Recommended News
+      </button>
+      <button onClick={onClickLocNews}>Local News</button>
+      {categories.map((category, i) => (
+        <button
+          key={i}
+          onClick={() => {
+            onClickCatNews(category.value);
+          }}
+          className='breadcrumb'
+        >
+          {category.label}
+        </button>
+      ))}
+      <button onClick={onClickSavedNews}>My Saved News</button>
+    </div>
   );
 }

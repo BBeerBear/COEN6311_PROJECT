@@ -1,16 +1,18 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import NewsItem from './NewsItem';
-
-export default function NewsList() {
-  const { news } = useSelector((news) => ({ ...news }));
+import CreatePost from '../createPost';
+import LikeButton from './LikeButton';
+import SavedButton from './SavedButton';
+export default function NewsList({ news, user }) {
   return (
-    <div className='container my-3 '>
-      <div className='row'>
+    <div>
+      <div>
         {news?.map((news, i) => {
           return (
-            <div className='col-md-4 col-sm-6 col-xs-12' key={i}>
-              <NewsItem news={news} />
+            <div key={i}>
+              <NewsItem news={news} user={user} />
+              <CreatePost user={user} news={news} />
+              {/* <LikeButton news={news} user={user} /> */}
+              {/* <SavedButton news={news} user={user} /> */}
             </div>
           );
         })}

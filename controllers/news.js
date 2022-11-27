@@ -1,6 +1,8 @@
 const keys = require('../config/keys');
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI(keys.newsAPIKEY);
+const User = require('../models/User');
+const News = require('../models/News');
 
 exports.getNews = (req, res) => {
   try {
@@ -31,5 +33,42 @@ exports.getNews = (req, res) => {
       });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+exports.saveNews = async (req, res) => {
+  try {
+    const {
+      source: { id, name },
+      author,
+      title,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      content,
+    } = req.body.news;
+    const user = req.body.user;
+    const newsExist = await News.findOne({ url });
+    if (!newsExist) {
+      await new News({
+        source: { id, name },
+        author,
+        title,
+        description,
+        url,
+        urlToImage,
+        publishedAt,
+        content,
+      }).save();
+    }
+    const { _id: newsId } = await News.findOne({ url });
+    const newUser = await User.findOneAndUpdate(
+      { _id: user._id },
+      { $addToSet: { savedNews: newsId } }
+    );
+    return res.json(newUser);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };

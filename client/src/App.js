@@ -6,11 +6,11 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
 import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
+import LoggedInRoutes from './routes/NotLoggedInRoutes';
 import Login from './pages/login';
 import ProfileEdit from './components/profile/ProfileEdit';
-import News from './pages/news/NewsPage';
+import News from './pages/news';
 import ProfileList from './components/profile/ProfileList';
-
 import Profile from './pages/profile';
 import Home from './pages/home';
 
@@ -18,12 +18,11 @@ export default function App() {
   const dispatch = useDispatch();
   const getUser = async () => {
     const { data } = await axios.get('/api/current_user');
-    //send the action to the reducer
     dispatch({ type: 'LOGIN', payload: data });
   };
   useEffect(() => {
     getUser();
-  }, []);
+  });
 
   return (
     <div>

@@ -1,5 +1,4 @@
 export default function ProfilePictureInfos({ profile }) {
-  console.log('show profile', profile);
   return (
     <div className='profile_img_wrap'>
       <div className='profile_w_left'>

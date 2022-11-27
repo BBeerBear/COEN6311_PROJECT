@@ -1,34 +1,46 @@
 import './style.css';
-import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../img/logo.jpg';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   ArrowDown,
   Friends,
+  FriendsActive,
   Gaming,
   Home,
   HomeActive,
-  Logo,
   Market,
-  Menu,
   Messenger,
   Notifications,
   Search,
   Watch,
 } from '../../svg';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-
-export default function Header({ page }) {
+import { useSelector } from 'react-redux';
+import { useRef, useState } from 'react';
+import useClickOutside from '../../helpers/clickOutside';
+import UserMenu from './userMenu';
+export default function Header({ page, getAllPosts }) {
   const { user } = useSelector((user) => ({ ...user }));
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const color = '#65676b';
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const usermenu = useRef(null);
 
-  const onClickLogout = async () => {
-    await axios.get('/api/logout');
-    dispatch({ type: 'LOGOUT' });
-    navigate('/');
+  const [term, setTerm] = useState('');
+  const dispatch = useDispatch();
+
+  const onInputChange = (event) => {
+    setTerm(event.target.value);
   };
+  const onFormSubmit = async () => {
+    const { data } = await axios.post('/api/news/get', { q: term });
+    dispatch({ type: 'FETCH_NEWS', payload: data });
+  };
+
+  useClickOutside(usermenu, () => {
+    setShowUserMenu(false);
+  });
+
   return (
     <header>
       <div className='header_left'>
@@ -43,16 +55,38 @@ export default function Header({ page }) {
             />
           </div>
         </Link>
+        <form
+          onSubmit={() => {
+            onFormSubmit();
+          }}
+        >
+          <div className='search search1'>
+            <Search color={color} />
+            <input
+              type='text'
+              required
+              placeholder='Search News'
+              className='hide_input'
+              value={term}
+              onChange={onInputChange}
+            />
+          </div>
+        </form>
       </div>
+
       <div className='header_middle'>
         <Link
           to='/'
           className={`middle_icon ${page === 'home' ? 'active' : 'hover1'}`}
+          onClick={() => getAllPosts()}
         >
           {page === 'home' ? <HomeActive /> : <Home color={color} />}
         </Link>
-        <Link to='/' className='middle_icon hover1'>
-          <Friends color={color} />
+        <Link
+          to='/friends'
+          className={`middle_icon ${page === 'friends' ? 'active' : 'hover1'}`}
+        >
+          {page === 'friends' ? <FriendsActive /> : <Friends color={color} />}
         </Link>
         <Link to='/' className='middle_icon hover1'>
           <Watch color={color} />
@@ -73,24 +107,9 @@ export default function Header({ page }) {
           }`}
         >
           <img src={user?.picture} alt='' />
-          <span>{user?.first_name}</span>
+          <span>{user?.name}</span>
         </Link>
-        {/* <div
-          className={`circle_icon hover1 ${showAllMenu && 'active_header'}`}
-          ref={allmenu}
-        >
-          <div
-            onClick={() => {
-              setShowAllMenu((prev) => !prev);
-            }}
-          >
-            <div style={{ transform: 'translateY(2px)' }}>
-              <Menu />
-            </div>
-          </div>
 
-          {showAllMenu && <AllMenu />}
-        </div> */}
         <div className='circle_icon hover1'>
           <Messenger />
         </div>
@@ -98,7 +117,7 @@ export default function Header({ page }) {
           <Notifications />
           <div className='right_notification'>5</div>
         </div>
-        {/* <div
+        <div
           className={`circle_icon hover1 ${showUserMenu && 'active_header'}`}
           ref={usermenu}
         >
@@ -113,63 +132,8 @@ export default function Header({ page }) {
           </div>
 
           {showUserMenu && <UserMenu user={user} />}
-        </div> */}
+        </div>
       </div>
     </header>
-    // <header>
-    //   <div className='header_left'>
-    //     <img
-    //       src={logo}
-    //       alt='logo'
-    //       className='circle'
-    //       style={{ width: '50px', style: 'inline', margin: '10px' }}
-    //     />
-    //     <Link to={'/'} className='brand-logo'>
-    //       BBeerBear News
-    //     </Link>
-    //   </div>
-    //   <div className='header_middle'>
-    //     {!user
-    //       ? [
-    //           <Link to='/news'>
-    //             <a>News</a>
-    //           </Link>,
-    //           <Link to='/profile'>
-    //             <a>Profile</a>
-    //           </Link>,
-    //         ]
-    //       : [
-    //           <Link to='/news'>
-    //             <a>News</a>
-    //           </Link>,
-    //           <Link to='/profile'>
-    //             <a>Profile</a>
-    //           </Link>,
-    //           <a onClick={onClickLogout}>Logout</a>,
-    //         ]}
-    //   </div>
-    //   <ul className='header_right'>
-    //     {!user
-    //       ? [
-    //           <Link to='/auth/google'>Login with Google</Link>,
-    //           <Link to='/auth/facebook'>Login with Facebook</Link>,
-    //         ]
-    //       : [
-    //           <li key='3'>
-    //             <Link to='/news'>
-    //               <a>News</a>
-    //             </Link>
-    //           </li>,
-    //           <li key='1'>
-    //             <Link to='/profile'>
-    //               <a>Profile</a>
-    //             </Link>
-    //           </li>,
-    //           <li key='2'>
-    //             <a onClick={onClickLogout}>Logout</a>
-    //           </li>,
-    //         ]}
-    //   </ul>
-    // </header>
   );
 }
