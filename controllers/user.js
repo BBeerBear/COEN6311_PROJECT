@@ -1,6 +1,48 @@
 const User = require('../models/User');
 const News = require('../models/News');
 
+exports.saveNews = async (req, res) => {
+  try {
+    const {
+      source: { id, name },
+      author,
+      title,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      content,
+    } = req.body.news;
+    const current_user = await User.findById(req.user._id);
+    const newsExist = await News.findOne({ url });
+    let newsId;
+    if (!newsExist) {
+      const saveOneNews = await new News({
+        source: { id, name },
+        author,
+        title,
+        description,
+        url,
+        urlToImage,
+        publishedAt,
+        content,
+      }).save();
+      newsId = saveOneNews._id;
+    } else {
+      newsId = newsExist._id;
+    }
+    if (!current_user.saveNews.includes(newsId)) {
+      await current_user.updateOne({
+        $push: { savedNews: newsId },
+      });
+      res.json({ message: 'news has been saved' });
+    } else {
+      return res.status(400).json({ message: 'Already saved' });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 exports.likeNews = async (req, res) => {
   try {
     const {

@@ -4,6 +4,7 @@ const router = express.Router();
 
 const {
   likeNews,
+  saveNews,
   getProfile,
   updateProfile,
   addFriend,
@@ -31,4 +32,6 @@ router.put('/api/unfriend/:id', requireLogin, unfriend);
 router.put('/api/deleteRequest/:id', requireLogin, deleteRequest);
 router.put('/api/block/:id', requireLogin, block);
 router.put('/api/unblock/:id', requireLogin, unblock);
+router.put('/api/saveNews', requireLogin, saveNews);
+
 module.exports = router;

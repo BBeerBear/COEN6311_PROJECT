@@ -25,12 +25,31 @@ export function postsReducer(state, action) {
       return {
         ...state,
         loading: false,
-        profile: action.payload,
+        posts: action.payload,
         error: '',
       };
     case 'POSTS_ERROR':
       return { ...state, loading: false, error: action.payload };
 
+    default:
+      return state;
+  }
+}
+
+//the reducer change the state
+export function newsReducer(state, action) {
+  switch (action.type) {
+    case 'NEWS_REQUEST':
+      return { ...state, loading: true, error: '' };
+    case 'NEWS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        news: action.payload,
+        error: '',
+      };
+    case 'NEWS_ERROR':
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }

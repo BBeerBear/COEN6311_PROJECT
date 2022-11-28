@@ -21,10 +21,6 @@ const userSchema = mongoose.Schema(
           type: ObjectId,
           ref: 'News',
         },
-        savedAt: {
-          type: Date,
-          default: new Date(),
-        },
       },
     ],
     likedNews: [

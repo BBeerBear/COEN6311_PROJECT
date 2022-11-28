@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/header';
 import LeftHome from '../../components/home/left';
 import RightHome from '../../components/home/right';
-import News from '../news';
-
+import News from '../../components/news';
 export default function Home() {
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, news } = useSelector((state) => ({ ...state }));
+  console.log(news);
   const middle = useRef(null);
   const [height, setHeight] = useState();
   useEffect(() => {

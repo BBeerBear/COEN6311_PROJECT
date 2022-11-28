@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema;
 
 const newsSchema = mongoose.Schema({
   source: {
@@ -15,6 +16,15 @@ const newsSchema = mongoose.Schema({
   urlToImage: String,
   publishedAt: String,
   content: String,
+  rating: [
+    {
+      user: {
+        type: ObjectId,
+        ref: 'User',
+      },
+      star: String,
+    },
+  ],
 });
 
 mongoose.model('News', newsSchema);

@@ -182,3 +182,11 @@ export const getFriendsPageInfos = async (token) => {
     return error.response.data.message;
   }
 };
+export const saveNews = async (news) => {
+  try {
+    const { data } = await axios.put(`/api/saveNews`, { news });
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};

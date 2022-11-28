@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
 import LoggedInRoutes from './routes/NotLoggedInRoutes';
 import Login from './pages/login';
-import News from './pages/news';
 import Profile from './pages/profile';
 import Home from './pages/home';
 
@@ -26,7 +25,6 @@ export default function App() {
     <div>
       <Routes>
         <Route exact path='/' element={<Home />} />
-        <Route exact path='/news' element={<News />} />
         <Route exact path='/profile' element={<Profile />} />
         <Route exact path='/profile/:userId' element={<Profile />} />
         <Route element={<NotLoggedInRoutes />}>

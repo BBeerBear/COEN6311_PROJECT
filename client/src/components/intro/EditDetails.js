@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import Select from 'react-select';
-import { categories } from '../news/categoriesList';
+import { categories } from '../../data/categoriesList';
 import useOnCLickOutside from '../../helpers/clickOutside';
 import { useState } from 'react';
 import { countries } from './countriesList';

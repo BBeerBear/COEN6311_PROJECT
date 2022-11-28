@@ -36,38 +36,15 @@ exports.getNews = (req, res) => {
   }
 };
 
-exports.saveNews = async (req, res) => {
+
+exports.updateNews = async (req, res) => {
   try {
-    const {
-      source: { id, name },
-      author,
-      title,
-      description,
-      url,
-      urlToImage,
-      publishedAt,
-      content,
-    } = req.body.news;
-    const user = req.body.user;
-    const newsExist = await News.findOne({ url });
-    if (!newsExist) {
-      await new News({
-        source: { id, name },
-        author,
-        title,
-        description,
-        url,
-        urlToImage,
-        publishedAt,
-        content,
-      }).save();
-    }
-    const { _id: newsId } = await News.findOne({ url });
-    const newUser = await User.findOneAndUpdate(
-      { _id: user._id },
-      { $addToSet: { savedNews: newsId } }
+    const { star, news } = req.params;
+    News.updateOne(
+      { url },
+      { $push: { rating: req.user._id, star: star } },
+      { upsert: true }
     );
-    return res.json(newUser);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
