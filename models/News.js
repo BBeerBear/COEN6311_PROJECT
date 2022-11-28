@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const { ObjectId } = mongoose.Schema;
 
 const newsSchema = mongoose.Schema({
@@ -27,4 +28,4 @@ const newsSchema = mongoose.Schema({
   ],
 });
 
-mongoose.model('News', newsSchema);
+module.exports = mongoose.model('News', newsSchema);

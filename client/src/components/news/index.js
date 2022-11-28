@@ -3,7 +3,7 @@ import './style.css';
 import { categories } from '../../data/categoriesList';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { useEffect, useReducer } from 'react';
+import { useReducer } from 'react';
 import { newsReducer } from '../../functions/reducers';
 import NewsItem from './NewsItem';
 import CreatePost from '../createPost';
@@ -57,7 +57,7 @@ export default function News() {
   const getSaveNews = async () => {};
   return (
     <>
-      <div>
+      <div className='wrap_container'>
         <button onClick={() => getNewsByPreferred()}>Recommended News</button>
         <button onClick={() => getNewsByLoc()}>Local News</button>
         {categories.map((category, i) => (
@@ -71,7 +71,6 @@ export default function News() {
         {news.map((news) => (
           <>
             <NewsItem key={news._id} news={news} user={user} />
-            <CreatePost news={news} user={user} />
           </>
         ))}
       </div>

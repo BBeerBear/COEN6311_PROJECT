@@ -13,7 +13,6 @@ exports.saveNews = async (req, res) => {
       publishedAt,
       content,
     } = req.body.news;
-    const current_user = await User.findById(req.user._id);
     const newsExist = await News.findOne({ url });
     let newsId;
     if (!newsExist) {
@@ -31,18 +30,33 @@ exports.saveNews = async (req, res) => {
     } else {
       newsId = newsExist._id;
     }
-    if (!current_user.saveNews.includes(newsId)) {
-      await current_user.updateOne({
-        $push: { savedNews: newsId },
+    const user = await User.findById(req.user.id);
+    const check = user?.savedNews.find(
+      (news) => news.news.toString() == newsId
+    );
+    if (check) {
+      await User.findByIdAndUpdate(req.user.id, {
+        $pull: {
+          savedNews: {
+            _id: check._id,
+          },
+        },
       });
-      res.json({ message: 'news has been saved' });
     } else {
-      return res.status(400).json({ message: 'Already saved' });
+      await User.findByIdAndUpdate(req.user.id, {
+        $push: {
+          savedNews: {
+            news: newsId,
+            savedAt: new Date(),
+          },
+        },
+      });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
+
 exports.likeNews = async (req, res) => {
   try {
     const {

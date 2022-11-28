@@ -1,11 +1,28 @@
 import { useState } from 'react';
 import NewsMenu from './NewsMenu';
+import { Dots } from '../../svg';
+import CreateComment from './CreateComment';
+import { Link } from 'react-router-dom';
 export default function NewsItem({ news, user, profile }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [checkSaved, setCheckSaved] = useState();
   return (
     <div className='post'>
+      <div className='post_header'>
+        <Link to={`/profile/${user._id}`} className='post_header_left'>
+          <img src={user.picture} alt='' />
+          <div className='header_col'>
+            <div className='post_profile_name'>{user.name}</div>
+          </div>
+        </Link>
+        <div
+          className='post_header_right hover1'
+          onClick={() => setShowMenu((prev) => !prev)}
+        >
+          <Dots color='#828387' />
+        </div>
+      </div>
       <div
         className='post_bg'
         style={{ backgroundImage: `url(${news.urlToImage})` }}
@@ -37,6 +54,10 @@ export default function NewsItem({ news, user, profile }) {
           <i className='share_icon'></i>
           <span>Share</span>
         </div>
+      </div>
+      <div className='comments_wrap'>
+        <div className='comments_order'></div>
+        <CreateComment user={user} news={news} />
       </div>
       {showMenu && (
         <NewsMenu

@@ -21,13 +21,21 @@ const userSchema = mongoose.Schema(
           type: ObjectId,
           ref: 'News',
         },
+        savedAt: {
+          type: Date,
+          required: true,
+        },
       },
     ],
-    likedNews: [
+    savedNews: [
       {
         news: {
           type: ObjectId,
           ref: 'News',
+        },
+        savedAt: {
+          type: Date,
+          required: true,
         },
       },
     ],
