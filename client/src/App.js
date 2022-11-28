@@ -1,23 +1,34 @@
+<<<<<<< HEAD
 import 'materialize-css/dist/css/materialize.min.css';
 import './App.css';
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './actions';
+=======
+import React, { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+>>>>>>> f5a64b308e02a9dc778d5f5421b86dee064c92cb
 
-import Header from './components/Header';
-import Landing from './components/Landing';
-import ProfileEdit from './components/profile/ProfileEdit';
-import Dashboard from './components/dashboard/Dashboard';
-import Sidenav from './components/Sidenav';
-import ProfileList from './components/profile/ProfileList';
-import ProfileMe from './components/profile/ProfileMe';
+import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
+import LoggedInRoutes from './routes/NotLoggedInRoutes';
+import Login from './pages/login';
+import Profile from './pages/profile';
+import Home from './pages/home';
 
-class App extends Component {
-  componentDidMount() {
-    this.props.fetchUser();
-  }
+export default function App() {
+  const dispatch = useDispatch();
+  const getUser = async () => {
+    const { data } = await axios.get('/api/current_user');
+    dispatch({ type: 'LOGIN', payload: data });
+  };
+  useEffect(() => {
+    getUser();
+  });
 
+<<<<<<< HEAD
   render() {
     return (
       // <div className='container'>
@@ -42,6 +53,18 @@ class App extends Component {
       // </div>
     );
   }
+=======
+  return (
+    <div>
+      <Routes>
+        <Route exact path='/' element={<Home />} />
+        <Route exact path='/profile' element={<Profile />} />
+        <Route exact path='/profile/:userId' element={<Profile />} />
+        <Route element={<NotLoggedInRoutes />}>
+          <Route path='/login' element={<Login />} exact />
+        </Route>
+      </Routes>
+    </div>
+  );
+>>>>>>> f5a64b308e02a9dc778d5f5421b86dee064c92cb
 }
-
-export default connect(null, actions)(App);
