@@ -1,42 +1,41 @@
-import * as acitons from '../../actions';
-import { connect } from 'react-redux';
-import { Component } from 'react';
-
-class SearchBar extends Component {
-  state = { term: '' };
-
-  onInputChange = (event) => {
-    this.setState({ term: event.target.value });
+import { useState } from 'react';
+import axios from 'axios';
+import { Search } from '../../svg';
+export default function SearchBar({ dispatch }) {
+  const [term, setTerm] = useState('');
+  const color = '#65676b';
+  const onInputChange = (event) => {
+    setTerm(event.target.value);
   };
-
-  onFormSubmit = (event) => {
-    event.preventDefault();
-    this.props.fecthNewsFromAPI({ q: this.state.term });
+  const onFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch({ type: 'NEWS_REQUEST' });
+      const { data } = await axios.post('/api/getNews', {
+        q: term,
+      });
+      dispatch({ type: 'NEWS_SUCCESS', payload: data });
+    } catch (error) {
+      dispatch({ type: 'NEWS_ERROR', payload: error.response.data.message });
+    }
   };
-  render() {
-    return (
-      <form className='card  purple lighten-4 ' onSubmit={this.onFormSubmit}>
-        <div class='input-field'>
-          <input
-            id='search'
-            type='search'
-            required
-            value={this.state.term}
-            style={{ display: 'inline' }}
-            onChange={this.onInputChange}
-          />
-          <label class='label-icon' for='search'>
-            <i class='material-icons'>search</i>
-          </label>
-          <i class='material-icons'>close</i>
-        </div>
-      </form>
-    );
-  }
+  return (
+    <form
+      onSubmit={(e) => {
+        onFormSubmit(e);
+      }}
+    >
+      <div className='search search1'>
+        <Search color={color} />
+        <input
+          type='text'
+          required
+          placeholder='Search News'
+          className='hide_input'
+          value={term}
+          onChange={onInputChange}
+        />
+      </div>
+    </form>
+  );
 }
-//destruct state
-function mapStateToProps({ trends }) {
-  return { trends };
-}
-
-export default connect(mapStateToProps, acitons)(SearchBar);
