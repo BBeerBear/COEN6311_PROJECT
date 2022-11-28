@@ -1,10 +1,14 @@
-import { FETCH_USERS } from '../actions/types';
+import Cookies from 'js-cookie';
 
-//the reducer change the state
-export default function (state = null, action) {
+export function userReducer(
+  state = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null,
+  action
+) {
   switch (action.type) {
-    case FETCH_USERS:
-      return action.payload || false;
+    case 'LOGIN':
+      return action.payload;
+    case 'LOGOUT':
+      return null;
     default:
       return state;
   }

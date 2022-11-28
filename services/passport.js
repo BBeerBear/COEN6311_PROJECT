@@ -4,7 +4,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const mongoose = require('mongoose');
 const keys = require('../config/keys');
 
-const User = mongoose.model('users');
+const User = mongoose.model('User');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -25,18 +25,17 @@ passport.use(
       proxy: true,
     },
     async (accessToken, refreshToken, profile, done) => {
-      // console.log(profile);
       const existingUser = await User.findOne({ googleId: profile.id });
       if (existingUser) {
         return done(null, existingUser);
       }
-
       const user = await new User({
         googleId: profile.id,
         name: profile.displayName,
         email: profile._json.email,
         picture: profile._json.picture,
       }).save();
+
       return done(null, user);
     }
   )
