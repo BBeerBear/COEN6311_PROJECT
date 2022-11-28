@@ -13,7 +13,6 @@ import {
   Market,
   Messenger,
   Notifications,
-  Search,
   Watch,
 } from '../../svg';
 import { useSelector } from 'react-redux';
@@ -25,17 +24,6 @@ export default function Header({ page, getAllPosts }) {
   const color = '#65676b';
   const [showUserMenu, setShowUserMenu] = useState(false);
   const usermenu = useRef(null);
-
-  const [term, setTerm] = useState('');
-  const dispatch = useDispatch();
-
-  const onInputChange = (event) => {
-    setTerm(event.target.value);
-  };
-  const onFormSubmit = async () => {
-    const { data } = await axios.post('/api/news/get', { q: term });
-    dispatch({ type: 'FETCH_NEWS', payload: data });
-  };
 
   useClickOutside(usermenu, () => {
     setShowUserMenu(false);
@@ -55,23 +43,6 @@ export default function Header({ page, getAllPosts }) {
             />
           </div>
         </Link>
-        <form
-          onSubmit={() => {
-            onFormSubmit();
-          }}
-        >
-          <div className='search search1'>
-            <Search color={color} />
-            <input
-              type='text'
-              required
-              placeholder='Search News'
-              className='hide_input'
-              value={term}
-              onChange={onInputChange}
-            />
-          </div>
-        </form>
       </div>
 
       <div className='header_middle'>

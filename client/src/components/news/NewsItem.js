@@ -5,7 +5,7 @@ import CreateComment from './CreateComment';
 import { Link } from 'react-router-dom';
 import StarsRating from 'stars-rating';
 import { rateNews } from '../../functions/user';
-export default function NewsItem({ news, user, page }) {
+export default function NewsItem({ news, user, page, visitor }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [checkSaved, setCheckSaved] = useState();
@@ -14,7 +14,7 @@ export default function NewsItem({ news, user, page }) {
   };
   return (
     <div className='post'>
-      {page !== 'profile' ? (
+      {!visitor && (
         <div className='post_header'>
           <Link to={`/profile/${user._id}`} className='post_header_left'>
             <img src={user.picture} alt='' />
@@ -29,8 +29,6 @@ export default function NewsItem({ news, user, page }) {
             <Dots color='#828387' />
           </div>
         </div>
-      ) : (
-        <></>
       )}
       <div
         className='post_bg'

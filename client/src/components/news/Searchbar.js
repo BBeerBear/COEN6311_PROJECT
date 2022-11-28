@@ -1,39 +1,40 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
-
-export default function SearchBar() {
+import { Search } from '../../svg';
+export default function SearchBar({ dispatch }) {
   const [term, setTerm] = useState('');
-  const dispatch = useDispatch();
-
+  const color = '#65676b';
   const onInputChange = (event) => {
     setTerm(event.target.value);
   };
-  const onFormSubmit = async () => {
-    const { data } = await axios.post('/api/news/get', { q: term });
-    dispatch({ type: 'FETCH_NEWS', payload: data });
+  const onFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch({ type: 'NEWS_REQUEST' });
+      const { data } = await axios.post('/api/getNews', {
+        q: term,
+      });
+      dispatch({ type: 'NEWS_SUCCESS', payload: data });
+    } catch (error) {
+      dispatch({ type: 'NEWS_ERROR', payload: error.response.data.message });
+    }
   };
-
   return (
     <form
-      className='card  purple lighten-4 '
-      onSubmit={() => {
-        onFormSubmit();
+      onSubmit={(e) => {
+        onFormSubmit(e);
       }}
     >
-      <div class='input-field'>
+      <div className='search search1'>
+        <Search color={color} />
         <input
-          id='search'
-          type='search'
+          type='text'
           required
+          placeholder='Search News'
+          className='hide_input'
           value={term}
-          style={{ display: 'inline' }}
           onChange={onInputChange}
         />
-        <label class='label-icon' for='search'>
-          <i class='material-icons'>search</i>
-        </label>
-        <i class='material-icons'>close</i>
       </div>
     </form>
   );

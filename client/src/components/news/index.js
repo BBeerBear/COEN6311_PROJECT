@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useReducer } from 'react';
 import { newsReducer } from '../../functions/reducers';
 import NewsItem from './NewsItem';
+import SearchBar from './Searchbar';
 export default function News({ user }) {
   const state = useSelector((state) => ({ ...state }));
   const [{ loading, error, news }, dispatch] = useReducer(newsReducer, {
@@ -13,7 +14,6 @@ export default function News({ user }) {
     news: [],
     error: '',
   });
-  console.log(news);
   const getNewsByPreferred = async () => {
     try {
       dispatch({ type: 'NEWS_REQUEST' });
@@ -61,6 +61,7 @@ export default function News({ user }) {
           </button>
         ))}
       </div>
+      <SearchBar dispatch={dispatch} />
       {!loading && (
         <div className='posts'>
           {news.map((news) => (

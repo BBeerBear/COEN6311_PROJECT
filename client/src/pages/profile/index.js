@@ -85,7 +85,7 @@ export default function Profile() {
       <div className='profile_bottom'>
         <div className='profile_container'>
           <div className='bottom_container'>
-            <PplYouMayKnow />
+            {/* <PplYouMayKnow /> */}
             <div
               className={`profile_grid ${
                 check && scrollHeight >= height && leftHeight > 1000
@@ -126,6 +126,7 @@ export default function Profile() {
                         news={news.news}
                         user={user}
                         page='profile'
+                        visitor={visitor}
                       />
                     ))
                   ) : (
