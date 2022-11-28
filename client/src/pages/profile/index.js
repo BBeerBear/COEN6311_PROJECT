@@ -14,6 +14,7 @@ import PplYouMayKnow from './PplYouMayKnow';
 import Friends from './Friends';
 import NewsItem from '../../components/news/NewsItem';
 import GridPosts from './GridPosts';
+import Activities from './Activities';
 export default function Profile() {
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -79,7 +80,7 @@ export default function Profile() {
         <div className='profile_container'>
           <Cover cover={profile.picture} />
           <ProfilePictureInfos profile={profile} visitor={visitor} />
-          <ProfileMenu />
+          <ProfileMenu profile={profile} />
         </div>
       </div>
       <div className='profile_bottom'>
@@ -99,6 +100,7 @@ export default function Profile() {
               <div className='profile_left' ref={leftSide}>
                 <Intro profile={profile} visitor={visitor} />
                 <Friends friends={profile.friends} />
+                <Activities activities={profile.activities} />
                 <div className='relative_fb_copyright'>
                   <Link to='/'>Privacy </Link>
                   <span>. </span>

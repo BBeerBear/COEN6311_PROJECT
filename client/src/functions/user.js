@@ -193,7 +193,15 @@ export const saveNews = async (news) => {
 export const rateNews = async ({ news, star }) => {
   try {
     const { data } = await axios.put(`/api/rateNews/${star}`, { news });
-    return data;
+    return 'ok';
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
+export const saveAcivity = async (activity) => {
+  try {
+    const { data } = await axios.put(`/api/saveActivity`, { activity });
+    return 'ok';
   } catch (error) {
     return error.response.data.message;
   }

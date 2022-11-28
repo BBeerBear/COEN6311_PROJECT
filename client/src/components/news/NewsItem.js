@@ -19,7 +19,9 @@ export default function NewsItem({ news, user, page, visitor }) {
           <Link to={`/profile/${user._id}`} className='post_header_left'>
             <img src={user.picture} alt='' />
             <div className='header_col'>
-              <div className='post_profile_name'>{user.name}</div>
+              <div className='post_profile_name'>
+                <a hre>{user.name}</a>
+              </div>
             </div>
           </Link>
           <div
@@ -34,7 +36,9 @@ export default function NewsItem({ news, user, page, visitor }) {
         className='post_bg'
         style={{ backgroundImage: `url(${news.urlToImage})` }}
       >
-        <div className='post_bg_text'>{news.title}</div>
+        <div className='post_bg_text'>
+          <a href={news.url}>{news.title}</a>
+        </div>
       </div>
       {page !== 'profile' ? (
         <div className='post_actions'>

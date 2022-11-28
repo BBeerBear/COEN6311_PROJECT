@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Dots } from '../../svg';
-export default function ProfileMenu() {
+export default function ProfileMenu({ profile }) {
   return (
     <div className='profile_menu_wrap'>
       <div className='profile_menu'>
         <Link to='/' className='profile_menu_active'>
           Posts
         </Link>
-        <Link to='/profile/about' className='hover1'>
+        <Link to='/' className='hover1'>
           About
         </Link>
         <Link to='/' className='hover1'>

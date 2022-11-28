@@ -412,3 +412,18 @@ exports.unblock = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.saveActivity = async (req, res) => {
+  try {
+    const activity = req.body.activity;
+    console.log('activity', activity);
+    const user = await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { $push: { activities: activity } },
+      { new: true }
+    );
+    console.log(user);
+    res.json({ message: 'save activity successfully' });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};

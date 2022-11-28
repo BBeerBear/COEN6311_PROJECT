@@ -7,6 +7,7 @@ import { useReducer } from 'react';
 import { newsReducer } from '../../functions/reducers';
 import NewsItem from './NewsItem';
 import SearchBar from './Searchbar';
+import { saveAcivity } from '../../functions/user';
 export default function News({ user }) {
   const state = useSelector((state) => ({ ...state }));
   const [{ loading, error, news }, dispatch] = useReducer(newsReducer, {
@@ -22,6 +23,7 @@ export default function News({ user }) {
         category: categories,
         country: user.country,
       });
+      saveAcivity(`Saw recommended news`);
       dispatch({ type: 'NEWS_SUCCESS', payload: data });
     } catch (error) {
       dispatch({ type: 'NEWS_ERROR', payload: error.response.data.message });
@@ -34,6 +36,7 @@ export default function News({ user }) {
       const { data } = await axios.post('/api/getNews', {
         category,
       });
+      saveAcivity(`Saw ${category} news`);
       dispatch({ type: 'NEWS_SUCCESS', payload: data });
     } catch (error) {
       dispatch({ type: 'NEWS_ERROR', payload: error.response.data.message });
@@ -45,6 +48,7 @@ export default function News({ user }) {
       const { data } = await axios.post('/api/getNews', {
         country: user.country,
       });
+      saveAcivity(`Saw local news`);
       dispatch({ type: 'NEWS_SUCCESS', payload: data });
     } catch (error) {
       dispatch({ type: 'NEWS_ERROR', payload: error.response.data.message });

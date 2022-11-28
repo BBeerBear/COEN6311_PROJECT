@@ -38,7 +38,7 @@ export default function Intro({ profile, visitor }) {
       {details?.preferredCategories && (
         <div className='info_profile'>
           {/* <img src='../../../icons/job.png' alt='' /> */}
-          <b>Preferred Categories:</b>
+          <b className='info_text'>Preferred Categories:</b>
           {details?.preferredCategories.map((c, i) => {
             return <div key={i}>{c},</div>;
           })}
