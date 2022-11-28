@@ -12,6 +12,8 @@ import ProfileMenu from './ProfileMenu';
 import Intro from '../../components/intro';
 import PplYouMayKnow from './PplYouMayKnow';
 import Friends from './Friends';
+import NewsItem from '../../components/news/NewsItem';
+import GridPosts from './GridPosts';
 export default function Profile() {
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -75,7 +77,7 @@ export default function Profile() {
       <Header page='profile' />
       <div className='profile_top' ref={profileTop}>
         <div className='profile_container'>
-          <Cover cover={profile.cover} />
+          <Cover cover={profile.picture} />
           <ProfilePictureInfos profile={profile} visitor={visitor} />
           <ProfileMenu />
         </div>
@@ -115,12 +117,17 @@ export default function Profile() {
                 </div>
               </div>
               <div className='profile_right'>
+                <GridPosts />
                 <div className='posts'>
-                  {profile.posts && profile.posts.length ? (
-                    // profile.posts.map((post) => (
-                    //   <Post post={post} user={user} key={post._id} profile />
-                    // ))
-                    <></>
+                  {profile.savedNews && profile.savedNews.length ? (
+                    profile.savedNews.map((news) => (
+                      <NewsItem
+                        key={news._id}
+                        news={news.news}
+                        user={user}
+                        page='profile'
+                      />
+                    ))
                   ) : (
                     <div className='no_posts'>No posts available</div>
                   )}

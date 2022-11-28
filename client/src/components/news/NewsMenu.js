@@ -26,13 +26,13 @@ export default function NewsMenu({
         {checkSaved ? (
           <MenuItem
             icon='save_icon'
-            title='Unsave Post'
+            title='Unsave News'
             subtitle='Remove this from your saved news.'
           />
         ) : (
           <MenuItem
             icon='save_icon'
-            title='Save Post'
+            title='Save News'
             subtitle='Add this to your saved news.'
           />
         )}

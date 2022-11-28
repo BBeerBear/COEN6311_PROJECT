@@ -1,5 +1,3 @@
-// import 'materialize-css/dist/css/materialize.min.css';
-
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';

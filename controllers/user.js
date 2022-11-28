@@ -56,7 +56,6 @@ exports.saveNews = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-
 exports.likeNews = async (req, res) => {
   try {
     const {
@@ -97,8 +96,7 @@ exports.getProfile = async (req, res) => {
   try {
     const { userId } = req.params;
     const user = await User.findById(req.user._id);
-    const profile = await User.findById(userId).populate('friends');
-
+    const profile = await User.findById(userId);
     const friendship = {
       friends: false,
       following: false,
@@ -127,6 +125,8 @@ exports.getProfile = async (req, res) => {
     if (profile.blocks.includes(user._id)) {
       friendship.block = true;
     }
+    await profile.populate('friends');
+    await profile.populate('savedNews.news');
     res.json({ ...profile.toObject(), friendship });
   } catch (error) {
     res.status(500).json({ message: error.message });

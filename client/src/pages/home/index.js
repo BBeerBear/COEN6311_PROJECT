@@ -19,7 +19,7 @@ export default function Home() {
       <Header page='home' />
       <LeftHome user={user} />
       <div className='home_middle' ref={middle}>
-        <News />
+        <News user={user} />
       </div>
       <RightHome user={user} />
     </div>
