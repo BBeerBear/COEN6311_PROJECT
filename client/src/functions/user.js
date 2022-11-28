@@ -190,3 +190,11 @@ export const saveNews = async (news) => {
     return error.response.data.message;
   }
 };
+export const rateNews = async ({ news, star }) => {
+  try {
+    const { data } = await axios.put(`/api/rateNews/${star}`, { news });
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};

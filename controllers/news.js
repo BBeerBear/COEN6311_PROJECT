@@ -36,15 +36,45 @@ exports.getNews = (req, res) => {
   }
 };
 
-
-exports.updateNews = async (req, res) => {
+exports.rateNews = async (req, res) => {
   try {
-    const { star, news } = req.params;
-    News.updateOne(
+    const {
+      source: { id, name },
+      author,
+      title,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      content,
+    } = req.body.news;
+    const star = req.params.star;
+    const existNews = await News.findOne({ url });
+    if (!existNews) {
+      await new News({
+        source: { id, name },
+        author,
+        title,
+        description,
+        url,
+        urlToImage,
+        publishedAt,
+        content,
+      }).save();
+    }
+    const news = await News.updateOne(
       { url },
-      { $push: { rating: req.user._id, star: star } },
-      { upsert: true }
+      {
+        $push: {
+          rating: {
+            user: req.user._id,
+            star: star,
+          },
+        },
+      },
+      { new: true }
     );
+    res.json({ message: 'rate news successfully' });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

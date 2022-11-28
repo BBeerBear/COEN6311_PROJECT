@@ -3,10 +3,15 @@ import NewsMenu from './NewsMenu';
 import { Dots } from '../../svg';
 import CreateComment from './CreateComment';
 import { Link } from 'react-router-dom';
+import StarsRating from 'stars-rating';
+import { rateNews } from '../../functions/user';
 export default function NewsItem({ news, user, profile }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [checkSaved, setCheckSaved] = useState();
+  const ratingChanged = (star) => {
+    rateNews({ star, news });
+  };
   return (
     <div className='post'>
       <div className='post_header'>
@@ -35,8 +40,12 @@ export default function NewsItem({ news, user, profile }) {
           <span>Like</span>
         </div>
         <div className='post_action hover1'>
-          <i className='save_icon'></i>
-          <span>Save</span>
+          <StarsRating
+            count={5}
+            onChange={ratingChanged}
+            size={24}
+            color2={'#ffd700'}
+          />
         </div>
         <div
           className='post_action hover1'

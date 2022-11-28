@@ -1,8 +1,7 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import MenuItem from './MenuItem';
 import useOnClickOutside from '../../helpers/clickOutside';
 import { saveNews } from '../../functions/user';
-import StarsRating from 'stars-rating';
 
 export default function NewsMenu({
   news,
@@ -20,15 +19,7 @@ export default function NewsMenu({
       setCheckSaved(true);
     }
   };
-  // const deleteHandler = async () => {
-  //   const res = await deletePost(news);
-  //   if (res.status === 'ok') {
-  //     postRef.current.remove();
-  //   }
-  // };
-  const ratingChanged = (newRating) => {
-    console.log(typeof newRating);
-  };
+
   return (
     <ul className='post_menu' ref={menu}>
       <div onClick={() => saveHandler()}>
@@ -54,18 +45,6 @@ export default function NewsMenu({
       <MenuItem
         icon='turnOffNotifications_icon'
         title='Turn off notifications for this news'
-      />
-      <div className='line'></div>
-      <MenuItem
-        img='../../../icons/report.png'
-        title='Rate the trending news'
-        subtitle="i'm concerned about this news"
-      />
-      <StarsRating
-        count={5}
-        onChange={ratingChanged}
-        size={24}
-        color2={'#ffd700'}
       />
     </ul>
   );
