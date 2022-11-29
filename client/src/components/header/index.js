@@ -1,7 +1,6 @@
 import './style.css';
 import logo from '../../img/logo.jpg';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 import {
   ArrowDown,
@@ -28,7 +27,7 @@ export default function Header({ page }) {
   useClickOutside(usermenu, () => {
     setShowUserMenu(false);
   });
-
+  
   return (
     <header>
       <div className='header_left'>
@@ -58,7 +57,7 @@ export default function Header({ page }) {
         >
           {page === 'friends' ? <FriendsActive /> : <Friends color={color} />}
         </Link>
-        <Link to='/' className='middle_icon hover1'>
+        {/* <Link to='/' className='middle_icon hover1'>
           <Watch color={color} />
           <div className='middle_notification'>9+</div>
         </Link>
@@ -67,7 +66,7 @@ export default function Header({ page }) {
         </Link>
         <Link to='/' className='middle_icon hover1 '>
           <Gaming color={color} />
-        </Link>
+        </Link> */}
       </div>
       <div className='header_right'>
         <Link
@@ -79,7 +78,6 @@ export default function Header({ page }) {
           <img src={user?.picture} alt='' />
           <span>{user?.name}</span>
         </Link>
-
         <div className='circle_icon hover1'>
           <Messenger />
         </div>

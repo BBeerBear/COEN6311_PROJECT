@@ -11,7 +11,23 @@ export default function LeftHome({ user }) {
         <img src={user?.picture} alt='' />
         <span>{user?.name}</span>
       </Link>
-      {left.slice(0, 8).map((link, i) => (
+      <Link to='/friends/find'>
+        <LeftLink
+          key={0}
+          img={left[0].img}
+          text={left[0].text}
+          // notification={link.notification}
+        />
+      </Link>
+      <Link to='/profile'>
+        <LeftLink
+          key={1}
+          img={left[1].img}
+          text={left[1].text}
+          // notification={link.notification}
+        />
+      </Link>
+      {left.slice(2, 5).map((link, i) => (
         <LeftLink
           key={i}
           img={link.img}
@@ -21,30 +37,4 @@ export default function LeftHome({ user }) {
       ))}
     </div>
   );
-  // return (
-  //   <ul id='sidebar-1' class='sidenav sidenav-fixed'>
-  //     <li key={1}>
-  //       <div class='user-view'>
-  //         <div class='background   pink lighten-3'></div>
-  //         <a href='#!user'>
-  //           <img class='circle' src={user?.picture} />
-  //         </a>
-  //         <a href='#!name'>
-  //           <span class='white-text name'>{user?.name}</span>
-  //         </a>
-  //         <a href='#!email'>
-  //           <span class='white-text email'>{user?.email}</span>
-  //         </a>
-  //       </div>
-  //     </li>
-  //     <li key={2}>
-  //       <Link to='/profile/me'>My profile</Link>
-  //     </li>
-  //     <li key={3}>
-  //       {/* <Link onClick={() => this.props.getUsers()} to='/profile/others'>
-  //         Recommended Users
-  //       </Link> */}
-  //     </li>
-  //   </ul>
-  // );
 }

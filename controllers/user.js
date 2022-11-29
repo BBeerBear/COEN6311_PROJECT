@@ -434,7 +434,6 @@ exports.saveOnlineTime = async (req, res) => {
       { _id: req.user._id },
       { $set: { onlineTime: onlineTime } }
     );
-
     res.json({ message: 'save online time successfully' });
   } catch (error) {
     return res.status(500).json({ message: error.message });

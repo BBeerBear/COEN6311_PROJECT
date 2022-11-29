@@ -5,11 +5,17 @@ import CreateComment from './CreateComment';
 import { Link } from 'react-router-dom';
 import StarsRating from 'stars-rating';
 import { rateNews } from '../../functions/user';
+import { saveAcivity } from '../../functions/user';
+
 export default function NewsItem({ news, user, page, visitor }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [checkSaved, setCheckSaved] = useState();
+
   const ratingChanged = (star) => {
+    saveAcivity(
+      `Rated the ${news.title.substring(0, 15)}... news ${star} star`
+    );
     rateNews({ star, news });
   };
   return (
@@ -37,7 +43,14 @@ export default function NewsItem({ news, user, page, visitor }) {
         style={{ backgroundImage: `url(${news.urlToImage})` }}
       >
         <div className='post_bg_text'>
-          <a href={news.url}>{news.title}</a>
+          <a
+            href={news.url}
+            onClick={() => {
+              saveAcivity(`Read the ${news.title.substring(0, 10)}... news`);
+            }}
+          >
+            {news.title}
+          </a>
         </div>
       </div>
       {page !== 'profile' ? (
