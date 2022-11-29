@@ -8,7 +8,6 @@ import LoggedInRoutes from './routes/NotLoggedInRoutes';
 import Login from './pages/login';
 import Profile from './pages/profile';
 import Home from './pages/home';
-
 export default function App() {
   const dispatch = useDispatch();
   const getUser = async () => {
@@ -16,6 +15,7 @@ export default function App() {
     dispatch({ type: 'LOGIN', payload: data });
   };
   useEffect(() => {
+    localStorage.setItem('loginTime', new Date());
     getUser();
   });
 

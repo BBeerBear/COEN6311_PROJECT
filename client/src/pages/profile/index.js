@@ -100,7 +100,10 @@ export default function Profile() {
               <div className='profile_left' ref={leftSide}>
                 <Intro profile={profile} visitor={visitor} />
                 <Friends friends={profile.friends} />
-                <Activities activities={profile.activities} />
+                <Activities
+                  activities={profile.activities}
+                  onlineTime={profile.onlineTime}
+                />
                 <div className='relative_fb_copyright'>
                   <Link to='/'>Privacy </Link>
                   <span>. </span>

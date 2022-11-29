@@ -206,3 +206,11 @@ export const saveAcivity = async (activity) => {
     return error.response.data.message;
   }
 };
+export const saveOnlineTime = async (onlineTime) => {
+  try {
+    const { data } = await axios.put(`/api/saveOnlineTime`, { onlineTime });
+    return 'ok';
+  } catch (error) {
+    return error.response.data.message;
+  }
+};

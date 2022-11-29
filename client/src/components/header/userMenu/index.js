@@ -5,6 +5,7 @@ import HelpSupport from './HelpSupport';
 import SettingsPrivacy from './SettingsPrivacy';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
+import { saveOnlineTime } from '../../../functions/user';
 export default function UserMenu({ user }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -85,6 +86,8 @@ export default function UserMenu({ user }) {
           <div
             className='mmenu_item hover3'
             onClick={() => {
+              const loginTime = localStorage.getItem('loginTime');
+              saveOnlineTime(new Date() - Date.parse(loginTime));
               logout();
             }}
           >

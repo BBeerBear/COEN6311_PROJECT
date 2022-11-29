@@ -415,14 +415,24 @@ exports.unblock = async (req, res) => {
 exports.saveActivity = async (req, res) => {
   try {
     const activity = req.body.activity;
-    console.log('activity', activity);
     const user = await User.findOneAndUpdate(
       { _id: req.user._id },
-      { $push: { activities: activity } },
-      { new: true }
+      { $push: { activities: activity } }
     );
-    console.log(user);
     res.json({ message: 'save activity successfully' });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+exports.saveOnlineTime = async (req, res) => {
+  try {
+    const onlineTime = req.body.onlineTime + req.user.onlineTime;
+    const user = await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { $set: { onlineTime: onlineTime } }
+    );
+
+    res.json({ message: 'save online time successfully' });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

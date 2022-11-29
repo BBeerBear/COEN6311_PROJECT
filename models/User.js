@@ -86,6 +86,10 @@ const userSchema = mongoose.Schema(
         },
       },
     ],
+    onlineTime: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
