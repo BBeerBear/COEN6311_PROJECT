@@ -8,6 +8,7 @@ import LoggedInRoutes from './routes/NotLoggedInRoutes';
 import Login from './pages/login';
 import Profile from './pages/profile';
 import Home from './pages/home';
+import Friends from './pages/friends';
 export default function App() {
   const dispatch = useDispatch();
   const getUser = async () => {
@@ -25,6 +26,8 @@ export default function App() {
         <Route exact path='/' element={<Home />} />
         <Route exact path='/profile' element={<Profile />} />
         <Route exact path='/profile/:userId' element={<Profile />} />
+        <Route exact path='/friends' element={<Friends />} />
+        <Route exact path='/friends/:type' element={<Friends />} />
         <Route element={<NotLoggedInRoutes />}>
           <Route path='/login' element={<Login />} exact />
         </Route>

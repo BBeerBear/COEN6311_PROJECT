@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './style.css';
 import axios from 'axios';
+import { countries } from '../../data/countriesList';
 import EditDetails from './EditDetails';
 export default function Intro({ profile, visitor }) {
   const [details, setDetails] = useState();
@@ -18,7 +19,6 @@ export default function Intro({ profile, visitor }) {
     country: profile?.country ? profile.country : '',
   };
   const [infos, setInfos] = useState(initial);
-
   const updateDetails = async () => {
     try {
       const { data } = await axios.put('/api/updateProfile', { infos: infos });
@@ -38,9 +38,10 @@ export default function Intro({ profile, visitor }) {
       {details?.preferredCategories && (
         <div className='info_profile'>
           {/* <img src='../../../icons/job.png' alt='' /> */}
-          <b className='info_text'>Preferred Categories:</b>
+          <b>Like Topics:</b>
+          <br />
           {details?.preferredCategories.map((c, i) => {
-            return <div key={i}>{c},</div>;
+            return <div key={i}>{c.charAt(0).toUpperCase() + c.slice(1)},</div>;
           })}
         </div>
       )}
@@ -48,7 +49,10 @@ export default function Intro({ profile, visitor }) {
         <div className='info_profile'>
           {/* <img src='../../../icons/job.png' alt='' /> */}
           <b>Country:</b>
-          {details?.country}
+          {
+            countries.find((e) => e.value.toLowerCase() === details?.country)
+              .label
+          }
         </div>
       )}
       {visible && !visitor && (

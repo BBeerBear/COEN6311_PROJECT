@@ -35,8 +35,6 @@ export function postsReducer(state, action) {
       return state;
   }
 }
-
-//the reducer change the state
 export function newsReducer(state, action) {
   switch (action.type) {
     case 'NEWS_REQUEST':
@@ -49,6 +47,23 @@ export function newsReducer(state, action) {
         error: '',
       };
     case 'NEWS_ERROR':
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+export function friendspage(state, action) {
+  switch (action.type) {
+    case 'FRIENDS_REQUEST':
+      return { ...state, loading: true, error: '' };
+    case 'FRIENDS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        error: '',
+      };
+    case 'FRIENDS_ERROR':
       return { ...state, loading: false, error: action.payload };
     default:
       return state;

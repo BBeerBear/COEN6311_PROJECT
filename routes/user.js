@@ -18,6 +18,7 @@ const {
   unblock,
   saveActivity,
   saveOnlineTime,
+  getFriendsPageInfos,
 } = require('../controllers/user');
 
 const requireLogin = require('../middleware/requireLogin');
@@ -37,4 +38,5 @@ router.put('/api/unblock/:id', requireLogin, unblock);
 router.put('/api/saveNews', requireLogin, saveNews);
 router.put('/api/saveActivity', requireLogin, saveActivity);
 router.put(`/api/saveOnlineTime`, requireLogin, saveOnlineTime);
+router.get(`/api/getFriendsPageInfos`, requireLogin, getFriendsPageInfos);
 module.exports = router;

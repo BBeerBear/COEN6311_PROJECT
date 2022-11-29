@@ -108,7 +108,7 @@ export const unblock = async (id) => {
     return error.response.data.message;
   }
 };
-export const search = async (searchTerm, token) => {
+export const search = async (searchTerm) => {
   try {
     const { data } = await axios.post(`/api/search/${searchTerm}`);
     return data;
@@ -116,72 +116,7 @@ export const search = async (searchTerm, token) => {
     return error.response.data.message;
   }
 };
-export const addToSearchHistory = async (searchUser, token) => {
-  try {
-    const { data } = await axios.put(
-      `/api/addToSearchHistory`,
-      { searchUser },
 
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return data;
-  } catch (error) {
-    return error.response.data.message;
-  }
-};
-export const getSearchHistory = async (token) => {
-  try {
-    const { data } = await axios.get(
-      `/api/getSearchHistory`,
-
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return data;
-  } catch (error) {
-    return error.response.data.message;
-  }
-};
-export const removeFromSearch = async (searchUser, token) => {
-  try {
-    const { data } = await axios.put(
-      `/api/removeFromSearch`,
-      { searchUser },
-
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return data;
-  } catch (error) {
-    return error.response.data.message;
-  }
-};
-export const getFriendsPageInfos = async (token) => {
-  try {
-    const { data } = await axios.get(
-      `/api/getFriendsPageInfos`,
-
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return { status: 'ok', data };
-  } catch (error) {
-    return error.response.data.message;
-  }
-};
 export const saveNews = async (news) => {
   try {
     const { data } = await axios.put(`/api/saveNews`, { news });
@@ -210,6 +145,14 @@ export const saveOnlineTime = async (onlineTime) => {
   try {
     const { data } = await axios.put(`/api/saveOnlineTime`, { onlineTime });
     return 'ok';
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
+export const getFriendsPageInfos = async () => {
+  try {
+    const { data } = await axios.get(`/api/getFriendsPageInfos`);
+    return { status: 'ok', data };
   } catch (error) {
     return error.response.data.message;
   }

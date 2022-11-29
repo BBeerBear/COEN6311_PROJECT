@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const News = require('../models/News');
-
+const mongoose = require('mongoose');
+const { ObjectID } = require('bson');
 exports.saveNews = async (req, res) => {
   try {
     const {
@@ -96,7 +97,9 @@ exports.getProfile = async (req, res) => {
   try {
     const { userId } = req.params;
     const user = await User.findById(req.user._id);
-    const profile = await User.findById(userId);
+    const profile = await User.findById(userId)
+      .populate('friends')
+      .populate('savedNews.news');
     const friendship = {
       friends: false,
       following: false,
@@ -125,8 +128,8 @@ exports.getProfile = async (req, res) => {
     if (profile.blocks.includes(user._id)) {
       friendship.block = true;
     }
-    await profile.populate('friends');
-    await profile.populate('savedNews.news');
+    // await profile.populate('friends');
+    // await profile.populate('savedNews.news');
     res.json({ ...profile.toObject(), friendship });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -433,6 +436,29 @@ exports.saveOnlineTime = async (req, res) => {
     );
 
     res.json({ message: 'save online time successfully' });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+exports.getFriendsPageInfos = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id)
+      .select('friends requests')
+      .populate('friends', 'name picture')
+      .populate('requests', 'name picture');
+    const sentRequests = await User.find({
+      requests: mongoose.Types.ObjectId(req.user._id),
+    }).select('name picture');
+    const findFriends = await User.find({
+      _id: { $ne: req.user._id },
+      preferredCategories: { $in: req.user.preferredCategories },
+    });
+    res.json({
+      friends: user.friends,
+      requests: user.requests,
+      sentRequests,
+      findFriends,
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

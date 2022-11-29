@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { categories } from '../../data/categoriesList';
 import useOnCLickOutside from '../../helpers/clickOutside';
 import { useState } from 'react';
-import { countries } from './countriesList';
+import { countries } from '../../data/countriesList';
 import axios from 'axios';
 export default function EditDetails({
   details,
