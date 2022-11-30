@@ -38,8 +38,6 @@ router.get('/api/logout', (req, res) => {
 });
 
 router.get('/api/current_user', (req, res) => {
-  console.log('controller', req.user);
-
   res.send(req.user);
 });
 

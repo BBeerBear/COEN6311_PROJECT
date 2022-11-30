@@ -15,6 +15,7 @@ export default function App() {
   const dispatch = useDispatch();
   const getUser = async () => {
     const { data } = await axios.get(`api/current_user`);
+
     dispatch({
       type: 'LOGIN',
       payload: data,

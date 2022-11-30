@@ -429,7 +429,10 @@ exports.saveActivity = async (req, res) => {
 };
 exports.saveOnlineTime = async (req, res) => {
   try {
+    console.log(req.body.onlineTime);
+    console.log(req.user.onlineTime);
     const onlineTime = req.body.onlineTime + req.user.onlineTime;
+    console.log(onlineTime);
     const user = await User.findOneAndUpdate(
       { _id: req.user._id },
       { $set: { onlineTime: onlineTime } }
