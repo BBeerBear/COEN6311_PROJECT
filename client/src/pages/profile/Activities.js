@@ -8,7 +8,7 @@ export default function Activities({ activities, onlineTime }) {
       clearInterval(timer);
     };
   });
-  let realtimeOnlineTime = date - localStorage.getItem('loginTime');
+  let realtimeOnlineTime = date - Date.parse(localStorage.getItem('loginTime'));
   const padTo2Digits = (num) => {
     return num.toString().padStart(2, '0');
   };
@@ -26,7 +26,7 @@ export default function Activities({ activities, onlineTime }) {
       <div className='profile_card_header'>My Acitivity</div>
       <b>Time spent on app</b>
       <br />
-      {displayOnline}
+      <p>{displayOnline}</p>
       <br />
       <b>Activities</b>
       {activities?.reverse().map((a, i) => (

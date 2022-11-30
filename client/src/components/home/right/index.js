@@ -17,6 +17,7 @@ export default function RightHome({ user }) {
   const getData = async () => {
     dispatch({ type: 'FRIENDS_REQUEST' });
     const data = await getFriendsPageInfos();
+
     if (data.status === 'ok') {
       dispatch({ type: 'FRIENDS_SUCCESS', payload: data.data });
     } else {

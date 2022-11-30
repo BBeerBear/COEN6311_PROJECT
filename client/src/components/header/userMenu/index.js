@@ -11,16 +11,15 @@ export default function UserMenu({ user }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(0);
-  const logout = () => {
+  const logout = async () => {
     const loginTime = localStorage.getItem('loginTime');
-    // saveOnlineTime(new Date() - Date.parse(loginTime));
-    Cookies.set('user', '');
+    saveOnlineTime(new Date() - Date.parse(loginTime));
     dispatch({
       type: 'LOGOUT',
     });
-    console.log(Cookies.get('user'));
-    // axios.get('/api/logout');
-    navigate('/login');
+    await axios.get('/api/logout');
+    // Cookies.set('user', '');
+    // navigate('/login');
   };
   return (
     <div className='mmenu'>

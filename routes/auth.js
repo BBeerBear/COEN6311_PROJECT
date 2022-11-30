@@ -29,11 +29,17 @@ router.get(
 );
 
 router.get('/api/logout', (req, res) => {
-  req.logout();
-  // res.redirect('/login');
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
 });
 
 router.get('/api/current_user', (req, res) => {
+  console.log('controller', req.user);
+
   res.send(req.user);
 });
 
