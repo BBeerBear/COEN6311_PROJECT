@@ -12,7 +12,7 @@ router.get(
   '/auth/google/callback',
   passport.authenticate('google'),
   (req, res) => {
-    // res.redirect('/dashboard');
+    // res.redirect('/');
     res.redirect('http://localhost:3000/');
   }
 );
@@ -23,14 +23,14 @@ router.get(
   '/auth/facebook/callback',
   passport.authenticate('facebook', { scope: ['profile', 'email'] }),
   (req, res) => {
-    // res.redirect('/dashboard');
+    // res.redirect('/');
     res.redirect('http://localhost:3000/');
   }
 );
 
 router.get('/api/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  // res.redirect('/login');
 });
 
 router.get('/api/current_user', (req, res) => {

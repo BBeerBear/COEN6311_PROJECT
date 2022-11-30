@@ -6,15 +6,20 @@ import SettingsPrivacy from './SettingsPrivacy';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import { saveOnlineTime } from '../../../functions/user';
+import axios from 'axios';
 export default function UserMenu({ user }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(0);
   const logout = () => {
-    // Cookies.set("user", "");
+    const loginTime = localStorage.getItem('loginTime');
+    // saveOnlineTime(new Date() - Date.parse(loginTime));
+    Cookies.set('user', '');
     dispatch({
       type: 'LOGOUT',
     });
+    console.log(Cookies.get('user'));
+    // axios.get('/api/logout');
     navigate('/login');
   };
   return (
@@ -83,14 +88,7 @@ export default function UserMenu({ user }) {
               <i className='right_icon'></i>
             </div>
           </div>
-          <div
-            className='mmenu_item hover3'
-            onClick={() => {
-              const loginTime = localStorage.getItem('loginTime');
-              saveOnlineTime(new Date() - Date.parse(loginTime));
-              logout();
-            }}
-          >
+          <div className='mmenu_item hover3' onClick={logout}>
             <div className='small_circle'>
               <i className='logout_filled_icon'></i>
             </div>

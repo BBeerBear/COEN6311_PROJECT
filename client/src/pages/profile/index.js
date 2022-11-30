@@ -2,7 +2,7 @@ import './style.css';
 import axios from 'axios';
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { profileReducer } from '../../functions/reducers';
 import Header from '../../components/header';

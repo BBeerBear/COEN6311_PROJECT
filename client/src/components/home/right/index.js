@@ -42,7 +42,7 @@ export default function RightHome({ user }) {
         </div>
         <div className='contacts_list'>
           {data.friends &&
-            data.friends.map((friend) => <Contact user={friend} />)}
+            data.friends.map((friend, i) => <Contact user={friend} key={i} />)}
         </div>
       </div>
     </div>
