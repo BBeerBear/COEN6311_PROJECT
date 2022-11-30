@@ -206,7 +206,7 @@ export default function Friends() {
           {(type === undefined || type === 'find') && (
             <div className='friends_right_wrap'>
               <div className='friends_left_header'>
-                <h3>Find Friends</h3>
+                <h3>Find friends who have same preferred topics</h3>
                 {type === undefined && (
                   <Link to='/friends/find' className='see_link hover3'>
                     See all

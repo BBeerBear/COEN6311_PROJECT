@@ -14,14 +14,6 @@ export default function ProfilePictureInfos({ profile, visitor }) {
               backgroundImage: `url(${profile.picture})`,
             }}
           ></div>
-          {!visitor && (
-            <div
-              className='profile_circle hover1'
-              onClick={() => setShow(true)}
-            >
-              <i className='camera_filled_icon'></i>
-            </div>
-          )}
         </div>
         <div className='profile_w_col'>
           <div className='profile_name'>{profile.name}</div>
@@ -56,16 +48,7 @@ export default function ProfilePictureInfos({ profile, visitor }) {
       {visitor ? (
         <Friendship friendshipp={profile?.friendship} profileid={profile._id} />
       ) : (
-        <div className='profile_w_right'>
-          <div className='blue_btn'>
-            <img src='../../../icons/plus.png' alt='' className='invert' />
-            <span>Add to story</span>
-          </div>
-          <div className='gray_btn'>
-            <i className='edit_icon'></i>
-            <span>Edit profile</span>
-          </div>
-        </div>
+        <></>
       )}
     </div>
   );

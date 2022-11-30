@@ -10,7 +10,6 @@ import Cover from './Cover';
 import ProfilePictureInfos from './ProfilePictureInfos';
 import ProfileMenu from './ProfileMenu';
 import Intro from '../../components/intro';
-import PplYouMayKnow from './PplYouMayKnow';
 import Friends from './Friends';
 import NewsItem from '../../components/news/NewsItem';
 import GridPosts from './GridPosts';
@@ -72,60 +71,68 @@ export default function Profile() {
   const getScroll = () => {
     setScrollHeight(window.pageYOffset);
   };
+  console.log(profile);
   return (
     <div className='profile'>
       <Header page='profile' />
-      <div className='profile_top' ref={profileTop}>
-        <div className='profile_container'>
-          <Cover cover={profile.picture} />
-          <ProfilePictureInfos profile={profile} visitor={visitor} />
-          <ProfileMenu profile={profile} />
-        </div>
-      </div>
-      <div className='profile_bottom'>
-        <div className='profile_container'>
-          <div className='bottom_container'>
-            {/* <PplYouMayKnow /> */}
-            <div
-              className={`profile_grid ${
-                check && scrollHeight >= height && leftHeight > 1000
-                  ? 'scrollFixed showLess'
-                  : check &&
-                    scrollHeight >= height &&
-                    leftHeight < 1000 &&
-                    'scrollFixed showMore'
-              }`}
-            >
-              <div className='profile_left' ref={leftSide}>
-                <Intro profile={profile} visitor={visitor} />
-                <Friends friends={profile.friends} />
-                <Activities
-                  activities={profile.activities}
-                  onlineTime={profile.onlineTime}
-                />
-              </div>
-              <div className='profile_right'>
-                <GridPosts />
-                <div className='posts'>
-                  {profile.savedNews && profile.savedNews.length ? (
-                    profile.savedNews.map((news) => (
-                      <NewsItem
-                        key={news._id}
-                        news={news.news}
-                        user={user}
-                        page='profile'
-                        visitor={visitor}
-                      />
-                    ))
-                  ) : (
-                    <div className='no_posts'>No saved news</div>
-                  )}
+      {profile ? (
+        <>
+          <div className='profile_top' ref={profileTop}>
+            <div className='profile_container'>
+              <Cover cover={profile.picture} />
+              <ProfilePictureInfos profile={profile} visitor={visitor} />
+              {/* <ProfileMenu profile={profile} /> */}
+            </div>
+          </div>
+          <div className='profile_bottom'>
+            <div className='profile_container'>
+              <div className='bottom_container'>
+                <div
+                  className={`profile_grid ${
+                    check && scrollHeight >= height && leftHeight > 1000
+                      ? 'scrollFixed showLess'
+                      : check &&
+                        scrollHeight >= height &&
+                        leftHeight < 1000 &&
+                        'scrollFixed showMore'
+                  }`}
+                >
+                  <div className='profile_left' ref={leftSide}>
+                    <Intro profile={profile} visitor={visitor} />
+                    <Friends friends={profile.friends} />
+                    <Activities
+                      activities={profile.activities}
+                      onlineTime={profile.onlineTime}
+                    />
+                  </div>
+                  <div className='profile_right'>
+                    <GridPosts />
+                    <div className='posts'>
+                      {profile.savedNews && profile.savedNews.length ? (
+                        profile.savedNews.map((news) => (
+                          <NewsItem
+                            key={news._id}
+                            news={news.news}
+                            user={user}
+                            page='profile'
+                            visitor={visitor}
+                          />
+                        ))
+                      ) : (
+                        <div className='no_posts'>No saved news</div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <>
+          <h1>You are being blocked</h1>
+        </>
+      )}
     </div>
   );
 }
