@@ -1,8 +1,6 @@
 import Friendship from './Friendship';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 export default function ProfilePictureInfos({ profile, visitor }) {
-  const [show, setShow] = useState(false);
   return (
     <div className='profile_img_wrap'>
       <div className='profile_w_left'>
@@ -45,8 +43,11 @@ export default function ProfilePictureInfos({ profile, visitor }) {
           </div>
         </div>
       </div>
-      {visitor ? (
-        <Friendship friendshipp={profile?.friendship} profileid={profile._id} />
+      {visitor && profile?.friendship && !profile.friendship.block ? (
+        <Friendship
+          friendshipp={profile?.friendship}
+          profileid={profile?._id}
+        />
       ) : (
         <></>
       )}

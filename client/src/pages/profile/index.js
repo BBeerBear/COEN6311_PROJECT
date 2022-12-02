@@ -18,9 +18,9 @@ export default function Profile() {
   const { userId } = useParams();
   const navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
-  var userID = userId === undefined ? user?._id : userId;
+  var userID = userId === undefined ? user._id : userId;
   const [{ loading, error, profile }, dispatch] = useReducer(profileReducer, {
-    loading: false,
+    loading: true,
     profile: {},
     error: '',
   });
@@ -28,7 +28,7 @@ export default function Profile() {
     if (userID) getProfile();
   }, [userID]);
 
-  var visitor = userID === user?._id ? false : true;
+  var visitor = userID === user._id ? false : true;
 
   const getProfile = async () => {
     try {
@@ -51,62 +51,40 @@ export default function Profile() {
       });
     }
   };
-
-  const profileTop = useRef(null);
-  const leftSide = useRef(null);
-  const [height, setHeight] = useState();
-  const [leftHeight, setLeftHeight] = useState();
-  const [scrollHeight, setScrollHeight] = useState();
-  useEffect(() => {
-    setHeight(profileTop.current.clientHeight + 300);
-    setLeftHeight(leftSide.current.clientHeight);
-    window.addEventListener('scroll', getScroll, { passive: true });
-    return () => {
-      window.addEventListener('scroll', getScroll, { passive: true });
-    };
-  }, [loading, scrollHeight]);
-  const check = useMediaQuery({
-    query: '(min-width:901px)',
-  });
-  const getScroll = () => {
-    setScrollHeight(window.pageYOffset);
-  };
-  console.log(profile);
   return (
     <div className='profile'>
       <Header page='profile' />
-      {profile ? (
-        <>
-          <div className='profile_top' ref={profileTop}>
-            <div className='profile_container'>
-              <Cover cover={profile.picture} />
-              <ProfilePictureInfos profile={profile} visitor={visitor} />
-              {/* <ProfileMenu profile={profile} /> */}
-            </div>
-          </div>
-          <div className='profile_bottom'>
-            <div className='profile_container'>
-              <div className='bottom_container'>
-                <div
-                  className={`profile_grid ${
-                    check && scrollHeight >= height && leftHeight > 1000
-                      ? 'scrollFixed showLess'
-                      : check &&
-                        scrollHeight >= height &&
-                        leftHeight < 1000 &&
-                        'scrollFixed showMore'
-                  }`}
-                >
-                  <div className='profile_left' ref={leftSide}>
+      <div className='profile_top'>
+        <div className='profile_container'>
+          <Cover cover={profile.picture} />
+          <ProfilePictureInfos profile={profile} visitor={visitor} />
+          {/* <ProfileMenu profile={profile} /> */}
+        </div>
+      </div>
+      <div className='profile_bottom'>
+        <div className='profile_container'>
+          <div className='bottom_container'>
+            {profile?.friendship && !profile.friendship.block ? (
+              <div className={`profile_grid `}>
+                <div className='profile_left'>
+                  <>
                     <Intro profile={profile} visitor={visitor} />
                     <Friends friends={profile.friends} />
-                    <Activities
-                      activities={profile.activities}
-                      onlineTime={profile.onlineTime}
-                    />
-                  </div>
-                  <div className='profile_right'>
-                    <GridPosts />
+                    {profile?.friendship && profile.friendship.friends ? (
+                      <Activities
+                        activities={profile.activities}
+                        onlineTime={profile.onlineTime}
+                      />
+                    ) : (
+                      <>
+                        <h2>Only friends can see activities!!!</h2>
+                      </>
+                    )}
+                  </>
+                </div>
+                <div className='profile_right'>
+                  <GridPosts />
+                  {profile?.friendship && profile.friendship.friends ? (
                     <div className='posts'>
                       {profile.savedNews && profile.savedNews.length ? (
                         profile.savedNews.map((news) => (
@@ -122,17 +100,21 @@ export default function Profile() {
                         <div className='no_posts'>No saved news</div>
                       )}
                     </div>
-                  </div>
+                  ) : (
+                    <>
+                      <h2>Only friends can see watch list!!!</h2>
+                    </>
+                  )}
                 </div>
               </div>
-            </div>
+            ) : (
+              <>
+                <h1>You are being blocked!!!</h1>
+              </>
+            )}
           </div>
-        </>
-      ) : (
-        <>
-          <h1>You are being blocked</h1>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 }
