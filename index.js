@@ -9,6 +9,7 @@ const keys = require('./config/keys');
 
 require('./models/User');
 require('./models/News');
+require('./models/Conversation');
 require('./services/passport');
 
 mongoose
