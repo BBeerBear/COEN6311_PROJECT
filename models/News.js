@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const { ObjectId } = mongoose.Schema;
 
+
 const newsSchema = mongoose.Schema({
   source: {
     id: String,

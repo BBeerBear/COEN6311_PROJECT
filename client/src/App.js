@@ -8,6 +8,7 @@ import Home from './pages/home';
 import Friends from './pages/friends';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import Messenger from './pages/messenger/Messenger';
 export default function App() {
   useEffect(() => {
     getUser();
@@ -30,6 +31,7 @@ export default function App() {
           <Route exact path='/profile/:userId' element={<Profile />} />
           <Route exact path='/friends' element={<Friends />} />
           <Route exact path='/friends/:type' element={<Friends />} />
+          <Route exact path='/messenger' element={<Messenger />} />
         </Route>
         <Route element={<NotLoggedInRoutes />}>
           <Route path='/login' element={<Login />} exact />
