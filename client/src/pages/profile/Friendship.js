@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import useClickOutside from '../../helpers/clickOutside';
-import { useSelector } from 'react-redux';
 import {
   acceptRequest,
   addFriend,
@@ -23,13 +22,12 @@ export default function Friendship({ friendshipp, profileid }) {
   const menu1 = useRef(null);
   useClickOutside(menu, () => setFriendsMenu(false));
   useClickOutside(menu1, () => setRespondMenu(false));
-  const { user } = useSelector((state) => ({ ...state }));
   const addFriendHandler = async () => {
-    setFriendship({ ...friendship, requestSent: true, following: true });
+    setFriendship({ ...friendship, requestSent: true });
     await addFriend(profileid);
   };
   const cancelRequestHandler = async () => {
-    setFriendship({ ...friendship, requestSent: false, following: false });
+    setFriendship({ ...friendship, requestSent: false });
     await cancelRequest(profileid);
   };
   const followHandler = async () => {
@@ -45,7 +43,6 @@ export default function Friendship({ friendshipp, profileid }) {
     setFriendship({
       ...friendship,
       friends: true,
-      following: true,
       requestSent: false,
       requestReceived: false,
     });
@@ -55,7 +52,6 @@ export default function Friendship({ friendshipp, profileid }) {
     setFriendship({
       ...friendship,
       friends: false,
-      following: false,
       requestSent: false,
       requestReceived: false,
     });
@@ -65,7 +61,6 @@ export default function Friendship({ friendshipp, profileid }) {
     setFriendship({
       ...friendship,
       friends: false,
-      following: false,
       requestSent: false,
       requestReceived: false,
     });
@@ -89,61 +84,58 @@ export default function Friendship({ friendshipp, profileid }) {
     });
     await unblock(profileid);
   };
-
+  console.log(friendship);
   return (
     <div className='friendship'>
-      {friendship?.friends ? (
-        <div className='friends_menu_wrap'>
-          <button className='gray_btn' onClick={() => setFriendsMenu(true)}>
-            <img src='../../../icons/friends.png' alt='' />
-            <span>Friends</span>
-          </button>
-          {friendsMenu && (
-            <div className='open_cover_menu' ref={menu}>
-              <div className='open_cover_menu_item hover1'>
-                <img src='../../../icons/favoritesOutline.png' alt='' />
-                Favorites
-              </div>
-              <div className='open_cover_menu_item hover1'>
-                <img src='../../../icons/editFriends.png' alt='' />
-                Edit Friend list
-              </div>
-              {friendship?.following ? (
+      {!friendship?.block &&
+        (friendship?.friends ? (
+          <div className='friends_menu_wrap'>
+            <button className='gray_btn' onClick={() => setFriendsMenu(true)}>
+              <img src='../../../icons/friends.png' alt='' />
+              <span>Friends</span>
+            </button>
+            {friendsMenu && (
+              <div className='open_cover_menu' ref={menu}>
+                {friendship?.following ? (
+                  <div
+                    className='open_cover_menu_item hover1'
+                    onClick={() => unfollowHandler()}
+                  >
+                    <img src='../../../icons/unfollowOutlined.png' alt='' />
+                    Unfollow
+                  </div>
+                ) : (
+                  <div
+                    className='open_cover_menu_item hover1'
+                    onClick={() => followHandler()}
+                  >
+                    <img src='../../../icons/unfollowOutlined.png' alt='' />
+                    Follow
+                  </div>
+                )}
                 <div
                   className='open_cover_menu_item hover1'
-                  onClick={() => unfollowHandler()}
+                  onClick={() => unfriendHandler()}
                 >
-                  <img src='../../../icons/unfollowOutlined.png' alt='' />
-                  Unfollow
+                  <i className='unfriend_outlined_icon'></i>
+                  Unfriend
                 </div>
-              ) : (
-                <div
-                  className='open_cover_menu_item hover1'
-                  onClick={() => followHandler()}
-                >
-                  <img src='../../../icons/unfollowOutlined.png' alt='' />
-                  Follow
-                </div>
-              )}
-              <div
-                className='open_cover_menu_item hover1'
-                onClick={() => unfriendHandler()}
-              >
-                <i className='unfriend_outlined_icon'></i>
-                Unfriend
               </div>
-            </div>
-          )}
-        </div>
-      ) : (
-        !friendship?.requestSent &&
-        !friendship?.requestReceived && (
-          <button className='blue_btn' onClick={() => addFriendHandler()}>
-            <img src='../../../icons/addFriend.png' alt='' className='invert' />
-            <span>Add Friend</span>
-          </button>
-        )
-      )}
+            )}
+          </div>
+        ) : (
+          !friendship?.requestSent &&
+          !friendship?.requestReceived && (
+            <button className='blue_btn' onClick={() => addFriendHandler()}>
+              <img
+                src='../../../icons/addFriend.png'
+                alt=''
+                className='invert'
+              />
+              <span>Add Friend</span>
+            </button>
+          )
+        ))}
       {friendship?.requestSent ? (
         <button className='blue_btn' onClick={() => cancelRequestHandler()}>
           <img
@@ -180,17 +172,19 @@ export default function Friendship({ friendshipp, profileid }) {
         )
       )}
       <div className='flex'>
-        {friendship?.following ? (
-          <button className='gray_btn' onClick={() => unfollowHandler()}>
-            <img src='../../../icons/follow.png' alt='' />
-            <span>Following</span>
-          </button>
-        ) : (
-          <button className='blue_btn' onClick={() => followHandler()}>
-            <img src='../../../icons/follow.png' className='invert' alt='' />
-            <span>Follow</span>
-          </button>
-        )}
+        {!friendship?.block &&
+          (friendship?.following ? (
+            <button className='gray_btn' onClick={() => unfollowHandler()}>
+              <img src='../../../icons/follow.png' alt='' />
+              <span>Following</span>
+            </button>
+          ) : (
+            <button className='blue_btn' onClick={() => followHandler()}>
+              <img src='../../../icons/follow.png' className='invert' alt='' />
+              <span>Follow</span>
+            </button>
+          ))}
+
         {!friendship?.block ? (
           <button className='gray_btn' onClick={() => blockHandler()}>
             <img src='../../../icons/follow.png' alt='' />

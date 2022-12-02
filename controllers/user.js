@@ -110,10 +110,7 @@ exports.getProfile = async (req, res) => {
     if (!profile) {
       return res.json({ ok: false });
     }
-    if (
-      user.friends.includes(profile._id) &&
-      profile.friends.includes(user._id)
-    ) {
+    if (user.friends.includes(profile._id)) {
       friendship.friends = true;
     }
     if (user.following.includes(profile._id)) {
@@ -163,12 +160,6 @@ exports.addFriend = async (req, res) => {
         await receiver.updateOne({
           $push: { requests: sender._id },
         });
-        await receiver.updateOne({
-          $push: { followers: sender._id },
-        });
-        await sender.updateOne({
-          $push: { following: receiver._id },
-        });
         res.json({ message: 'friend request has been sent' });
       } else {
         return res.status(400).json({ message: 'Already sent' });
@@ -193,12 +184,6 @@ exports.cancelRequest = async (req, res) => {
       ) {
         await receiver.updateOne({
           $pull: { requests: sender._id },
-        });
-        await receiver.updateOne({
-          $pull: { followers: sender._id },
-        });
-        await sender.updateOne({
-          $pull: { following: sender._id },
         });
         res.json({ message: 'you successfully canceled request' });
       } else {
@@ -274,10 +259,10 @@ exports.acceptRequest = async (req, res) => {
       const sender = await User.findById(req.params.id);
       if (receiver.requests.includes(sender._id)) {
         await receiver.update({
-          $push: { friends: sender._id, following: sender._id },
+          $push: { friends: sender._id },
         });
         await sender.update({
-          $push: { friends: receiver._id, followers: receiver._id },
+          $push: { friends: receiver._id },
         });
         await receiver.updateOne({
           $pull: { requests: sender._id },
@@ -307,15 +292,11 @@ exports.unfriend = async (req, res) => {
         await receiver.update({
           $pull: {
             friends: sender._id,
-            following: sender._id,
-            followers: sender._id,
           },
         });
         await sender.update({
           $pull: {
             friends: receiver._id,
-            following: receiver._id,
-            followers: receiver._id,
           },
         });
 
@@ -339,12 +320,6 @@ exports.deleteRequest = async (req, res) => {
         await receiver.update({
           $pull: {
             requests: sender._id,
-            followers: sender._id,
-          },
-        });
-        await sender.update({
-          $pull: {
-            following: receiver._id,
           },
         });
         res.json({ message: 'delete request accepted' });
@@ -382,7 +357,7 @@ exports.block = async (req, res) => {
           },
         });
 
-        res.json({ message: 'unfriend request accepted' });
+        res.json({ message: 'block successfully' });
       } else {
         return res.status(400).json({ message: 'Already blocked' });
       }

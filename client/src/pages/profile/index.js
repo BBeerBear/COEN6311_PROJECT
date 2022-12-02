@@ -1,9 +1,8 @@
 import './style.css';
 import axios from 'axios';
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 import { profileReducer } from '../../functions/reducers';
 import Header from '../../components/header';
 import Cover from './Cover';
@@ -26,10 +25,9 @@ export default function Profile() {
   });
   useEffect(() => {
     if (userID) getProfile();
-  }, [userID]);
+  }, [userID, profile.friendship]);
 
   var visitor = userID === user._id ? false : true;
-
   const getProfile = async () => {
     try {
       dispatch({
@@ -64,27 +62,31 @@ export default function Profile() {
       <div className='profile_bottom'>
         <div className='profile_container'>
           <div className='bottom_container'>
-            {profile?.friendship && !profile.friendship.block ? (
+            {profile.friendship && profile.friendship.block ? (
+              <b>You are being blocked!!!</b>
+            ) : profile.country !== user.country &&
+              profile.friendship &&
+              !profile.friendship.friends ? (
+              <b>
+                !!!You are not in the same location, please be a friend first
+                then your can discover each other
+              </b>
+            ) : (
               <div className={`profile_grid `}>
                 <div className='profile_left'>
-                  <>
-                    <Intro profile={profile} visitor={visitor} />
-                    <Friends friends={profile.friends} />
-                    {profile?.friendship && profile.friendship.friends ? (
-                      <Activities
-                        activities={profile.activities}
-                        onlineTime={profile.onlineTime}
-                      />
-                    ) : (
-                      <>
-                        <h2>Only friends can see activities!!!</h2>
-                      </>
-                    )}
-                  </>
+                  <Intro profile={profile} visitor={visitor} />
+                  <Friends friends={profile.friends} />
+                  <Activities
+                    activities={profile.activities}
+                    onlineTime={profile.onlineTime}
+                    visitor={visitor}
+                    friendship={profile.friendship}
+                  />
                 </div>
                 <div className='profile_right'>
                   <GridPosts />
-                  {profile?.friendship && profile.friendship.friends ? (
+                  {!visitor ||
+                  (profile?.friendship && profile.friendship.friends) ? (
                     <div className='posts'>
                       {profile.savedNews && profile.savedNews.length ? (
                         profile.savedNews.map((news) => (
@@ -102,15 +104,11 @@ export default function Profile() {
                     </div>
                   ) : (
                     <>
-                      <h2>Only friends can see watch list!!!</h2>
+                      <b>!!!Only friends can see watch list</b>
                     </>
                   )}
                 </div>
               </div>
-            ) : (
-              <>
-                <h1>You are being blocked!!!</h1>
-              </>
             )}
           </div>
         </div>

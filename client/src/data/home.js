@@ -65,10 +65,10 @@ export const left = [
   //   text: 'Facebook Pay',
   //   img: 'pay',
   // },
-  {
-    text: 'Favorites News',
-    img: 'fav',
-  },
+  // {
+  //   text: 'Favorites News',
+  //   img: 'fav',
+  // },
   // {
   //   text: 'Fundraisers',
   //   img: 'fund',
@@ -93,10 +93,10 @@ export const left = [
   //   text: 'Messenger Kids',
   //   img: 'messkids',
   // },
-  {
-    text: 'Most recent',
-    img: 'recent',
-  },
+  // {
+  //   text: 'Most recent',
+  //   img: 'recent',
+  // },
   // {
   //   text: 'Play Games',
   //   img: 'play',

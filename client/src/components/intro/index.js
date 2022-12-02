@@ -70,7 +70,7 @@ export default function Intro({ profile, visitor }) {
           className='gray_btn hover1 w100'
           onClick={() => setVisible(true)}
         >
-          Edit Details
+          Edit Profile
         </button>
       )}
     </div>

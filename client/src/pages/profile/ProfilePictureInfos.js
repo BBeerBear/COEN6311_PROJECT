@@ -44,10 +44,7 @@ export default function ProfilePictureInfos({ profile, visitor }) {
         </div>
       </div>
       {visitor && profile?.friendship && !profile.friendship.block ? (
-        <Friendship
-          friendshipp={profile?.friendship}
-          profileid={profile?._id}
-        />
+        <Friendship friendshipp={profile.friendship} profileid={profile._id} />
       ) : (
         <></>
       )}

@@ -55,10 +55,10 @@ export default function NewsItem({ news, user, page, visitor }) {
       </div>
       {page !== 'profile' ? (
         <div className='post_actions'>
-          <div className='post_action hover1'>
+          {/* <div className='post_action hover1'>
             <i className='like_icon'></i>
             <span>Like</span>
-          </div>
+          </div> */}
           <div className='post_action hover1'>
             <StarsRating
               count={5}
