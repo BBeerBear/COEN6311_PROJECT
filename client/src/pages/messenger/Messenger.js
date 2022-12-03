@@ -3,7 +3,7 @@ import Message from '../../components/message/Message';
 import Header from '../../components/header';
 import './messenger.css';
 import ChatOnline from '../../components/chatOnline/ChatOnline';
-import { useSelector, useReducer } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
