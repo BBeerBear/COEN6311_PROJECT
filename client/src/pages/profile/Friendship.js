@@ -88,11 +88,14 @@ export default function Friendship({ friendshipp, profileid, userid }) {
     await unblock(profileid);
   };
   const messageHandler = async () => {
-    console.log(userid, profileid);
-    await axios.post('/api/conversations', {
-      senderId: userid,
-      receiverId: profileid,
-    });
+    try {
+      await axios.post('/api/conversations', {
+        senderId: userid,
+        receiverId: profileid,
+      });
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
     navigate('/messenger');
   };
   return (

@@ -4,7 +4,6 @@ import Header from '../../components/header';
 import './messenger.css';
 import ChatOnline from '../../components/chatOnline/ChatOnline';
 import { useSelector, useReducer } from 'react-redux';
-import { profileReducer } from '../../functions/reducers';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -31,7 +30,6 @@ export default function Messenger() {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        console.log(currentChat);
         const res = await axios.get(`/api/messages/` + currentChat?._id);
         setMessages(res.data);
       } catch (err) {
@@ -62,7 +60,7 @@ export default function Messenger() {
       <div className='messenger'>
         <div className='chatMenu'>
           <div className='chatMenuWraper'>
-            <input placeholder='Search for friends' className='chatMenuInput' />
+            {/* <input placeholder='Search for friends' className='chatMenuInput' /> */}
             {conversations.map((c, i) => (
               <div
                 key={i}
