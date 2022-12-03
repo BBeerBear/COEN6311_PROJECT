@@ -39,8 +39,6 @@ export default function Messenger() {
         getMessages();
     }, [currentChat]);
 
-    console.log(messages)
-
     return (
     <> 
      <Header />
@@ -61,16 +59,9 @@ export default function Messenger() {
                         currentChat? (
                     <>
                         <div className="chatBoxTop">
-                            <Message />
-                            <Message own={true} />
-                            <Message />
-                            <Message />
-                            <Message />
-                            <Message />
-                            <Message />
-                            <Message />
-                            <Message />
-                            <Message />
+                            {messages.map((m) =>(
+                                <Message message={m} own ={m.sender === user._id}/>
+                            ))}
                         </div>
                         <div className="chatBoxBottom">
                             <textarea className="chatMessageInput" placeholder="write something......."></textarea>
