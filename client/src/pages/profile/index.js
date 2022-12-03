@@ -55,7 +55,11 @@ export default function Profile() {
       <div className='profile_top'>
         <div className='profile_container'>
           <Cover cover={profile.picture} />
-          <ProfilePictureInfos profile={profile} visitor={visitor} />
+          <ProfilePictureInfos
+            profile={profile}
+            visitor={visitor}
+            user={user}
+          />
           {/* <ProfileMenu profile={profile} /> */}
         </div>
       </div>

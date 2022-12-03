@@ -39,4 +39,4 @@ router.put('/api/saveNews', requireLogin, saveNews);
 router.put('/api/saveActivity', requireLogin, saveActivity);
 router.put(`/api/saveOnlineTime`, requireLogin, saveOnlineTime);
 router.get(`/api/getFriendsPageInfos`, requireLogin, getFriendsPageInfos);
-module.exports = router;
+  module.exports = router;

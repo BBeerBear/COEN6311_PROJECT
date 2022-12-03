@@ -27,14 +27,22 @@ export default function LeftHome({ user }) {
           // notification={link.notification}
         />
       </Link>
-      {left.slice(2, 5).map((link, i) => (
+      <Link to='/messenger'>
+        <LeftLink
+          key={3}
+          img={left[3].img}
+          text={left[3].text}
+          // notification={link.notification}
+        />
+      </Link>
+      {/* {left.slice(2, 4).map((link, i) => (
         <LeftLink
           key={i}
           img={link.img}
           text={link.text}
           // notification={link.notification}
         />
-      ))}
+      ))} */}
     </div>
   );
 }

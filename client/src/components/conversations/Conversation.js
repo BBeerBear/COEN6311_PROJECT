@@ -1,22 +1,16 @@
 import './conversation.css';
 import axios from 'axios';
-import { useEffect, useReducer, useState } from 'react';
-import { profileReducer } from '../../functions/reducers';
+import { useEffect, useState } from 'react';
 
 export default function Conversation({ conversation, currentUser }) {
   const [user, setUser] = useState(null);
-  //   const [{ profile }] = useReducer(profileReducer, {
-  //     loading: false,
-  //     profile: {},
-  //     error: '',
-  //   });
   useEffect(() => {
     const friendId = conversation.members.find((m) => m !== currentUser._id);
-
     const getUser = async () => {
       try {
-        const res = await axios('/users?:userId' + friendId);
-        setUser(res.data);
+        // const res = await axios('/users?:userId' + friendId);
+        const { data } = await axios.get(`/api/getProfile/${friendId}`);
+        setUser(data);
       } catch (err) {
         console.log(err);
       }
@@ -26,8 +20,8 @@ export default function Conversation({ conversation, currentUser }) {
 
   return (
     <div className='conversation'>
-      <img className='conversationImg' src={currentUser.picture} alt='' />
-      <span className='conversationName'>{user.name}</span>
+      <img className='conversationImg' src={user?.picture} alt='' />
+      <span className='conversationName'>{user?.name}</span>
     </div>
   );
 }

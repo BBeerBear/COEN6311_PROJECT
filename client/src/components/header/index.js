@@ -27,7 +27,7 @@ export default function Header({ page }) {
   useClickOutside(usermenu, () => {
     setShowUserMenu(false);
   });
-  
+
   return (
     <header>
       <div className='header_left'>
@@ -79,7 +79,9 @@ export default function Header({ page }) {
           <span>{user?.name}</span>
         </Link>
         <div className='circle_icon hover1'>
-          <Messenger />
+          <Link to='/messenger'>
+            <Messenger />
+          </Link>
         </div>
         <div className='circle_icon hover1'>
           <Notifications />

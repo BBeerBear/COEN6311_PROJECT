@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useClickOutside from '../../helpers/clickOutside';
 import {
   acceptRequest,
@@ -11,7 +12,9 @@ import {
   block,
   unblock,
 } from '../../functions/user';
-export default function Friendship({ friendshipp, profileid }) {
+import axios from 'axios';
+export default function Friendship({ friendshipp, profileid, userid }) {
+  const navigate = useNavigate();
   const [friendship, setFriendship] = useState(friendshipp);
   useEffect(() => {
     setFriendship(friendshipp);
@@ -84,7 +87,14 @@ export default function Friendship({ friendshipp, profileid }) {
     });
     await unblock(profileid);
   };
-  console.log(friendship);
+  const messageHandler = async () => {
+    console.log(userid, profileid);
+    await axios.post('/api/conversations', {
+      senderId: userid,
+      receiverId: profileid,
+    });
+    navigate('/messenger');
+  };
   return (
     <div className='friendship'>
       {!friendship?.block &&
@@ -197,7 +207,7 @@ export default function Friendship({ friendshipp, profileid }) {
           </button>
         )}
         {!friendship?.block && (
-          <button className='blue_btn'>
+          <button className='blue_btn' onClick={() => messageHandler()}>
             <img
               src='../../../icons/message.png'
               className={!friendship?.block && 'invert'}
