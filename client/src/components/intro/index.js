@@ -22,6 +22,7 @@ export default function Intro({ profile, visitor }) {
   const updateDetails = async () => {
     try {
       const { data } = await axios.put('/api/updateProfile', { infos: infos });
+      console.log(infos);
       setDetails(data);
       setVisible(false);
     } catch (error) {
