@@ -27,6 +27,19 @@ export default function NewsItem({ news, user, page, visitor, profile }) {
       setCheckSaved(true);
     }
   }, [news]);
+
+  const shareNews = async (news) => {
+    const shareData = {
+      title: news.title,
+      text: news.description,
+      url: news.url,
+    };
+    try {
+      await navigator.share(shareData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className='post'>
       {!visitor && (
@@ -87,6 +100,9 @@ export default function NewsItem({ news, user, page, visitor, profile }) {
               setTimeout(() => {
                 setVisible(false);
               }, 500);
+            }}
+            onClick={() => {
+              shareNews(news);
             }}
           >
             <i className='share_icon'></i>

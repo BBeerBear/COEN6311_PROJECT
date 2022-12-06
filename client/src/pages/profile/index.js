@@ -66,9 +66,10 @@ export default function Profile() {
       <div className='profile_bottom'>
         <div className='profile_container'>
           <div className='bottom_container'>
-            {profile.friendship && profile.friendship.block ? (
+            {visitor && profile.friendship && profile.friendship.block ? (
               <b>You are being blocked!!!</b>
-            ) : profile.country !== user.country &&
+            ) : visitor &&
+              profile.country !== user.country &&
               profile.friendship &&
               !profile.friendship.friends ? (
               <b>
