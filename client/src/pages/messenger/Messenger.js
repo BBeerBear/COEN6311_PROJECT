@@ -15,6 +15,7 @@ export default function Messenger() {
   const [newMessage, setNewMessage] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
 
+  const userId = user._id;
   useEffect(() => {
     const getConversations = async () => {
       try {
@@ -25,7 +26,7 @@ export default function Messenger() {
       }
     };
     getConversations();
-  }, [user]);
+  }, [userId]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -47,7 +48,6 @@ export default function Messenger() {
       conversationId: currentChat._id,
     };
     try {
-      console.log(currentChat._id);
       const res = await axios.post('/api/messages', message);
       setMessages([...messages, res.data]);
     } catch (error) {

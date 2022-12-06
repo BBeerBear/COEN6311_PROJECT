@@ -25,7 +25,7 @@ export default function Profile() {
   });
   useEffect(() => {
     if (userID) getProfile();
-  }, [userID, profile.friendship]);
+  }, [userID, profile]);
 
   var visitor = userID === user._id ? false : true;
   const getProfile = async () => {
@@ -100,6 +100,7 @@ export default function Profile() {
                             user={user}
                             page='profile'
                             visitor={visitor}
+                            profile={profile}
                           />
                         ))
                       ) : (

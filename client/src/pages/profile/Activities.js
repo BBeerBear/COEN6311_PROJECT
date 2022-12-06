@@ -12,7 +12,7 @@ export default function Activities({
     return function cleanup() {
       clearInterval(timer);
     };
-  });
+  }, [onlineTime]);
   let realtimeOnlineTime = date - Date.parse(localStorage.getItem('loginTime'));
   const padTo2Digits = (num) => {
     return num.toString().padStart(2, '0');

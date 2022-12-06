@@ -27,18 +27,6 @@ const userSchema = mongoose.Schema(
         },
       },
     ],
-    savedNews: [
-      {
-        news: {
-          type: ObjectId,
-          ref: 'News',
-        },
-        savedAt: {
-          type: Date,
-          required: true,
-        },
-      },
-    ],
     activities: {
       type: Array,
       default: [],

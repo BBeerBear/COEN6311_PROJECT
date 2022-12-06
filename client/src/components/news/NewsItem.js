@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NewsMenu from './NewsMenu';
 import { Dots } from '../../svg';
 import CreateComment from './CreateComment';
@@ -6,18 +6,27 @@ import { Link } from 'react-router-dom';
 import StarsRating from 'stars-rating';
 import { rateNews } from '../../functions/user';
 import { saveAcivity } from '../../functions/user';
+import { useSelector } from 'react-redux';
 
-export default function NewsItem({ news, user, page, visitor }) {
+export default function NewsItem({ news, user, page, visitor, profile }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const [checkSaved, setCheckSaved] = useState();
-
+  const [checkSaved, setCheckSaved] = useState(false);
   const ratingChanged = (star) => {
     saveAcivity(
       `Rated the ${news.title.substring(0, 15)}... news ${star} star`
     );
     rateNews({ star, news });
   };
+
+  useEffect(() => {
+    if (
+      news._id &&
+      profile?.savedNews.filter((e) => e.news._id === news._id).length > 0
+    ) {
+      setCheckSaved(true);
+    }
+  }, [news]);
   return (
     <div className='post'>
       {!visitor && (
