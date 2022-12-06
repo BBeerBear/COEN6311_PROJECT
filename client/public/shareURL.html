@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style type="text/css" media="all">
+		/* This CSS is optional */
+		#share-button {
+			padding: 10px;
+			font-size: 24px;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- The share button -->	
+	<button id="share-button">Share</button>
+	
+	<!-- These line breaks are optional -->
+	<br/>
+	<br/>
+	<br/>
+
+	<!-- The anchor tag for the sharing link -->
+	<a href="#"></a>
+	<script type="text/javascript" charset="utf-8">
+		// Make sure you write this code inside the
+		// script tag of your HTML file
+
+		// Facebook share url
+		//const Share = "https://www.facebook.com/sharer/sharer.php?u="
+		const Share = "https://www.google.com"
+		// Storing the URL of the current webpage
+		const URL = window.location.href.slice(7);
+		// We used the slice method to remove
+		// the 'http://' from the prefix
+
+		// Displaying the current webpage link
+		// on the browser window
+		const link = document.querySelector('a');
+		const button = document.querySelector('#share-button');
+
+		// Adding a mouse click event listener to the button
+		button.addEventListener('click', () => {
+			// Displaying the current webpage link
+			// on the browser window
+			link.textContent = Share+URL;
+			link.href = Share+URL;
+	
+			// Displaying in the console
+			console.log(Share+URL);
+		});
+	</script>	
+</body>
+	
+</html>
