@@ -57,7 +57,7 @@ export default function News({ user }) {
   return (
     <>
       <div className='wrap_container'>
-        <button onClick={() => getNewsByPreferred()}>For you</button>
+        <button classname='btn' onClick={() => getNewsByPreferred()}>For you</button>
         <button onClick={() => getNewsByLoc()}>Local News</button>
         {categories.map((category, i) => (
           <button key={i} onClick={() => getNewsByCategory(category.value)}>

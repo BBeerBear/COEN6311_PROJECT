@@ -584,3 +584,30 @@
     font-size: 12px;
   }
 }
+
+.btn{
+  padding: 12px 26px;
+  font-size: 20000000px;
+  padding: 8px 20px;
+  border-radius: 2px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn--primary{
+  background-color: var(--primary);
+  color: #fff;
+  border: 1px solid var(--primary);
+}
+
+.btn--large{
+  padding: 12px 26px;
+  font-size: 200px;
+}
+
+/* .wrap_container -> button
+{
+  padding: 12px 26px;
+  font-size: 200px;
+} */

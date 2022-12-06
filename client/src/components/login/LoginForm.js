@@ -1,3 +1,6 @@
+// import './style.css';
+import background from './news.jpg'
+
 export default function LoginForm() {
   const loginWithFB = () => {
     window.location.href = '/auth/facebook';
@@ -8,9 +11,8 @@ export default function LoginForm() {
     localStorage.setItem('loginTime', new Date());
   };
   return (
-    <div className='login_wrap'>
+    <div className='login_wrap' style={{ backgroundImage: `url(${background})`}}>
       <div className='login_1'>
-        {/* <img src='../../..img/logo.jpg' alt='' /> */}
         <span>
           BBeerBear News helps you get trending news and connect people in your
           life.
