@@ -12,8 +12,8 @@ router.get(
   '/auth/google/callback',
   passport.authenticate('google'),
   (req, res) => {
-    // res.redirect('/');
-    res.redirect('http://localhost:3000/');
+    res.redirect('/');
+    // res.redirect('http://localhost:3000/');
   }
 );
 
@@ -23,8 +23,8 @@ router.get(
   '/auth/facebook/callback',
   passport.authenticate('facebook', { scope: ['profile', 'email'] }),
   (req, res) => {
-    // res.redirect('/');
-    res.redirect('http://localhost:3000/');
+    res.redirect('/');
+    // res.redirect('http://localhost:3000/');
   }
 );
 

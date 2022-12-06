@@ -12,7 +12,7 @@ router.post('/api/conversations', requireLogin, async (req, res) => {
     const check = await Conversation.find({
       members: [req.body.senderId, req.body.receiverId],
     });
-    if (check) {
+    if (check.length > 0) {
       return res.status(400).json({ message: 'Already exist' });
     }
     const savedConversation = await newConversation.save();
