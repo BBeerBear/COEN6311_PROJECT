@@ -21,6 +21,7 @@ export default function EditDetails({
   const categoriesOnChangeHandler = (e) => {
     if (e.target.checked && !selectedCategories.includes(e.target.value)) {
       selectedCategories.push(e.target.value);
+      setSelectedCategories(selectedCategories);
     } else if (!e.target.checked) {
       const index = selectedCategories.indexOf(e.target.value);
       if (index !== -1) {
