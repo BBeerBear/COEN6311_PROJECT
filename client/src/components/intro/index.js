@@ -13,10 +13,10 @@ export default function Intro({ profile, visitor }) {
   }, [profile]);
 
   const initial = {
-    preferredCategories: profile?.preferredCategories
-      ? profile.preferredCategories
+    preferredCategories: details?.preferredCategories
+      ? details.preferredCategories
       : [],
-    country: profile?.country ? profile.country : '',
+    country: details?.country ? details.country : '',
   };
   const [infos, setInfos] = useState(initial);
   const updateDetails = async () => {
